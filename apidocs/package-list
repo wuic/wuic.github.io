@@ -1,0 +1,8 @@
+com.github.wuic
+com.github.wuic.configuration
+com.github.wuic.factory
+com.github.wuic.helper.configuration
+com.github.wuic.resource
+com.github.wuic.resource.impl
+com.github.wuic.servlet
+com.github.wuic.tag
