@@ -7,9 +7,11 @@ com.github.wuic.engine.impl.embedded
 com.github.wuic.engine.impl.yuicompressor
 com.github.wuic.factory
 com.github.wuic.factory.impl
-com.github.wuic.helper.configuration
 com.github.wuic.resource
 com.github.wuic.resource.impl
+com.github.wuic.resource.impl.classpath
+com.github.wuic.resource.impl.disk
 com.github.wuic.servlet
 com.github.wuic.tag
+com.github.wuic.util
 com.github.wuic.xml
