@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>WUIC - Web UI Compressor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Javascript / CSS processor & sprites generator tool for JVM">
+    <meta name="author" content="Corentin AZELART, Guillaume DROUET">
+
+    <!-- styles -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="wiki-css/theme.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="masthead">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav" role="navigation">
+                        <!-- Logo and slogan -->
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active"><a href="project.html">Project</a></li>
+                        <li><a href="download.html">Downloads</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="http://wuic-team.19876.n7.nabble.com/" target="_blank">Forum</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="https://github.com/gdrouet/wuic" target="_blank" title="Wuic Github"><img src="wiki-images/social/blacktocat.png" alt="Github" width="30%" height="30%"/></a></li>
+                        <!--li><a href="#"><img src="wiki-images/social/twitter.png" alt="Twitter"/></a></li-->
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /.navbar -->
+    </div>
+
+    <h3>Origin of WUIC</h3>
+    <p>
+        Many websites have poor performances due to the many RTTs (round trip time) performed to load images, javascript and css files.
+        A lot of developers know that it is recommended to aggregate those files to reduce the number of RTTs.
+        Moreover, some tools like YUICompressor can reduce the size of your CSS and Javascript files to speed up the page loading.
+    </p>
+    <p>
+        However, people do not apply those good practices. The truth is that it is a too expensive task in time in a continuous delivery.
+        People don't have the time to aggregate the files, minify (in case of scripts) or create sprites (in case of images) and change the import statement in there HTML code.
+    </p>
+    <p>
+        In this context, we really needed a tool which automates as much as possible those tasks with advantage of development productivity and
+        the guarantee that good practices will be applied easily. Quickly, WUIC aimed to be easy to integrate in different type of application
+        with various infrastructure.
+    </p>
+
+
+    <h3 id="release">Release</h3>
+
+    <p>Our current release is the <a href="https://github.com/gdrouet/wuic/issues?labels=0.3.2&milestone=&page=1&state=closed" target="_blank">v0.3.2</a> !</p>
+
+    <p>Prior to v0.3.0, WUIC was not on github. See the change logs of previous releases <a href="https://raw.github.com/gdrouet/wuic/master/changelog.txt" target="_blank">here</a>.</p>
+    <p>You can integrate the library using this maven dependency (available on the <a href="http://search.maven.org/#search|ga|1|wuic" target="_blank">maven central repository</a>) :</p>
+
+    <pre>
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.github.wuic&lt;/groupId&gt;
+            &lt;artifactId&gt;wuic-{wuic-module}&lt;/artifactId&gt;
+            &lt;version&gt;0.3.2&lt;/version&gt;
+        &lt;/dependency&gt;
+    </pre>
+
+    <p>
+        If your webapp is based on JSPs, the easiest way to use WUIC is to add the wuic-tag artifact in your pom.xml.
+        Otherwise, you can just depend on the wuic-servlet artifact.
+    </p>
+
+    <h3 id="roadmap">Roadmap</h3>
+    <p>
+        WUIC is a young project with the ambition to implement shortly a lot of important features.
+    </p>
+
+    <p>
+        We track a lot of enhancements and their milestones on <a href="https://github.com/gdrouet/wuic/issues?milestone=&page=1&state=open" target="_blank">github</a>.
+        Here is a teaser of some of them :
+        <ul>
+            <li>Serve resources not only from servlet but also from any delegated server in charge of hosting statics</li>
+            <li>Detect at runtime any change in the configuration and on the statics and refresh it</li>
+            <li>Many cache strategies : in memory/file or delegated to proxy/client</li>
+            <li>Many JS/CSS processors in addition to YUICompressor : Closure, UglifyJSS, LESS, SASS, etc</li>
+            <li>Improve parallelism download of CSS by aggregating some of them and substitute @import with link tag</li>
+            <li>Implement the "sourcemaps" technique</li>
+        </ul>
+    </p>
+
+    <hr color="#2D96B9" size="3"/>
+
+    <div class="footer">
+
+    </div>
+
+</div> <!-- /container -->
+
+<!-- javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

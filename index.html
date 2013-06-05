@@ -1,191 +1,167 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
     <title>WUIC - Web UI Compressor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <meta name="description" content="Javascript / CSS processor & sprites generator tool for JVM">
+    <meta name="author" content="Corentin AZELART, Guillaume DROUET">
 
-        ga('create', 'UA-40383819-1', 'github.io');
-        ga('send', 'pageview');
-    </script>
-    <style>
-        p {
-            text-align: justify;
-        }
-    </style>
+    <!-- styles -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="wiki-css/theme.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-    <div class="container">
-        <div class="dropdown">
-            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin: 30px 30px; width: 180px;">
-                <li><a tabindex="-1" href="apidocs/index.html">Javadoc</a></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/wiki/FAQ">FAQ</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/wiki/Get-started-guide">Get started</a></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/tree/master/samples">Samples</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/archive/master.zip">Download</a></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/issues?labels=0.3.2&milestone=&page=1&state=closed">Changelogs</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="https://github.com/gdrouet/wuic/issues?milestone=&page=1&state=open">Issues</a></li>
-                <li><a tabindex="-1" href="#features">Features</a></li>
-                <li><a tabindex="-1" href="#roadmap">Roadmap</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="http://wuic-team.19876.n7.nabble.com/">Contact and forum</a></li>
+
+<div class="container">
+
+    <div class="masthead">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav" role="navigation">
+                        <!-- Logo and slogan -->
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="download.html">Downloads</a></li>
+                        <li><a href="documentation.html">Documentation</a></li>
+                        <li><a href="http://wuic-team.19876.n7.nabble.com/" target="_blank">Forum</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="https://github.com/gdrouet/wuic" target="_blank" title="Wuic Github"><img src="wiki-images/social/blacktocat.png" alt="Github" width="30%" height="30%"/></a></li>
+                        <!--li><a href="#"><img src="wiki-images/social/twitter.png" alt="Twitter"/></a></li-->
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /.navbar -->
+
+        <!--container-->
+        <section id="container">
+            <div class="container">
+                <div class="hero-unit">
+                    <div class="row-fluid">
+
+                        <div class="span5">
+                            <img src="wiki-images/logo/logo-wuic-large.png" width="300px" height="145px" alt="Wuic"/>
+                        </div>
+
+                        <div class="span7">
+                            <h4>Welcome to WUIC</h4>
+                            <p>
+                                Written in Java, the project focuses on <strong>best practices automation around statics</strong>. Its aims to
+                                guarantee <strong>high performance</strong> when your pages are loaded by the client on the web,
+                                keeping <strong>high productivity during your developments</strong>.
+                            </p>
+
+                            <br/>
+
+                            <div>
+                                <button type="button" class="btn btn-welcome btn-small" data-toggle="collapse" data-target="#more">
+                                    Read more
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <br />
+
+                    <div id="more" class="row-fluid collapse in">
+                        <div class="span5">
+                            <p id="quick-link"></p>
+                        </div>
+                        <div class="span7">
+                            <p id="more-info"></p>
+                        </div>
+                    </div>
+
+                </div><!-- /.hero-unit -->
+            </div>
+
+        </section>
+    </div>
+    <!-- Example row of columns -->
+    <div class="row-fluid">
+        <div class="span4 slideLeft">
+            <h3><img src="wiki-images/logo/nut.png" width="20px" height="22px">&nbsp;Features</h3>
+            <ul>
+                <li>CSS & JS minification/aggregation with various processors</li>
+                <li>Various caching solutions & strategies</li>
+                <li>Image merging and sprites computation for both CSS and JS languages</li>
+                <li>Access to statics anywhere : classpath, disk, HTTP(S), FTP(S), SSH, Cloud</li>
+                <li>Processes resources referenced with @import in CSS files</li>
+                <li>JSP tag for better scalibility but easy to use with pure DHTML</li>
+                <li>Switch debug and production mode easily</li>
+            </ul>
+
+            <p><a class="btn btn-info" href="project.html#roadmap">More features coming soon &raquo;</a></p>
+        </div>
+        <div class="span4 slideLeft">
+            <h3><img src="wiki-images/logo/nut.png" width="20px" height="22px">&nbsp;Why WUIC ?</h3>
+            <ul>
+                <li>Modular API to be integrated in various infrastructures and to keep scalibility</li>
+                <li>On the fly solution to automate and to be configurable as much as possible</li>
+                <li>Processes resources but also takes care about where to pick and to serve them</li>
+                <li>Fully documented and supported by many developers</li>
+                <li>Young has but already proved its strength in production</li>
+                <li>Very slim with minimal dependencies</li>
+                <li>Available on the maven central repository</li>
+                <li>Open source project under <a href="https://github.com/gdrouet/wuic/wiki/License" target="_blank" title="WUIC License">MIT license</a></li>
             </ul>
         </div>
-
-        <div>
-            <h2>
-                Welcome to WUIC (Web UI Compressor)
-            </h2>
-
-            <h4>
-                The library which minifies your scripts (Javascript/CSS), computes your image's sprites and supports aggregation for you,
-                picking your statics resources everywhere.
-            </h4>
-
+        <div class="span4 slideLeft">
+            <h3><img src="wiki-images/logo/nut.png" width="20px" height="22px">&nbsp;Quick start</h3>
             <p>
-                The library has been designed to guarantee that good practices around web resources will be always applied when you deploy in production.
-            </p>
-            <p>
-                Many websites have poor performances due to the many RTTs (round trip time) performed to load images, javascript and css files.
-                A lot of developers know that it is recommanded to aggregate those files to reduce the number of RTTs. Moreover, some tools like
-                YUICompressor can reduce the size of your CSS and Javascript files to speed up the page loading.
-            </p>
-            <p>
-                However, people do not apply those good practices. The truth is that it is a too expensive task in time in a continuous delivery. People don't have the time
-                to aggregate the files, minify (in case of scripts) or create sprites (in case of images) and change the import statement in there HTML
-                code.
-            </p>
-            <p>
-                The purpose of WUIC is to help the developer to automate as much as possible these tasks with the maximum of flexibility to guarantee that the device will not be deprecated in the future.
-            </p>
+                You should start easily by taking a look at our different samples.
+                You can see a <a href="https://github.com/gdrouet/wuic/tree/master/samples/js-sprite-sample" target="_blank">sample</a>
+                showing how WUIC aggregates images, computes sprites and minifies Javascript for you !
 
-            <h3>
-                Quick start
-            </h3>
-
-            <p>
-                The best way to see how WUIC works and how it could help you is to <a href="https://github.com/gdrouet/wuic/archive/master.zip) the source code of the project">download</a>.
-            </p>
-
-            <p>
-                Then you can look at our different <a href="https://github.com/gdrouet/wuic/tree/master/samples">samples</a>.
-            </p>
-
-            <p>
-                You can see a <a href="https://github.com/gdrouet/wuic/tree/master/samples/js-sprite-sample">sample</a> showing how WUIC aggregates images, computes sprites and minifies Javascript for you !
-            </p>
-
-            <p>
-                Moreover, <a href="https://github.com/gdrouet/wuic/tree/master/samples/css-sprite-sample">here</a> a sample showing how to deal with common CSS sprites.
-            </p>
-
-            <p>
                 Just move to the sample's directory and run it with :
+                <pre>mvn jetty:run</pre>
             </p>
-
-    <pre>
-        <code>
-            mvn jetty:run
-        </code>
-    </pre>
-
-            <p>
-                Finally, you can go deeper with by getting started <a href="https://github.com/gdrouet/wuic/wiki/Get-started-guide">here</a>.
-            </p>
-
-            <h3>
-                License
-            </h3>
-
-            <p>
-                You will find everything about the WUIC's license <a href="https://github.com/gdrouet/wuic/wiki/License">here</a>.
-            </p>
-
-            <h3>
-                Release
-            </h3>
-
-            <p>
-                Our current release is the <a href="https://github.com/gdrouet/wuic/issues?labels=0.3.2&milestone=&page=1&state=closed">v0.3.2</a> !
-            </p>
-
-            <p>
-            Prior to v0.3.0, WUIC was not on github. See the change logs of previous releases <a href="https://raw.github.com/gdrouet/wuic/master/changelog.txt)">here</a>.
-            </p>
-            <p>
-            You can integrate the library using this maven dependency (available on the <a href="http://search.maven.org/#search|ga|1|wuic">maven central repository</a>) :
-            </p>
-
-    <pre>
-        <code>
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.github.wuic&lt;/groupId&gt;
-            &lt;artifactId&gt;wuic-{wuic-module}&lt;/artifactId&gt;
-            &lt;version&gt;0.3.2&lt;/version&gt;
-        &lt;/dependency&gt;
-        </code>
-    </pre>
-
-            <p>
-                If your webapp is based on JSPs, the easiest way to use WUIC is to add the wuic-tag artifact in your pom.xml.
-                Otherwise, you can just depend on the wuic-servlet artifact.
-            </p>
-
-            <h3 id="features">
-                Features
-            </h3>
-
-            <p>
-                WUIC has not implemented all the features in the roadmap yet but it already provides a lot of interesting stuff :
-                <ul>
-                    <li>CSS & JS compression thanks to YUICompressor</li>
-                    <li>Caching thanks to EHCache</li>
-                    <li>Embedded image aggregation solution base of the lightmap bin-packing algorithm</li>
-                    <li>Automatic sprite generation for aggregated images in both Javascript and CSS languages</li>
-                    <li>Access to your static resources in different ways : classpath, webapp, disk, HTTP(S), FTP(S), SSH</li>
-                </ul>
-            </p>
-
-            <h3 id="roadmap">
-                Roadmap
-            </h3>
-
-            <p>
-                WUIC is production ready and is already used in many Capgemini group applications. Just keep in mind that we are young and our solution currently comes with some restrictions :
-                <ul>
-                    <li>We require the use of EhCache to cache resources</li>
-                    <li>We use YUICompressor for CSS & JS compression</li>
-                    <li>We aggregate images thanks to the lightmaps bin packing algorithm implemented in the library</li>
-                </ul>
-
-                We also assume that you won't expect backward compatibility until we release the v1.0.0 of the project.
-                Finally, the project has been essentially tested under Tomcat and Jetty.
-            </p>
-
-            <p>
-                The next major release is targeted to the end of July. Intermediate releases are already in the roadmap and more documentation is going to be written in the next weeks !
-                You can take a look at the <a href="https://github.com/gdrouet/wuic/issues/milestones">milestones</a> for additional information.
-            </p>
-
-            <p>
-                We aim to consider WUIC as a real framework when very structural features will be implemented :
-                <ul>
-                    <li>Chain engines and create custom engines as much as you want</li>
-                    <li>Reload automatically configuration and resources at runtime</li>
-                    <li>Various cache engine (ehcache, client side, taking application version in consideration, etc)</li>
-                    <li>Engine output goes everywhere (media server, HTTP response, etc)</li>
-                    <li>Annotation driven configuration with spring</li>
-                </ul>
-            </p>
+            <p><a class="btn btn-info" href="project.html#release">Official release &raquo;</a></p>
         </div>
     </div>
+
+    <hr color="#2D96B9" size="3"/>
+
+    <div class="footer">
+
+    </div>
+
+</div> <!-- /container -->
+
+    <!-- javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var m = $("#more");
+        m.collapse({toggle:true});
+        $("#quick-link").html('<h4>Quick links</h4>'
+        + '<ul>'
+        + '<li style="line-height: 20px;">Find maven dependencies available <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.wuic%22" target="_blank">here</a></li>'
+        + '<li style="line-height: 20px;">Quick start with the <a href="https://github.com/gdrouet/wuic/tree/master/samples" target="_blank">samples</a></li>'
+        + '<li style="line-height: 20px;">Read the getting started guide <a href="https://github.com/gdrouet/wuic/wiki/Get-started-guide" target="_blank">here</a></li>'
+        + '<li style="line-height: 20px;">Read the <a href="https://github.com/gdrouet/wuic/wiki/FAQ" target="_blank">FAQ</a></li>'
+        + '<li style="line-height: 20px;">See the <a href="https://github.com/gdrouet/wuic/tree/master/modules" target="_blank">source code</a></li>'
+        + '<li style="line-height: 20px;">Check the <a href="https://github.com/gdrouet/wuic/blob/master/changelog.txt" target="_blank">changelogs</a></li>'
+        + '</ul></div>');
+        $("#more-info").html("Directly integrated in your development cycle, WUIC processes your statics on the fly. "
+        + "It's mainly able to minify your scripts (Javascript/CSS), computes your image's sprites and supports aggregation for you. "
+        + "Moreover, you can tell WUIC to load your statics remotely and serve the process result to clients anywhere using various protocols.");
+    </script>
 </body>
 </html>
