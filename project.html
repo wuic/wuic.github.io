@@ -62,6 +62,28 @@
         with various infrastructure.
     </p>
 
+    <h3>Stack</h3>
+    <p>
+        WUIC has its core written in JAVA and covers without any dependency a lot of use case. The core is itself wrapped
+        in a set of assets related to JEE. Finally, the former or the later could be extended with various modules.
+    </p>
+
+    <p>
+        This schema show how the modules are organized :
+        <ul>
+            <li>Bootstrap : components which are able to launch WUIC. However, you can launch it by yourself.</li>
+            <li>Facade : components which ease the use of WUIC features.</li>
+            <li>DAO : components which load and host processed resources.</li>
+            <li>Key engines : some of the components which process resources.</li>
+        </ul>
+    </p>
+
+    <img src="wiki-images/stack.PNG" />
+
+    <p>
+        As you can see, everything is not implemented yet. See <a href="#roadmap">the roadmap</a> for more information.
+    </p>
+
 
     <h3 id="release">Release</h3>
 
