@@ -8,6 +8,7 @@ com.github.wuic.engine.setter
 com.github.wuic.exception
 com.github.wuic.exception.wrapper
 com.github.wuic.exception.xml
+com.github.wuic.jee
 com.github.wuic.nut
 com.github.wuic.nut.core
 com.github.wuic.nut.ftp
@@ -18,8 +19,11 @@ com.github.wuic.nut.setter
 com.github.wuic.nut.ssh
 com.github.wuic.path
 com.github.wuic.path.core
+com.github.wuic.plugins.maven
 com.github.wuic.sample.polling.servlet
+com.github.wuic.sample.thymeleaf
 com.github.wuic.servlet
 com.github.wuic.tag
+com.github.wuic.thymeleaf
 com.github.wuic.util
 com.github.wuic.xml
