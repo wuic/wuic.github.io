@@ -1,3 +1,4 @@
+
 com.github.wuic
 com.github.wuic.engine
 com.github.wuic.engine.core
@@ -9,12 +10,13 @@ com.github.wuic.exception
 com.github.wuic.exception.wrapper
 com.github.wuic.exception.xml
 com.github.wuic.jee
+com.github.wuic.jee.path
 com.github.wuic.nut
 com.github.wuic.nut.core
 com.github.wuic.nut.ftp
 com.github.wuic.nut.gstorage
+com.github.wuic.nut.jee
 com.github.wuic.nut.s3
-com.github.wuic.nut.servlet
 com.github.wuic.nut.setter
 com.github.wuic.nut.ssh
 com.github.wuic.path
