@@ -57,23 +57,23 @@
     </p>
     <p>
         In this context, we really needed a tool which automates as much as possible those tasks with advantage of development productivity and
-        the guarantee that good practices will be applied easily. Quickly, WUIC aimed to be easy to integrate in different type of application
+        the guarantee that good practices will be applied easily. Quickly, WUIC makes easy to integrate statics in different application types
         with various infrastructure.
     </p>
 
     <h3>Stack</h3>
     <p>
-        WUIC has its core written in JAVA and covers without any dependency a lot of use case. The core is itself wrapped
+        WUIC has its core written in JAVA and covers without any dependency a lot of use cases. The core is itself wrapped
         in a set of assets related to JEE. Finally, the former or the later could be extended with various modules.
     </p>
 
     <p>
-        This schema show how the modules are organized :
+        This schema shows how the modules are organized:
         <ul>
-            <li>Bootstrap : components which are able to launch WUIC. However, you can launch it by yourself.</li>
-            <li>Facade : components which ease the use of WUIC features.</li>
-            <li>DAO : components which load and host processed resources.</li>
-            <li>Key engines : some of the components which process resources.</li>
+            <li>Bootstrap: components which are able to launch WUIC. However, you can launch it by yourself.</li>
+            <li>Facade: components which ease the use of WUIC features.</li>
+            <li>DAO: components which load and host processed resources.</li>
+            <li>Key engines: some of the components which process resources.</li>
         </ul>
     </p>
 
@@ -87,18 +87,18 @@
     <h3 id="release">Release</h3>
 
     <p>
-        Our current release is the <a href="https://github.com/gdrouet/wuic/issues?labels=0.4.2&milestone=&page=1&state=closed" target="_blank">v0.4.2</a>!
-        We are currently working on 0.4.3 release.
+        Our current release is the <a href="https://github.com/gdrouet/wuic/issues?labels=0.4.3&milestone=&page=1&state=closed" target="_blank">v0.4.3</a>!
+        We are currently working on 0.4.3 which will be released the 30/03.
     </p>
 
-    <p>Prior to v0.3.0, WUIC was not on github. See the change logs of previous releases <a href="https://raw.github.com/gdrouet/wuic/master/changelog.txt" target="_blank">here</a>.</p>
-    <p>You can integrate the library using this maven dependency (available on the <a href="http://search.maven.org/#search|ga|1|wuic" target="_blank">maven central repository</a>) :</p>
+    <p>See the change logs <a href="https://raw.github.com/gdrouet/wuic/master/changelog.txt" target="_blank">here</a>.</p>
+    <p>You can integrate the library using this maven dependency (available on the <a href="http://search.maven.org/#search|ga|1|wuic" target="_blank">maven central repository</a>):</p>
 
     <pre>
         &lt;dependency&gt;
             &lt;groupId&gt;com.github.wuic&lt;/groupId&gt;
             &lt;artifactId&gt;wuic-{wuic-module}&lt;/artifactId&gt;
-            &lt;version&gt;0.4.2&lt;/version&gt;
+            &lt;version&gt;0.4.3&lt;/version&gt;
         &lt;/dependency&gt;
     </pre>
 
@@ -109,20 +109,20 @@
 
     <h3 id="roadmap">Roadmap</h3>
     <p>
-        WUIC is a young project but we are active on the project to provide regularly new releases with a larger set of features and impprovements.
+        WUIC is a young but we are active on the project to provide regularly new releases with a larger set of features and improvements.
     </p>
 
     <p>
         We track a lot of enhancements and their milestones on <a href="https://github.com/gdrouet/wuic/issues?milestone=&page=1&state=open" target="_blank">github</a>.
-        Here is a teaser of some of them :
+        Here is a teaser of some of them:
         <ul>
             <li>Serve resources not only from servlet but also from any delegated server in charge of hosting statics</li>
-            <li>Detect at runtime any change in the configuration and on the statics and refresh it</li>
-            <li>Many cache strategies : in memory/file or delegated to proxy/client</li>
-            <li>Many JS/CSS processors in addition to YUICompressor : Closure, UglifyJSS, LESS, SASS, etc</li>
+            <li>Many JS/CSS processors in addition to YUICompressor: Closure, UglifyJSS, LESS, SASS, etc</li>
+            <li>Many templating support in addition to JSP/Thymeleaf: play!, JSF, etc</li>
             <li>Improve parallelism download of CSS by aggregating some of them and substitute @import with link tag</li>
             <li>Implement the "sourcemaps" technique</li>
             <li>Merge existing sprites sheets from used framework to load only one image</li>
+            <li>Filter the HTML page to provide a zero-config solution</li>
         </ul>
     </p>
 
