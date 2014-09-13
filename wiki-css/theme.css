@@ -27,6 +27,24 @@ body {
     border-top: 1px solid #2D96B9;
     padding: 15px 20px;
 }
+
+#carousel {
+    border-left: 4px solid #2D96B9;
+    border-right: 1px solid #2D96B9;
+    border-bottom: 1px solid #2D96B9;
+    border-top: 1px solid #2D96B9;
+    padding-left: 15px;
+    background-color: #F9F9F9;
+}
+
+.carousel-indicators li {
+    background-color: #08c;
+}
+
+.carousel-indicators .active {
+    background-color: rgb(102, 102, 102);
+}
+
 .hero-unit p {
     display: inline-block;
     font-size: 14px;
