@@ -13,6 +13,7 @@ com.github.wuic.nut
 com.github.wuic.nut.dao
 com.github.wuic.nut.dao.core
 com.github.wuic.nut.dao.jee
+com.github.wuic.nut.dao.servlet
 com.github.wuic.nut.filter
 com.github.wuic.nut.filter.core
 com.github.wuic.nut.filter.setter
@@ -22,4 +23,5 @@ com.github.wuic.path.core
 com.github.wuic.servlet
 com.github.wuic.tag
 com.github.wuic.util
+com.github.wuic.util.detect
 com.github.wuic.xml
