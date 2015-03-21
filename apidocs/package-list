@@ -1,12 +1,11 @@
 com.github.wuic
 com.github.wuic.config
+com.github.wuic.context
 com.github.wuic.engine
 com.github.wuic.engine.core
 com.github.wuic.engine.servlet
 com.github.wuic.engine.setter
 com.github.wuic.exception
-com.github.wuic.exception.wrapper
-com.github.wuic.exception.xml
 com.github.wuic.jee
 com.github.wuic.jee.path
 com.github.wuic.nut
