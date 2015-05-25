@@ -6,3 +6,4 @@ target/
 .classpath
 *.iml
 .idea/
+src/main/asciidoc/images/
