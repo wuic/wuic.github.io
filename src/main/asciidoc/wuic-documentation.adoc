@@ -1,3 +1,5 @@
+:toc: right
+
 ++++
     <!-- styles -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
@@ -33,7 +35,7 @@
     </div>
 ++++
 
-= Welcome to WUIC documentation page
+== Welcome to WUIC documentation page
 
 This documentation gathers all information you need to use Web UI Compressor, the web assets optimizers for the JVM.
 Before going deeper, you may take a look at the http://wuic.github.io[website index] for a general introduction ;)
@@ -41,12 +43,12 @@ Before going deeper, you may take a look at the http://wuic.github.io[website in
 Find the documentation for following purpose:
 
 * <<Use WUIC in your application to optimize its performance>>
-* https://github.com/wuic/wuic/wiki#i-want-to-extend-wuic[You want to extend WUIC]
-* https://github.com/wuic/wuic/wiki#i-want-to-use-wuic-in-your-own-framework[You want to use WUIC in your own framework]
+* <<I want to extend WUIC>>
+* <<I want to use WUIC in my own framework>>
 
-== Use WUIC in your application to optimize its performance
+=== Use WUIC in your application to optimize its performance
 
-If you want to see WUIC directly in action and play with it, you can directly jump into our step-by-step 5 minutes tutorials (TODO: migrate tutorials).
+If you want to see WUIC directly in action and play with it, you can directly jump into our link:tutorials.html[step-by-step 5 minutes tutorials].
 You can also see several samples https://github.com/wuic/wuic-samples[here].
 
 If you want to go deeper, you can read our set of articles describing all the implemented concepts.
@@ -67,7 +69,7 @@ After this, you'll find in the side bar the detailed documentation regarding eac
 * Complete web.xml configuration (TODO: migrate https://github.com/wuic/wuic/wiki/Configuring-web.xml)
 * Available engines (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) and [DAO](https://github.com/wuic/wuic/wiki/Data-Access-Object)
 
-== General architecture and terminology
+=== General architecture and terminology
 
 WUIC is designed to integrate many architectures. This is possible thanks to the following abstract concepts:
 
@@ -137,57 +139,57 @@ The following diagram shows the architecture used by WUIC to optimize your websi
  \----------------------------------------------------------------------------------------------/
 ----
 
-=== Step 1
+==== Step 1
 The browser requires the page corresponding to the link in the address bar on the server.
 The server can directly serve a HTML page, which can be filtered by the WUIC servlet filter that optimizes it and all its referenced resources.
 The HTML can also be produced by a processor like JSP or Thymeleaf (which could also be filtered by the WUIC servlet filter).
 WUIC tags for those libraries can also be called during template processing to generate links pointing to optimized resources.
 
-=== Step 2
+==== Step 2
 A workflow is executed according to the information associated to the requested page.
 For now, just remember that in WUIC, a workflow describes the way you want to process a set of statics.
 The workflow could be created on the fly by the servlet filter or a workflow referenced manually inside a template (through JSP or Thymeleaf).
 
 *Step 2a:* the invoked workflow corresponds at least to the resources referenced in the HTML page, and possibly to the HTML page itself if the servlet filter is installed.
 
-=== Step 3
+==== Step 3
 When a workflow needs to be executed, WUIC looks at first for the statics to be processed.
 They are provided by an associated *heap*.
 A heap is also identified by an ID and just contains a set of paths representing the statics to be loaded.
 
-=== Step 4
+==== Step 4
 The heap just has the paths representing the statics, but it can't open the stream to them itself.
 It consequently uses an associated *DAO* which, thanks to a given path, can provide access to the stream.
 Remember: the DAO will produce a *nut*.
 Nut is the term that will be used everywhere in WUIC to represent your static (or you also called a resource).
 
-=== Step 5
+==== Step 5
 Once the nuts have been returned by the heap, then a *chain of responsibility* composed of *engines* is called to process the nuts.
 Each engine has a particular purpose. There is an engine for caching, compressing, inspecting or aggregating nuts.
 
-=== Step 6
+==== Step 6
 Once nuts have been processed by engines, they are returned by the invoker (a servlet, a filter or a tag processor).
 
-=== Step 7
+==== Step 7
 The result is sent to the browser. If the result contains the optimized version of the required page, then its content is written to the HTTP response.
 Otherwise, the result is sent under the form of a link added to the HTML page which points to the WUIC servlet.
 Note that the resource can also be pushed to the client if HTTP/2 is enabled.
 
-=== Step 8
+==== Step 8
 When the page is fetched by the browser, additional resources (JS, CSS, etc) that have been processed by WUIC could be referenced as links.
 The links are used to submit a new HTTP request to the WUIC servlet.
 
-=== Step 9
+==== Step 9
 The WUIC servlet extracts the requested name of the result entry for the specified workflow to be written to the HTTP response.
 
 *Step 2b*: when a particular resource is requested, the WUIC servlet executes the workflow like in step 2 to retrieve the content to write.
 However, you can be sure that the workflow will be executed pretty fast, as a result already exists in the internal cache.
 
-== I want to extend WUIC
+=== I want to extend WUIC
 
 WUIC is designed to be extended easily. You will find a complete advanced tutorial [here](https://github.com/wuic/wuic/wiki/Create-an-extension).
 
-== I want to use WUIC in my own framework
+=== I want to use WUIC in my own framework
 
 If you want to build a part of your framework on top of WUIC, you don't have to ask your users to use XML configuration file.
 You can totally hide this configuration point by using Java Config (TODO: migrate https://github.com/wuic/wuic/wiki/Configuring-with-Java-Config).
@@ -196,7 +198,7 @@ Then you will find implementation details directly in the javadoc (TODO: migrate
 
 ++++
 <!-- javascript
-================================================== -->
+=================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
