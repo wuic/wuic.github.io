@@ -557,6 +557,102 @@ As an example, a configuration with `spring-boot` could be:
     logging.level.com.github.wuic.Logging.POLLING: TRACE
 ----
 
+== Process at build time
+
+=== Purpose
+
+Processing at build time could be a great solution for different use cases:
+
+* Statics are not served from your application server.
+* Application server can't reach the server that serves statics to upload it.
+* You don't use any Java application server but you use maven to package your application.
+* You don't need to reload some configuration/statics at runtime and you want to reduce as much as possible the resources consumed at runtime by WUIC on your application server.
+
+There are one benefit and one concern of build time solution:
+
+* Benefit: build time processing will turn to 0 the overhead induced by WUIC at runtime
+* Concern: no polling to reload both configuration and nuts at runtime
+
+=== Configure your pom.xml
+
+You can use the static-helper-maven-plugin that is commonly configured like that in the build section of your pom.xml:
+
+[source,xml]
+----
+<plugin>
+    <groupId>com.github.wuic.plugins</groupId>
+    <artifactId>static-helper-maven-plugin</artifactId>
+    <version>${project.version}</version>
+    <executions>
+        <execution>
+            <phase>generate-resources</phase>
+            <goals>
+                <goal>process</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <xml>src/main/resources/wuic.xml</xml>
+        <relocateTransformedXml>true</relocateTransformedXml>
+        <output>${build.finalName}</output>
+    </configuration>
+</plugin>
+----
+
+Here we define the following configuration options:
+
+* `xml`: the `wuic.xml` file location (which is configured as usual)
+* `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your target directory to allow the servlet to serve the process result from the application server
+* `output`: base path where results are written by the plugin
+
+=== Configure
+
+==== Configure for pure HTML pages
+
+If your application just contains `.html` files, then you can filter them with WUIC and then directly serve them.
+
+Configure your `wuic.xml` by adding just a heap that resolves the HTML pages:
+
+[source,xml]
+----
+<heap id="html" dao-builder-id="htmlClasspathNutDaoBuilder">
+    <nut-path>.*.html</nut-path>
+</heap>
+----
+
+Then, according to the output location, you will find the transformed HTML files. The extracted scripts are also copied.
+All files are stored under a directory named with the version number.
+This way you can deploy the directories in your application server to serve new paths not in the browser cache when content files change.
+
+If you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` attribute in the tag:
+
+[source,html]
+----
+<script data-wuic-skip src="script-to-skip.js"></script>
+----
+
+This is useful if you don't want to aggregate a particular resource for some reason. Moreover you can use it
+when WUIC does not already supports some features or you find a bug :) (don't forget to file an issue in that case).
+
+The http://wuic.github.io[website] serves statics generated with a simple "mvn clean install" and is a good example or the approach.
+Check the source https://github.com/wuic/wuic.github.io[here].
+
+==== Configure for templating usage
+
+If you use templating project like `JSP` or `Thymeleaf`, then you can build your application as usual and then use the maven plugin to create a file added to the classpath.
+At runtime, WUIC will read this file which refers statics generated at build time.
+
+=== Examples
+
+==== JSP
+
+You have the sample https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/build-time-sample/pom.xml[here].
+
+==== Full static
+
+http://wuic.github.io[wuic.github.io] is processed by WUIC. You can check the sources in a branch https://github.com/wuic/wuic.github.io/tree/sources[here].
+The `publish.sh` script run WUIC and copy results in https://github.com/wuic/wuic.github.io/tree/master[master] branch.
+
 ++++
 <!-- javascript
 ================================================== -->
