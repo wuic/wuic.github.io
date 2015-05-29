@@ -147,6 +147,10 @@ Choose your servlet mapping for WUIC, for instance:
 Open you browser display the `index.html` file. You will see that your HTML code is now minified.
 Open the referenced JS and CSS scripts, they are also minified!
 
+TIP: According to the http://www.w3.org/TR/resource-hints[resource-hints specification], you will see in the HTTP response
+for the HTML page that one `Link` header for each external resources as been added. Thus the browser will be able to download
+those external resources without the need to fetch the HTML page before.
+
 TIP: The first time your page is displayed, the server takes time before responding.
 This is because WUIC optimizes the page synchronously.
 After that, the result is added to a memory cache and future HTTP requests will be treated faster.
@@ -624,18 +628,24 @@ Then, according to the output location, you will find the transformed HTML files
 All files are stored under a directory named with the version number.
 This way you can deploy the directories in your application server to serve new paths not in the browser cache when content files change.
 
-If you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` attribute in the tag:
+The http://wuic.github.io[website] serves statics generated with a simple "mvn clean install" and is a good example or the approach.
+Check the source https://github.com/wuic/wuic.github.io[here].
+
+TIP: if you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` in the tag.
+This is useful if you don't want to aggregate a particular resource for some reason. Moreover you can use it
+when WUIC does not already supports some features or you find a bug :) (don't forget to file an issue in that case).
+
+Example:
 
 [source,html]
 ----
 <script data-wuic-skip src="script-to-skip.js"></script>
 ----
 
-This is useful if you don't want to aggregate a particular resource for some reason. Moreover you can use it
-when WUIC does not already supports some features or you find a bug :) (don't forget to file an issue in that case).
-
-The http://wuic.github.io[website] serves statics generated with a simple "mvn clean install" and is a good example or the approach.
-Check the source https://github.com/wuic/wuic.github.io[here].
+TIP: if your statics are not served by the `Servlet` provided by WUIC, both http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21[cache]
+and http://www.w3.org/TR/resource-hints[link] headers won't be set in the HTTP response for the HTML page.
+In that case, WUIC will modify the HTML to respectively insert a (http://www.w3.org/TR/2011/WD-html5-20110525/offline.html)[cache manifest]
+file and a `link` tag to the content.
 
 ==== Configure for templating usage
 
