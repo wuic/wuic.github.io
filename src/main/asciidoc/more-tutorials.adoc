@@ -116,6 +116,97 @@ Note that in best effort mode, WUIC serves the content as fast as possible and j
 
 If you want to mix natural templating and WUIC's `AngularJS` optimization feature, you must read this important page (TODO: migrate https://github.com/wuic/wuic/wiki/Natural-Templating-with-AngularJS).
 
+== Typescript integration
+
+=== The tsc command
+
+`Typescript` could be installed in several ways.
+If you are a `Node.JS` user, then you will be able to compile your source files with the 'tsc' command:
+
+----
+Examples: tsc hello.ts
+          tsc --out file.js file.ts
+          tsc @args.txt
+----
+
+Many options are available, like specifying the ECMAScript version or the sourcemap generation.
+
+WUIC comes with an extension which is able to compile typescript files. The extension works in two modes:
+
+* executing the tsc command, which is faster but requires to install the module with Node.JS
+* executing a compiler wrapper on top of rhino, which is slower but crossplatform
+
+=== Configuration
+
+First of all, you need to add the dependency to your project:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>wuic-typescript</artifactId>
+    <version>${wuic.version}</version>
+</dependency>
+----
+
+Then, you can write your HTML page by referencing your scripts:
+
+[source,html]
+----
+<script src="greeter.ts"></script>
+<script src="use.greeter.ts"></script>
+----
+
+Then you can just include the HTML page in the WUIC process, for instance by declaring it in your wuic.xml (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
+file or just filtering it with the servlet filter (TODO: migrate https://github.com/wuic/wuic/wiki/filter-html).
+
+When WUIC transforms the HTML page, it replaces the initial referenced typescript file by the compiled javascript file:
+
+[source,html]
+----
+<script src="/wuic/56321344/myWorkflow/aggregate.ts.js"></script>
+----
+
+WUIC also serves a sourcemap file referenced in the compiled javascript.
+
+=== Crossplatform configuration
+
+By default, you don't need to install Node.JS to compile your typescript source files with WUIC.
+The extension takes advantage from the https://www.npmjs.com/package/typescript-compiler[tsc wrapper project],
+which is run with https://github.com/apigee/trireme[trireme], a `Node.JS` compatibility layer for the JVM.
+
+However, because trireme uses `Rhino` to executes javascript code, the compilation is slow, even with the optimizations provided by the project.
+This is not really a problem because compilation is performed at build time or when the server starts at runtime,
+but in development you need to compile each time you change your sources.
+In this case you might need to enable command line execution.
+
+=== tsc command line execution
+
+The tsc command line compiles your sources 10x faster than rhino-based compiler and could be very useful when you need to recompile your scripts in development.
+
+Before switching to this mode, you need to install the typescript compiler:
+
+----
+npm install -g typescript
+----
+
+Then, just set the `c.g.wuic.engine.useNodeJs` setting to true in the `TypescriptConverterEngineBuilder`.
+For instance, if you configure engines in your `wuic.xml`, you will write this:
+
+[source,xml]
+----
+<engine-builders>
+    <engine-builder type="TypescriptConverterEngineBuilder">
+        <properties>
+            <property key="c.g.wuic.engine.useNodeJs">true</property>
+        </properties>
+    </engine-builder>
+</engine-builders>
+----
+
+Note: you can filter the value with maven to set this setting to true only in a development profile.
+When you'll go in production, the setting will be false and you won't need to ask your ops to install `Node.JS`
+
 ++++
 <!-- javascript
 ================================================== -->
