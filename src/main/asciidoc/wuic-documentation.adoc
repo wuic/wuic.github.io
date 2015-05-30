@@ -46,6 +46,10 @@ Find the documentation for following purpose:
 * <<How to extend WUIC>>
 * <<How to use WUIC in my framework>>
 
+=== FAQ
+
+Please find our FAQ section link:faq.html[here].
+
 == Optimize webapp performances
 
 === Step-by-step 5 minutes tutorials
