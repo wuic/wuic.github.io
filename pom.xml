@@ -77,6 +77,10 @@
                                 <require>asciidoctor-diagram</require>
                             </requires>
                             <gemPath>${project.build.directory}/gems-provided</gemPath>
+                            <attributes>
+                                <!-- repositories must be checkouted in the same directory -->
+                                <extension-repository>${project.basedir}/../wuic-extensions/</extension-repository>
+                            </attributes>
                         </configuration>
                     </execution>
                 </executions>

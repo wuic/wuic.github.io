@@ -36,6 +36,67 @@
     </div>
 ++++
 
+== Spring integration
+
+=== Spring resource handling
+
+`Spring` 4.1 exposes a http://spring.io/blog/2014/07/24/spring-framework-4-1-handling-static-web-resources[pluggable API]
+allowing to specify custom web resources resolution and transformation. WUIC provides an extension that comes with:
+
+* a http://docs.spring.io/spring-framework/docs/4.1.0.RC2/javadoc-api/org/springframework/web/servlet/resource/PathResourceResolver.html[PathResourceResolver] that process your workflow and wraps the resulting nut in a spring resource.
+* a http://docs.spring.io/spring-framework/docs/4.1.0.RC2/javadoc-api/org/springframework/web/servlet/resource/VersionStrategy.html[VersionStrategy] to build public URLs with WUIC which includes in the URL a CRC32 content based hash or the last-modified timestamp regarding your https://github.com/wuic/wuic/wiki/Data-Access-Object[DAO configuration]
+
+=== Maven dependency
+
+First you need to add to your `pom.xml` the maven dependency:
+
+[source,xml]
+----
+    <dependency>
+        <groupId>com.github.wuic.extensions</groupId>
+        <artifactId>wuic-spring</artifactId>
+        <version>${wuic.version}</version>
+    </dependency>
+----
+
+=== Integrate WUIC resolvers
+
+`Spring` offers an easy way to configure resource handling with Java Config.
+
+First, declare your `@Configuration` class as usual.
+
+[source,java]
+----
+include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=MyWebConfig]
+----
+
+Then create the `WuicFacade` to expose it as a bean in the `ApplicationContext`.
+
+[source,java]
+----
+include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=SpringWuicFacade]
+----
+
+Finally, just use the handy `WuicHandlerMapping` to inject to spring a bean handling resources with WUIC.
+Core resolvers are `WuicPathResourceResolver`  and `WuicVersionStrategy`, but you can create additional implementations.
+
+[source,java]
+----
+include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=handleWuicResources]
+----
+
+You can also override `addResourceHandlers` method to configure resolvers/transformers outside WUIC.
+
+[source,java]
+----
+include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=addResourceHandlers]
+----
+
+==== Full example
+
+A full example is available https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/spring-sample[here].
+In addition, it shows how you can mix built-in spring resolvers with WUIC and how to handle public URLs with `Thymeleaf`.
+
 == AngularJS
 
 === Feature
