@@ -60,7 +60,7 @@ You can also see several samples https://github.com/wuic/wuic-samples[here].
 === Going deeper
 
 If you want to go deeper, you can read our set of articles describing all the implemented concepts.
-You can start by reading the <<General architecture and terminology>> section.
+You can start by the link:design.html[design] page and reading at least the `General architecture and terminology` section.
 
 Then, follow the step-by-step tutorials that illustrate how you can start very quickly with automatic optimizations and
 then gradually enable more WUIC features to capitalize on all offered possibilities:
@@ -78,7 +78,7 @@ You will find more tutorials about that link:more-tutorials.html[here].
 
 === API
 
-After this, you'll find in the side bar the detailed documentation regarding each followed steps in the tutorials:
+After this, you'll find below the detailed documentation about different components browsed in the tutorials:
 
 * Complete XML configuration documentation (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
 * <<api.html#_java_config,Java Config alternative>>
@@ -95,122 +95,6 @@ If you want to build a part of your framework on top of WUIC, you don't have to 
 You can totally hide this configuration point by using <<api.html#_java_config,Java Config>>.
 
 Then you will find implementation details directly in the http://wuic.github.io/apidocs/index.html[javadoc].
-
-== General architecture and terminology
-
-WUIC is designed to integrate many architectures. This is possible thanks to the following abstract concepts:
-
-* *Nut*: this is an abstraction of your static file providing its type (JS/CSS) and the stream allowing to read it
-* *DAO*: the Data Access Object pattern is used to define the NutDao interface, allowing to manage nuts
-* *Heap*: this is a set of nuts that you use to organize them
-* *Engine*: the engine is a class which can process your nuts with a particular role (caching, aggregating, compressing, etc)
-* *Workflow*: Associates a heap to a *chain of responsibility* composed of engines. This way, the workflow describes how you want to process your nuts.
-
-The following diagram shows the architecture used by WUIC to optimize your website on the fly:
-
-[ditaa, target="ditaa-diagram"]
-----
-
- /----------------------------------------------------------------------------------------------\
- |                                     +------------------+                                     |
- |                                     | Servlet Container|                                     |
- |                                     +------------------+                                     |
- |                                                                                              |
- |                                                                                              |
- |    /------------------------------------------------\                              Requires  |   +---------+
- |    |                                                |  +-----------------------+ the page (1)|   |         |
- |    |                      Workflow invocation (2a)  |  |   WUIC Servlet Filter |<------------|---|         |
- |    |                   +----------------------------|--|        AND / OR       |-------------|-->|         |
- |    |                   |                            |  |     Tag processor     | Transformed |   |         |
- |    |                   |                            |  | (like Thymeleaf or JSP| result (7)  |   |         |
- |    |                   |                            |  +-----------------------+             |   |         |
- |    |                   v               Workflow     |                                        |   | Browser |
- |    |             +------------+    invocation (2b)  |  +--------------+   Requires fetched   |   |         |
- |    |             |Workflow "W"|<--------------------|--|              | page's resources (8) |   |         |
- |    |             +------------+                     |  | WUIC Servlet |<---------------------|---|         |
- |    |                   ^                            |  |              |----------------------|-->|         |
- |    |                   |                            |  +--------------+ Optimized result (9) |   +---------+
- |    |                   |                            |                                        |
- |    |                   |                            |                   /---------------\    |
- |    |     +--------------------+                     |                   |  +---------+  |    |
- |    |     | Processed Nuts are |                     |                   |  |Nuts Heap|  |    |
- |    |     |    returned (6)    |                     |                   |  +---------+  |    |
- |    |     +--------------------+          +-------------------------+    |               |    |
- |    |                   |                 | Treat the nuts from the |    |  +---------+  |    |
- |    |                   |---------------->|   associated heap (3)   |--->|  |  Nut 1  |  |    |
- |    |                   |                 +-------------------------+    |  +---------+  |    |
- |    |     +-----------------------------+            |                   |               |    |
- |    |     | Nuts processed by the chain |            |                   |  +---------+  |    |
- |    |     |    of responsibility (5)    |            |                   |  |  Nut 2  |  |    |
- |    |     +-----------------------------+            |                   |  +---------+  |    |
- |    |                   |                            |                   |               |    |
- |    |                   v                            |                   |  +---------+  |    |
- |    |           +---------------+                    |                   |  |  Nut N  |  |    |
- |    |           | Engine 1 (5a) |                    |                   |  +---------+  |    |
- |    |           +---------------+                    |                   \---------------/    |
- |    |                   |                            |                           |            |
- |    |           +---------------+                    |          Creates nut with |            |
- |    |           | Engine 2 (5b) |                    |         associated DAO (4)|            |
- |    |           +---------------+                    |                           v            |
- |    |                   |                            |                   /---------------\    |
- |    |             +-----------+                      |                   |  Nut DAO "D"  |    |
- |    |             | Engine... |                      |                   \---------------/    |
- |    |             +-----------+                      |                                        |
- |    |                   |                            |                                        |
- |    |           +---------------+                    |                                        |
- |    |           | Engine 3 (5n) |                    |                                        |
- |    |           +---------------+                    |                                        |
- |    |                                                |                                        |
- |    \------------------------------------------------/                                        |
- |                                                                                              |
- \----------------------------------------------------------------------------------------------/
-----
-
-*Step 1*
-The browser requires the page corresponding to the link in the address bar on the server.
-The server can directly serve a HTML page, which can be filtered by the WUIC servlet filter that optimizes it and all its referenced resources.
-The HTML can also be produced by a processor like JSP or Thymeleaf (which could also be filtered by the WUIC servlet filter).
-WUIC tags for those libraries can also be called during template processing to generate links pointing to optimized resources.
-
-*Step 2*
-A workflow is executed according to the information associated to the requested page.
-For now, just remember that in WUIC, a workflow describes the way you want to process a set of statics.
-The workflow could be created on the fly by the servlet filter or a workflow referenced manually inside a template (through JSP or Thymeleaf).
-
-*Step 2a:* the invoked workflow corresponds at least to the resources referenced in the HTML page, and possibly to the HTML page itself if the servlet filter is installed.
-
-*Step 3*
-When a workflow needs to be executed, WUIC looks at first for the statics to be processed.
-They are provided by an associated *heap*.
-A heap is also identified by an ID and just contains a set of paths representing the statics to be loaded.
-
-*Step 4*
-The heap just has the paths representing the statics, but it can't open the stream to them itself.
-It consequently uses an associated *DAO* which, thanks to a given path, can provide access to the stream.
-Remember: the DAO will produce a *nut*.
-Nut is the term that will be used everywhere in WUIC to represent your static (or you also called a resource).
-
-*Step 5*
-Once the nuts have been returned by the heap, then a *chain of responsibility* composed of *engines* is called to process the nuts.
-Each engine has a particular purpose. There is an engine for caching, compressing, inspecting or aggregating nuts.
-
-*Step 6*
-Once nuts have been processed by engines, they are returned by the invoker (a servlet, a filter or a tag processor).
-
-*Step 7*
-The result is sent to the browser. If the result contains the optimized version of the required page, then its content is written to the HTTP response.
-Otherwise, the result is sent under the form of a link added to the HTML page which points to the WUIC servlet.
-Note that the resource can also be pushed to the client if HTTP/2 is enabled.
-
-*Step 8*
-When the page is fetched by the browser, additional resources (JS, CSS, etc) that have been processed by WUIC could be referenced as links.
-The links are used to submit a new HTTP request to the WUIC servlet.
-
-*Step 9*
-The WUIC servlet extracts the requested name of the result entry for the specified workflow to be written to the HTTP response.
-
-*Step 2b*: when a particular resource is requested, the WUIC servlet executes the workflow like in step 2 to retrieve the content to write.
-However, you can be sure that the workflow will be executed pretty fast, as a result already exists in the internal cache.
 
 ++++
 <!-- javascript
