@@ -77,6 +77,8 @@ Then create the `WuicFacade` to expose it as a bean in the `ApplicationContext`.
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=SpringWuicFacade]
 ----
 
+TIP: you can completely ignore the use of `wuic.xml` and configure WUIC with <<api.html#_java_config,Java Config>>.
+
 Finally, just use the handy `WuicHandlerMapping` to inject to spring a bean handling resources with WUIC.
 Core resolvers are `WuicPathResourceResolver`  and `WuicVersionStrategy`, but you can create additional implementations.
 
@@ -88,7 +90,7 @@ include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/
 You can also override `addResourceHandlers` method to configure resolvers/transformers outside WUIC.
 
 [source,java]
-----
+-----
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=addResourceHandlers]
 ----
 
@@ -218,7 +220,7 @@ Then, you can write your HTML page by referencing your scripts:
 <script src="use.greeter.ts"></script>
 ----
 
-Then you can just include the HTML page in the WUIC process, for instance by declaring it in your wuic.xml (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
+Then you can just include the HTML page in the WUIC process, for instance by declaring it in your `wuic.xml` (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
 file or just filtering it with the servlet filter (TODO: migrate https://github.com/wuic/wuic/wiki/filter-html).
 
 When WUIC transforms the HTML page, it replaces the initial referenced typescript file by the compiled javascript file:

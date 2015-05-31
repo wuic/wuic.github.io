@@ -1,0 +1,154 @@
+:toc: right
+
+++++
+    <!-- styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="wiki-css/theme.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="wiki-images/logo/favicon.ico" type="image/x-icon">
+
+    <div class="masthead">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav" role="navigation">
+                        <!-- Logo and slogan -->
+                        <li><a href="index.html"><i class="icon-home"></i><span class="hidden-phone">&nbsp;Home</span></a></li>
+                        <li><a href="project.html"><i class="icon-star"></i><span class="hidden-phone">&nbsp;Project</span></a></li>
+                        <li class="active"><a href="documentation.html"><i class="icon-book"></i><span class="hidden-phone">&nbsp;Documentation</span></a></li>
+                        <li><a href="contact.html"><i class="icon-envelope"></i><span class="hidden-phone">&nbsp;Contact</span></a></li>
+                        <li><a href="https://github.com/wuic/wuic" target="_blank" title="Wuic Github"><i class="icon-github"></i><span class="hidden-phone">&nbsp;Github</span></a></li>
+                        <li><a href="https://twitter.com/wuic_project" target="_blank"><i class="icon-twitter"></i><span class="hidden-phone">&nbsp;Twitter</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /.navbar -->
+    </div>
+++++
+
+== Java Config
+
+=== Purpose
+
+WUIC could be integrated without necessarily use the XML configuration API.
+All XML configuration points are directly provided by a `Java` API which could be preferred in several use cases,
+especially for frameworks that want integrate WUIC.
+
+*Note:* for deep understanding of `Java` Config purpose, you should take a look at the WUIC configuration design (TODO: migrate https://github.com/wuic/wuic/wiki/Configuration-structure).
+
+=== Create the facade
+
+WUIC provides its http://wuic.github.io/apidocs/com/github/wuic/WuicFacade.html[facade] which helps to invoke workflow and configure mainly:
+
+* DAOs (the way you access nuts)
+* Heaps (the sets of nuts)
+* Engines (the different transformations applied on nuts)
+* The chains (the engines called to process the heaps)
+
+You can create a new facade like this:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CreateFacadeAPI]
+----
+
+We indicate the processed nuts will be served on your HTTP server from `/statics`.
+Here all the URLs will be rewritten using this prefix during process (like `background-url` inside CSS).
+This means that the result of any process must be reached from this root path (http://localhost/statics for instance).
+
+By default the facade injects DAOs and engines with default settings to make your configuration faster.
+This could be disabled with:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CreateFacadeNoDefaultAPI]
+----
+
+Check the javadoc to see other configurations points exposed by the http://wuic.github.io/apidocs/com/github/wuic/WuicFacadeBuilder.html[WuicFacadeBuilder].
+
+Default instances are created for all DAOs / Engine discovered in the classpath by WUIC.
+They are identified by `wuicDefault[SimpleClassName][Builder]`, for instance `wuicDefaultTextAggregatorEngineBuilder`
+for the default instance of `TextAggregatorEngine`:
+
+* See http://wuic.github.io/apidocs/com/github/wuic/nut/dao/core/package-summary.html[this package] for DAOs
+* See http://wuic.github.io/apidocs/com/github/wuic/engine/core/package-summary.html[this package] for engines
+* See http://wuic.github.io/apidocs/com/github/wuic/nut/filter/core/package-summary.html[this package] for filters
+
+For default properties:
+
+* See this page (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object) for DAOs
+* See this page (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) for engines
+
+Additional DAOs and Engine will be available regarding the extensions you add to your classpath.
+
+=== Configure the facade
+
+To configure the facade, you can extend http://wuic.github.io/apidocs/index.html?com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator]
+and implement its two abstract methods:
+
+* http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html#getTag()[getTag()]: identifies all the settings you perform in your class. This helps WUIC to keep them when other configurators want to reset their previous operations.
+* http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html#internalConfigure(com.github.wuic.ContextBuilder)[internalConfigure(ContextBuilder)]: the http://gdrouet.github.io/wuic/apidocs/index.html?com/github/wuic/ContextBuilder.html[ContextBuilder] used inside the facade where you can define everything you need.
+
+For instance, use can access the `WuicFacadeBuilder` internal `ContextBuilder` and modify it like this:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CreateFacadeContextAPI]
+----
+
+Alternatively, you can create your own implementation of a `ContextBuilderConfigurator` to configure the `ContextBuilder`:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CustomConfiguratorAPI]
+----
+
+You can inject an instance in your facade like this:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CreateFacadeWithConfiguratorAPI]
+----
+
+Note that you can also force a facade to be refreshed with a `ContextBuilderConfigurator`:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=ConfigureAPI]
+----
+
+=== Run a workflow
+
+Finally, when your facade has been configured, you can then run any created workflow like this:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=RunWorkflowAPI]
+----
+
+Note that the facade is thread safe so you can use it with concurrency.
+
+++++
+<!-- javascript
+=================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-40383819-1', 'github.io');
+    ga('send', 'pageview');
+</script>
+++++

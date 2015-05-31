@@ -81,6 +81,7 @@ You will find more tutorials about that link:more-tutorials.html[here].
 After this, you'll find in the side bar the detailed documentation regarding each followed steps in the tutorials:
 
 * Complete XML configuration documentation (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
+* <<api.html#_java_config,Java Config alternative>>
 * Complete web.xml configuration (TODO: migrate https://github.com/wuic/wuic/wiki/Configuring-web.xml)
 * Available engines (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) and [DAO](https://github.com/wuic/wuic/wiki/Data-Access-Object)
 
@@ -91,9 +92,9 @@ WUIC is designed to be extended easily. You will find a complete advanced tutori
 == How to use WUIC in my framework
 
 If you want to build a part of your framework on top of WUIC, you don't have to ask your users to use XML configuration file.
-You can totally hide this configuration point by using Java Config (TODO: migrate https://github.com/wuic/wuic/wiki/Configuring-with-Java-Config).
+You can totally hide this configuration point by using <<api.html#_java_config,Java Config>>.
 
-Then you will find implementation details directly in the javadoc (TODO: migrate http://wuic.github.io/apidocs/index.html).
+Then you will find implementation details directly in the http://wuic.github.io/apidocs/index.html[javadoc].
 
 == General architecture and terminology
 
