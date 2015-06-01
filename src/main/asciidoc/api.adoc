@@ -43,7 +43,7 @@ WUIC could be integrated without necessarily use the XML configuration API.
 All XML configuration points are directly provided by a `Java` API which could be preferred in several use cases,
 especially for frameworks that want integrate WUIC.
 
-*Note:* for deep understanding of `Java` Config purpose, you should take a look at the WUIC configuration design (TODO: migrate https://github.com/wuic/wuic/wiki/Configuration-structure).
+*Note:* for deep understanding of `Java` Config purpose, you should take a look at the <<design.html#_configuration_structure,WUIC configuration structure>>.
 
 === Create the facade
 
@@ -95,8 +95,8 @@ Additional DAOs and Engine will be available regarding the extensions you add to
 To configure the facade, you can extend http://wuic.github.io/apidocs/index.html?com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator]
 and implement its two abstract methods:
 
-* http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html#getTag()[getTag()]: identifies all the settings you perform in your class. This helps WUIC to keep them when other configurators want to reset their previous operations.
-* http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html#internalConfigure(com.github.wuic.ContextBuilder)[internalConfigure(ContextBuilder)]: the http://gdrouet.github.io/wuic/apidocs/index.html?com/github/wuic/ContextBuilder.html[ContextBuilder] used inside the facade where you can define everything you need.
+* http://wuic.github.io/apidocs/com/github/wuic/context/ContextBuilder.html#tag(java.lang.Object)[getTag()]: identifies all the settings you perform in your class. This helps WUIC to keep them when other configurators want to reset their previous operations.
+* http://wuic.github.io/apidocs/com/github/wuic/context/ContextBuilderConfigurator.html#internalConfigure(com.github.wuic.ContextBuilder)[internalConfigure(ContextBuilder)]: the http://gdrouet.github.io/wuic/apidocs/index.html?com/github/wuic/ContextBuilder.html[ContextBuilder] used inside the facade where you can define everything you need.
 
 For instance, use can access the `WuicFacadeBuilder` internal `ContextBuilder` and modify it like this:
 

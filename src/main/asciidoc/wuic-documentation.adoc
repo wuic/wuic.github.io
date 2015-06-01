@@ -81,8 +81,8 @@ You will find more tutorials about that link:more-tutorials.html[here].
 After this, you'll find below the detailed documentation about different components browsed in the tutorials:
 
 * Complete XML configuration documentation (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
+* <<api.html#_configuring_the_web_xml,Complete web.xml configuration>>
 * <<api.html#_java_config,Java Config alternative>>
-* Complete web.xml configuration (TODO: migrate https://github.com/wuic/wuic/wiki/Configuring-web.xml)
 * Available engines (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) and [DAO](https://github.com/wuic/wuic/wiki/Data-Access-Object)
 
 == How to extend WUIC
