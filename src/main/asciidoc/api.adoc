@@ -35,6 +35,688 @@
     </div>
 ++++
 
+IMPORTANT: for deep understanding of settings purpose declared in `web.xml`, you should take a look at the link:design.htm[WUIC configuration design].
+
+== Configuring the wuic.xml
+
+The table bellow describes each tag and their hierarchy in the `wuic.xml` file :
+
+++++
+<table>
+  <tr>
+    <td>Root</td>
+    <td>Level 0</td>
+    <td>Level 1</td>
+    <td>Level 2</td>
+    <td>Level 3</td>
+  </tr>
+  <tr>
+    <td><a href="#_wuic">wuic</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|____</td>
+    <td><a href="#_nut-dao-builders">nut-dao-builders</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td>|_________</td>
+    <td><a href="#_nut-dao-builder">nut-dao-builder</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_properties">properties</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_property">property</a></td>
+  </tr>
+<tr>
+    <td>|____</td>
+    <td><a href="#_nut-filter-builders">nut-filter-builders</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td>|_________</td>
+    <td><a href="#_nut-filter-builder">nut-filter-builder</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_properties">properties</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_property">property</a></td>
+  </tr>
+  <tr>
+    <td>|____</td>
+    <td><a href="#_heaps">heaps</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td>|_________</td>
+    <td><a href="#_heap">heap</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_nut-path">nut-path</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_heap-id">heap</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_heap">heap-id</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|____</td>
+    <td><a href="#_engine-builders">engine-builders</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td>|_________</td>
+    <td><a href="#_engine-builder">engine-builder</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_properties">properties</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>|</td>
+    <td></td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_property">property</a></td>
+  </tr>
+  <tr>
+    <td>|____</td>
+    <td><a href="#_workflow-templates">workflow-templates</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_workflow-template">workflow-template</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_engine-chain">engine-chain</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_engine-builder-id">engine-builder-id</a></td>
+  </tr>
+  <tr>
+    <td>|____</td>
+    <td><a href="#_workflows">workflows</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>|_________</td>
+    <td><a href="#_workflow">workflow</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+++++
+
+=== wuic
+
+This is simply the root tag, http://www.youtube.com/watch?v=x7bIbVlIqEc[nothing else matter] ;-)
+
+[source,xml]
+----
+<wuic>
+    ...
+</wuic>
+----
+
+=== nut-dao-builders
+
+The NutDao builders usable in the context. Each builder will be usable from the link:#heap[heap].
+
+[source,xml]
+----
+<wuic>
+    <nut-dao-builders>
+        ...
+    </nut-dao-builders>
+</wuic>
+----
+
+==== nut-dao-builder
+
+Each builder creates a `NutDao` thanks to a set of properties.
+When a factory is created, it is used to build NutDao thanks to a `String` representation of its path.
+Defines an unique ID to be referenced somewhere else. Also declares the class name as a `class` attribute.
+
+Finally, an optional regex attribute could be specified (default value is false).
+If true, the nut names must be a compilable http://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html[pattern].
+
+[source,xml]
+----
+<wuic>
+    <nut-dao-builders>
+        <nut-dao-builder id="http-resource-builder" type="HttpNutDaoBuilder">
+            ...
+        <nut-dao-builder>
+    </nut-dao-builders>
+</wuic>
+----
+
+=== nut-filter-builders
+
+The NutFilter builders usable in the context. Each builder will be used inside the context
+
+[source,xml]
+----
+<wuic>
+    <nut-filter-builders>
+        ...
+    </nut-filter-builders>
+</wuic>
+----
+
+==== nut-filter-builder
+
+Each builder creates a NutFiler thanks to a set of properties. Objects are built thanks to a String representation of its path.
+Defines an unique ID to be referenced somewhere else. Also declares the class name as a `class` attribute.
+When any link:#heap[heap] is built from the context, its paths are previously filtered with all defined filters.
+
+[source,xml]
+----
+<wuic>
+    <nut-filter-builders>
+        <nut-filter-builder id="remove-regex-filter-builder" type="RegexRemoveNutFilterBuilder">
+            ...
+        <nut-filter-builder>
+    </nut-filter-builders>
+</wuic>
+----
+
+=== engine-builders
+
+Defines the engine builders usable in any workflow.
+
+[source,xml]
+----
+<wuic>
+   <engine-builders>
+       ...
+   </engine-builders>
+</wuic>
+----
+
+==== engine-builder
+
+An EngineBuilder is always identified by an unique ID to be referenced somewhere else. Also
+defines the class to be instantiated.
+
+[source,xml]
+----
+<wuic>
+   <engine-builders>
+       <engine-builder id="yuicomspressor-js" type="YuiCompressorJavascriptEngineBuilder" />
+   </engine-builders>
+</wuic>
+----
+
+==== properties
+
+The properties define a list of settings for both `nut-dao-builder` and `engine-builder` elements.
+
+[source,xml]
+----
+<wuic>
+    <nut-dao-builders>
+        <nut-dao-builder id="http-resource-builder" type="HttpNutDaoBuilder">
+            <properties>
+                ...
+            <properties>
+        <nut-dao-builder>
+    </nut-dao-builders>
+</wuic>
+----
+
+or
+
+[source,xml]
+----
+<wuic>
+    <engine-builders>
+        <engine-builder id="jsSprite" type="ImageAggregatorEngineBuilder">
+            <properties>
+                ...
+            </properties>
+        </engine-builder>
+    </engine-builders>
+</wuic>
+----
+
+==== property
+
+A property used to initialize the builder. Defines a `key` attribute and a `value` as a child node.
+
+[source,xml]
+----
+<wuic>
+    <nut-dao-builders>
+        <nut-dao-builder id="http-resource-builder" type="HttpNutDaoBuilder">
+            <properties>
+                <property key="c.g.wuic.httpServerDomain">gdrouet.github.io</property>
+                <property key="c.g.wuic.httpBasePath">wuic</property>
+            <properties>
+        <nut-dao-builder>
+    </nut-dao-builders>
+</wuic>
+----
+
+or
+
+[source,xml]
+----
+<wuic>
+    <engine-builders>
+        <engine-builder id="jsSprite" type="ImageAggregatorEngineBuilder">
+            <properties>
+                <property key="c.g.wuic.engine.spriteProviderClassName">javascript</property>
+            </properties>
+        </engine-builder>
+    </engine-builders>
+</wuic>
+----
+
+=== heaps
+
+Defines the different heaps of nuts you can load in your application.
+
+[source,xml]
+----
+<wuic>
+    <heaps>
+        ...
+    </heaps>
+</wuic>
+----
+
+==== heap
+
+A heap is identified by an unique ID and must defines a builder to use (`dao-builder-id attribute`).
+The builder is referenced thanks to its ID.
+
+[source,xml]
+----
+<wuic>
+    <heaps>
+        <heap id="common-js" dao-builder-id="classPathBuilder">
+            ...
+        </heap>
+    </heaps>
+</wuic>
+----
+
+==== nut-path
+
+The `nut-path` defines the path that allows to access a nut has child node.
+Finally, you can represent a set of nuts if your associated DAO considers paths as regex.
+
+[source,xml]
+----
+<wuic>
+    <heaps>
+        <heap id="common-js" default-builder="classPathBuilder"
+            <nut-path>/js/common.js</nut-path>
+            <nut-path>/js/misc/*.js</nut-path>
+        </heap>
+    </heaps>
+</wuic>
+----
+
+==== heap-id
+
+Your heap could be a composition of another heaps.
+Inside a heap, you can refer an existing one with `heap-id` or declare a new heap on the fly.
+
+[source,xml]
+----
+<wuic>
+    <heaps>
+        <heap id="homepage-js" dao-builder-id="classPathBuilder">
+           <heap-id>common-js</heap-id>
+           <heap id="homepage-js" dao-builder-id="http-resource-builder">
+               <nut-path>http://com.myapp/js/foo.js</nut-path>
+           </heap>
+           <nut-path>js/bar.js</nut-path>
+        <heap>
+    </heaps>
+</wuic>
+----
+
+=== workflow-templates
+
+The workflow templates describe the way the nut could be processed.
+
+[source,xml]
+----
+<wuic>
+    <workflow-templates>
+           ...
+    </workflow-templates>
+</wuic>
+----
+
+==== workflow-template
+
+The workflow template is declared to contain a list of engines. It is identified with an unique ID.
+
+Below, the example shows that a workflow template will be created and identified with `tpl` ID.
+
+[source,xml]
+----
+<wuic>
+    <workflow-templates>
+        <workflow-template id="tpl">
+            ...
+        </workflow-template>
+    </workflow-templates>
+</wuic>
+----
+
+==== engine-chain
+
+The engines chain will refers all the engines to use when processing the workflow.
+They could be specified in any order, WUIC will order them by kind, especially to guarantee that cache engine will be at the head of the chain.
+
+[source,xml]
+----
+<wuic>
+    <workflow-templates>
+        <workflow-template id-prefix="js-image" heap-id-pattern="sprite-">
+            <engine-chain>
+                ...
+            </engine-chain>
+        </workflow-template>
+    </workflow-templates>
+</wuic>
+----
+
+==== engine-builder-id
+
+The engine-builder-id contains has child text node the ID of an existing engine builder to be added in the chain of responsibility executed by the workflow.
+
+[source,xml]
+----
+<wuic>
+    <workflow-templates>
+        <workflow-template id-prefix="js-image" heap-id-pattern="sprite-">
+            <engine-chain>
+                <engine-builder-id>jsSprite</engine-builder-id>
+            </engine-chain>
+        </workflow-template>
+    </workflow-templates>
+</wuic>
+----
+
+=== workflows
+
+The workflows are the bridge between the heaps and the workflow template that list the engines to use.
+
+[source,xml]
+----
+<wuic>
+    <workflows>
+           ...
+    </workflows>
+</wuic>
+----
+
+==== workflow
+
+The workflow is declared to be applied on a set of heaps described with the `heap-id-pattern` property interpreted as a regex.
+Each heap's name matching the regex will be associated to a workflow identified by the heap name and eventually a prefix specified in `id-prefix` property.
+
+The workflow is always built on top of a template referenced with `workflow-template-id` property.
+
+Below, the example shows that a workflow will be created for each heap with a name containing `image` word.
+Those workflows will be named with a string starting with `sprite-`.
+
+[source,xml]
+----
+<wuic>
+    <workflows>
+        <workflow id-prefix="sprite-" workflow-template-id="tpl" heap-id-pattern=".*image" />
+    </workflows>
+</wuic>
+----
+
+Another possibility is to replace `id-prefix` attribute by an `id` attribute.
+In this case, only one workflow is created identified by the value in the `id` attribute.
+This workflow is associated to a heap which is a composition of all heaps with an ID matching the `heap-id-pattern` attribute regex value.
+
+[source,xml]
+----
+<wuic>
+    <workflows>
+        <workflow id="workflow" workflow-template-id="tpl" heap-id-pattern=".*image" />
+    </workflows>
+</wuic>
+----
+
+== Configuring the web.xml
+
+=== Introduction
+
+Basic use case is to use WUIC inside a servlet container configured traditionally with a `web.xml` file.
+This documentation described how to configure three main components:
+
+* `WuicServletContextListener`: the listener that bootstraps WUIC
+* `HtmlParserFilter`: the filter that optimizes HTML pages
+* `WuicServlet`: the servlet that served the statics
+
+=== Configuring the ContextListener
+
+`wuic-servlet.jar` contains a `ContextListener` annotated with the servlet 3 `@WebListener` annotation and allows WUIC to bootstrap.
+
+You can configure the execution of the listener with the following `context-param`.
+
+Reminder for default implementation:
+
+[source,xml]
+----
+    <context-param>
+        <param-name>your param name</param-name>
+        <param-value>your param value</param-value>
+    </context-param>
+----
+
+*Note those who don't want use init-param:* you will see the particular `c.g.wuic.initParameterClass` `init-param` in the table below.
+If you want to provide parameters in a different way, specify an implementation of `com.github.wuic.util.BiFunction` (inspired from Java 8).
+It must be parameterized with String type only.
+The first parameter of `apply()` expects the key and the second parameter the default value.
+The method returns the value associated to the given key.
+If you set this `init-param`, no other init-param with a key mentioned bellow will be interpreted since your implementation will be used.
+
+In the `Parameter name` column bellow, replace the first `*` character from all keys and replace it with `c.g.wuic`.
+
+++++
+<table>
+    <tr>
+        <td>Parameter name</td>
+        <td>Description</td>
+        <td>Default value</td>
+    </tr>
+    <tr>
+        <td>*.facade.wuicContextPath</td>
+        <td>Virtual base path for any nut name</td>
+        <td>Empty string</td>
+    </tr>
+    <tr>
+        <td>*.facade.wuicXmlPath</td>
+        <td>String used to build a `java.net.URL` expected to point to a `wuic.xml` file</td>
+        <td>/wuic.xml in the classpath</td>
+    </tr>
+    <tr>
+        <td>*.facade.wuicXmlPathAsSystemProperty</td>
+        <td>Considers the `c.g.wuic.wuicXmlPath` as a system property to get to build the URL</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>*.facade.useDefaultContextBuilderConfigurators</td>
+        <td>Injects in WUIC the default builders to have basic `NutDao` and `Engine` available during configuration</td>
+        <td>true</td>
+    </tr>
+    <tr>
+         <td>*.facade.wuicMultipleConfigInTagSupport</td>
+         <td>For tag support (Thymeleaf, JSP, etc) : tell to parse the configuration every time the tag is run</td>
+         <td>false</td>
+    </tr>
+    <tr>
+         <td>*.facade.wuicWarmupStrategy</td>
+         <td>When a context is built, a warmup strategy could be specified run all known workflows asynchronously (`ASYNC`), synchronously (`SYNC`) or not (`NONE`)</td>
+         <td>NONE</td>
+    </tr>
+    <tr>
+         <td>*.initParameterClass</td>
+         <td>Indicates the com.github.wuic.util.BiFunction implementation which retrieves a value for a given parameter. Of course, default implementation relies on init-param in web.xml file.</td>
+         <td>Internal InitParamProperties class</td>
+    </tr>
+</table>
+++++
+
+=== Configuring the WuicServlet
+
+If you want to serve directly the statics from your webapp, you need to configure the servlet:
+
+[source,xml]
+----
+    <servlet>
+        <description>WUIC servlet</description>
+        <servlet-name>wuic</servlet-name>
+        <servlet-class>com.github.wuic.servlet.WuicServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wuic</servlet-name>
+        <url-pattern>/wuic/*</url-pattern>
+    </servlet-mapping>
+----
+
+=== Configuring the HtmlParserFilter
+
+WARNING: parsing the HTML takes time.
+You should enable the best effort mode: if the HTML has been parsed before and the result still exists in the cache, it applies replacements.
+However, it just return the unparsed HTML to deliver as fast as possible the response and process scripts asynchronously.
+TODO: migrate best effort and include filter section about that
+
+==== Install the filter
+
+If your pages are served from your application server, you can filter them with the HTML filter:
+
+[source,xml]
+----
+<filter>
+    <filter-name>htmlParserFilter</filter-name>
+    <filter-class>com.github.wuic.servlet.HtmlParserFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>htmlParserFilter</filter-name>
+    <url-pattern>/html/*</url-pattern>
+</filter-mapping>
+----
+
+==== Supported settings
+
+++++
+<table>
+    <tr>
+        <td>Parameter name</td>
+        <td>Description</td>
+        <td>Default value</td>
+    </tr>
+    <tr>
+        <td>c.g.wuic.filter.disableServerPush</td>
+        <td>Never use HTTP/2 server-push even if possible and use server-hints instead</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>c.g.wuic.forceDynamicContent</td>
+        <td>Always consider the filtered HTML as dynamic instead of checking if tag support (JSP or Thymeleaf) has been used to generate the response</td>
+        <td>false</td>
+    </tr>
+</table>
+++++
+
+By default WUIC uses a `RequestDispatcherNutDao`.
+The http://wuic.github.io/apidocs/com/github/wuic/servlet/HtmlParserFilter.html[javadoc] describes how you can extend the
+filter to specify another DAO or even a complete chain of engines to use. Note that if you use `FilterRegistration` then
+you can instantiate the class with different constructors instead of using the default one.
+
+==== Complete sample
+
+You have the sample [here](https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/js-css-sample).
+
 == Java Config
 
 === Purpose
