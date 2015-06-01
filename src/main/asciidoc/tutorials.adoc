@@ -631,17 +631,6 @@ This way you can deploy the directories in your application server to serve new 
 The http://wuic.github.io[website] serves statics generated with a simple "mvn clean install" and is a good example or the approach.
 Check the source https://github.com/wuic/wuic.github.io[here].
 
-TIP: if you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` in the tag.
-This is useful if you don't want to aggregate a particular resource for some reason. Moreover you can use it
-when WUIC does not already supports some features or you find a bug :) (don't forget to file an issue in that case).
-
-Example:
-
-[source,html]
-----
-<script data-wuic-skip src="script-to-skip.js"></script>
-----
-
 TIP: if your statics are not served by the `Servlet` provided by WUIC, both http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21[cache]
 and http://www.w3.org/TR/resource-hints[link] headers won't be set in the HTTP response for the HTML page.
 In that case, WUIC will modify the HTML to respectively insert a (http://www.w3.org/TR/2011/WD-html5-20110525/offline.html)[cache manifest]

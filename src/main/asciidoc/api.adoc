@@ -717,6 +717,59 @@ you can instantiate the class with different constructors instead of using the d
 
 You have the sample [here](https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/js-css-sample).
 
+++++
+<table>
+    <tr>
+        <td>Parameter name</td>
+        <td>Description</td>
+        <td>Default value</td>
+    </tr>
+    <tr>
+        <td>c.g.wuic.filter.disableServerPush</td>
+        <td>Never use HTTP/2 server-push even if possible and use server-hints instead</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>c.g.wuic.forceDynamicContent</td>
+        <td>Always consider the filtered HTML as dynamic instead of checking if tag support (JSP or Thymeleaf) has been used to generate the response</td>
+        <td>false</td>
+    </tr>
+</table>
+++++
+
+== Built-in HTML templating
+
+Built-in templating is a set of features that you can use when your HTML content is optimized by WUIC (using the servlet
+`Filter` or by declaring it in a `heap`).
+
+When WUIC optimizes HTML content, it uses by default the `HtmlInspectorEngine` component that supports several tags and
+attributes to customize the way your HTML template is optimized.
+
+=== data-wuic-skip: don't optimize the script
+
+If you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` in the tag.
+This is useful if you don't want to aggregate a particular resource for some reason. Moreover you can use it
+when WUIC does not already supports some features or you find a bug :) (don't forget to file an issue in that case).
+
+Example:
+
+[source,html]
+----
+<script data-wuic-skip src="script-to-skip.js"></script>
+----
+
+=== wuic:html-import: import workflow
+
+Any declared `workflow` can be executed to inject the result in your HTML page just by adding `<wuic:html-import />` tag
+with the desired ID associated to the attribute `workflowId`.
+
+Example:
+
+[source,html]
+----
+<wuic:html-import workflowId="myWorkflow" />
+----
+
 == Java Config
 
 === Purpose

@@ -82,6 +82,7 @@ After this, you'll find below the detailed documentation about different compone
 
 * <<api.html#_configuring_the_wuic_xml,Complete wuic.xml configuration>>
 * <<api.html#_configuring_the_web_xml,Complete web.xml configuration>>
+* <<api.html#_built_in_html_templating,Built-in HTML templating>>
 * <<api.html#_java_config,Java Config alternative>>
 * Available engines (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) and [DAO](https://github.com/wuic/wuic/wiki/Data-Access-Object)
 
