@@ -6,12 +6,9 @@ com.github.wuic.engine.core
 com.github.wuic.engine.servlet
 com.github.wuic.engine.setter
 com.github.wuic.exception
-com.github.wuic.jee
-com.github.wuic.jee.path
 com.github.wuic.nut
 com.github.wuic.nut.dao
 com.github.wuic.nut.dao.core
-com.github.wuic.nut.dao.jee
 com.github.wuic.nut.dao.servlet
 com.github.wuic.nut.filter
 com.github.wuic.nut.filter.core
@@ -20,6 +17,8 @@ com.github.wuic.nut.setter
 com.github.wuic.path
 com.github.wuic.path.core
 com.github.wuic.servlet
+com.github.wuic.servlet.jetty
+com.github.wuic.servlet.path
 com.github.wuic.tag
 com.github.wuic.util
 com.github.wuic.util.detect
