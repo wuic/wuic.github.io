@@ -265,6 +265,10 @@ If true, the nut names must be a compilable http://docs.oracle.com/javase/1.4.2/
 </wuic>
 ----
 
+TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the `type`.
+
+TIP: `type` attribute is optional. The default value is `ClasspathNutDaoBuilder` (for classpath access).
+
 === nut-filter-builders
 
 The NutFilter builders usable in the context. Each builder will be used inside the context
@@ -295,6 +299,8 @@ When any link:#heap[heap] is built from the context, its paths are previously fi
 </wuic>
 ----
 
+TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the component indicated in the `type`.
+
 === engine-builders
 
 Defines the engine builders usable in any workflow.
@@ -321,6 +327,9 @@ defines the class to be instantiated.
    </engine-builders>
 </wuic>
 ----
+
+TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the component indicated in the `type`.
+Note that default instances are injected by default in any workflow.
 
 ==== properties
 
@@ -416,6 +425,8 @@ The builder is referenced thanks to its ID.
 </wuic>
 ----
 
+TIP: `dao-builder-id` is optional. By default, the default `ClasspathNutDaoBuilder` will be used.
+
 ==== nut-path
 
 The `nut-path` defines the path that allows to access a nut has child node.
@@ -425,7 +436,7 @@ Finally, you can represent a set of nuts if your associated DAO considers paths 
 ----
 <wuic>
     <heaps>
-        <heap id="common-js" default-builder="classPathBuilder"
+        <heap id="common-js" default-builder="classPathBuilder">
             <nut-path>/js/common.js</nut-path>
             <nut-path>/js/misc/*.js</nut-path>
         </heap>

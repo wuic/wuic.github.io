@@ -323,17 +323,17 @@ Here we declare a DAO for classpath accesses which will retrieve any nut in /scr
 <?xml version="1.0"?>
 <wuic>
     <nut-dao-builders>
-        <nut-dao-builder id="myDao">
+        <nut-dao-builder>
             <properties>
                 <property key="c.g.wuic.dao.basePath">/scripts</property>
             </properties>
         </nut-dao-builder>
     </nut-dao-builders>
     <heaps>
-        <heap id="css" dao-builder-id="myDao">
+        <heap id="css">
             <nut-path>css/foo.css</nut-path>
         </heap>
-        <heap id="js" dao-builder-id="myDao">
+        <heap id="js">
             <nut-path>js/foo.js</nut-path>
         </heap>
     </heaps>
@@ -355,7 +355,7 @@ c.g.wuic.dao.wildcard=true
 ----
 
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
-Writing `<nut-dao-builder id="myDao">` is equivalent to `<nut-dao-builder id="myDao" type="ClasspathNutDaoBuilder">`.
+Writing `<nut-dao-builder>` is equivalent to `<nut-dao-builder type="ClasspathNutDaoBuilder">`.
 You can find all the supported DAO with a deep description of this API here (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object)
 
 === Important notes
