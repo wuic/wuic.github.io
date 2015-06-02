@@ -342,6 +342,18 @@ Here we declare a DAO for classpath accesses which will retrieve any nut in /scr
 
 This configuration manages two files in your classpath: `/scripts/css/foo.css` and `/scripts/js/foo.js`!
 
+TIP: many components that you will discover through the documentation support equivalent properties. For instance, you
+can set the property `c.g.wuic.basePath` for both `ClasspathNutDao` (classpath access) and `DiskNutDao` (filesystem access).
+If you want to set the same value for a given property in all components, then you can drop a `wuic.properties` file in
+`src/main/resources` in order to locate it in the classpath root. In this property file, you can add all the properties
+ and their value. For example, to specify the use of a wildcard `*` in the paths to resolve, write something like this:
+
+----
+# wuic.properties
+# this property will be set for all components that support it
+c.g.wuic.dao.wildcard=true
+----
+
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
 Writing `<nut-dao-builder id="myDao">` is equivalent to `<nut-dao-builder id="myDao" type="ClasspathNutDaoBuilder">`.
 You can find all the supported DAO with a deep description of this API here (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object)
@@ -409,6 +421,9 @@ The following configuration disables the cache:
     </engine-builder>
 </engine-builders>
 ----
+
+Another solution is to add `c.g.wuic.engine.cache=false` in a `wuic.properties` file located in the classpath root.
+Note that with this approach the state will change for any component supporting the `c.g.wuic.engine.cache` property.
 
 You will find all the available engines and the possible properties here (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration).
 

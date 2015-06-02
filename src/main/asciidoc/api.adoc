@@ -618,7 +618,17 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
     </tr>
     <tr>
         <td>*.facade.wuicXmlPathAsSystemProperty</td>
-        <td>Considers the `c.g.wuic.wuicXmlPath` as a system property to get to build the URL</td>
+        <td>Considers the `c.g.wuic.facade.wuicXmlPath` as a system property to get to build the URL</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>*.facade.propertiesPath</td>
+        <td>String used to build a `java.net.URL` expected to point to a `wuic.properties` file</td>
+        <td>/wuic.properties in the classpath</td>
+    </tr>
+    <tr>
+        <td>*.facade.propertiesPathAsSystemProperty</td>
+        <td>Considers the `c.g.wuic.facade.propertiesPath` as a system property to get to build the URL</td>
         <td>false</td>
     </tr>
     <tr>
@@ -641,6 +651,7 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
          <td>Indicates the com.github.wuic.util.BiFunction implementation which retrieves a value for a given parameter. Of course, default implementation relies on init-param in web.xml file.</td>
          <td>Internal InitParamProperties class</td>
     </tr>
+
 </table>
 ++++
 
