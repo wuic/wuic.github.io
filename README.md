@@ -6,7 +6,6 @@ TODO:
 - Migrate "Natural templating and Angular" tutorial
 - Migrate "Define your own set of engines" tutorial
 - Migrate "Extend WUIC" tutorial
-- Migrate "License"
 - Migrate "list of supported servers"
 - Migrate "Error codes"
 - Migrate "Feature comparison"

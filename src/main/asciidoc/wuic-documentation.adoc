@@ -50,6 +50,15 @@ Find the documentation for following purpose:
 
 Please find our FAQ section link:faq.html[here].
 
+=== License
+
+The project is under MIT license which could be found https://github.com/wuic/wuic/blob/master/LICENSE.md[here].
+
+Moreover, WUIC directly embeds components from projects under Apache 2.0 license:
+
+* https://github.com/rmuller/infomas-asl/blob/master/LICENSE.txt[Annotation Detector]
+* https://github.com/eclipse/jetty.project/blob/master/LICENSE-eplv10-aslv20.html[Jetty]
+
 == Optimize webapp performances
 
 === Step-by-step 5 minutes tutorials
