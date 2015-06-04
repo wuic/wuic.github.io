@@ -97,7 +97,8 @@ After this, you'll find below the detailed documentation about different compone
 
 == How to extend WUIC
 
-WUIC is designed to be extended easily. You will find a complete advanced tutorial [here](https://github.com/wuic/wuic/wiki/Create-an-extension).
+WUIC is designed to be extended easily.
+You will find a complete advanced tutorial <<advanced-tutorials.html#extend_wuic,here>>.
 
 == How to use WUIC in my framework
 

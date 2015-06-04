@@ -5,7 +5,6 @@ WUIC's website sources branch. Publish it to master branch:
 TODO:
 - Migrate "Natural templating and Angular" tutorial
 - Migrate "Define your own set of engines" tutorial
-- Migrate "Extend WUIC" tutorial
 - Migrate "list of supported servers"
 - Migrate "Error codes"
 - Migrate "Feature comparison"
