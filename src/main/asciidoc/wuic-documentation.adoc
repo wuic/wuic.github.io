@@ -85,6 +85,8 @@ then gradually enable more WUIC features to capitalize on all offered possibilit
 WUIC provides extension to support several frameworks and languages like `Spring`, `AngularJS` or `Typescript`.
 You will find more tutorials about that link:more-tutorials.html[here].
 
+Finally, more advanced tutorials can be found link:advanced-tutorials.html[here].
+
 === API
 
 After this, you'll find below the detailed documentation about different components browsed in the tutorials:

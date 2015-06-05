@@ -35,6 +35,97 @@
     </div>
 ++++
 
+== Custom workflow
+
+=== Purpose
+
+By default, WUIC uses transparently a default instance of each detected engine.
+Automatically, your nuts will be aggregated, inspected, compressed, etc, but this could be changed!
+
+This tutorial shows how you can take the complete control over the engines WUIC uses when processing nuts.
+
+=== Configuration
+
+Imagine you want that your nuts are only compressed by `YUCompressor` and cached by `EhCache`.
+One possibility is to configure other engines to disable it but you can even remove them from the engines chain!
+
+Let's see the following configuration that defines nuts heaps imported with `Thymeleaf`.
+
+[source,xml]
+----
+    <heap id="css" dao-builder-id="myDao">
+        <nut-path>css/foo.css</nut-path>
+    </heap>
+    <heap id="js" dao-builder-id="myDao">
+        <nut-path>js/foo.js</nut-path>
+    </heap>
+----
+
+[source,xml]
+----
+<wuic:html-import workflowId="css" />
+<wuic:html-import workflowId="js" />
+----
+
+At this stage, you could think that the possible imports are based on the existing heaps.
+That's wrong! Actually, when you import a set of nuts, this is done through a workflow.
+A workflow processes some heaps with particular engines.
+Why we did not declare them before? Because WUIC creates a workflow for each heap by default.
+Its ID is the heap ID so that's why you could import some nuts with the ID of your heap.
+
+Actually, to create a workflow, you need to refer to a workflow template which describes all the engines to be used.
+When a workflow is created automatically for a heap, WUIC use a default template with some default engines:
+
+* A cache based on a memory map for all type of nuts
+* A text aggregator for scripts
+* An image aggregator and an image compressor for images
+* etc
+
+So if we want to specify specific engines in a workflow, we have to declare it:
+
+[source,xml]
+----
+    <workflow-templates>
+        <workflow-template id="tpl">
+            <without>
+                <engine-builder-id>wuicDefaultMemoryMapCacheEngineBuilder</engine-builder-id>
+            </without>
+            <engine-chain>
+                <engine-builder-id>wuicDefaultEhCacheEngineBuilder</engine-builder-id>
+                <engine-builder-id>wuicDefaultYuiCompressorJavascriptEngineBuilder</engine-builder-id>
+                <engine-builder-id>wuicDefaultYuiCompressorCssEngineBuilder</engine-builder-id>
+            </engine-chain>
+        </workflow-template>
+    </workflow-templates>
+
+    <workflows>
+        <workflow id-prefix="my-" workflow-template-id="tpl" heap-id-pattern=".*" />
+    </workflows>
+----
+
+* Note that we have excluded the cache based on a memory map because we only want to use `EhCache` to cache nuts
+* As it is done for DAOs, WUIC creates default engine builders so you can refer there ID.
+* `id-prefix` is a string that prefix the workflow ID which will be followed by the heap ID.
+* `heap-id-pattern` is a regular expression which defines the heaps to be processed by the engines specified in this workflow.
+* By default, compression is enabled on YUI Compressor engines
+* By default, cache is enabled in EhCache engine which looks for a cache named `wuicCache` in a `ehcache.xml` file at the root of the classpath. If the cache is not found, it creates a default one.
+
+With this configuration, WUIC will pick up appropriate engines for the nuts to be processed.
+For instance, `YUICompressor` CSS minifier won't be applied on a heap composed of Javascript nuts.
+Moreover, they will be chained according to their type.
+For instance, caching engine is already executed first in the chain of responsibility.
+
+* Note that if a heap is referenced in a custom workflow, then its default one won't be created.
+* Also note that default engine will be injected if they are not in conflict with a specified one. In this case, cache based on memory map won't be injected because we already specify `EhCache` support.
+
+Finally, you will import your heap through your custom workflow like that:
+
+[source,xml]
+----
+<wuic:html-import workflowId="my-css" />
+<wuic:html-import workflowId="my-js" />
+----
+
 == Extend WUIC
 
 === Why extend?
