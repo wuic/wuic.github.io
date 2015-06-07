@@ -90,7 +90,7 @@ include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/
 You can also override `addResourceHandlers` method to configure resolvers/transformers outside WUIC.
 
 [source,java]
------
+----
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=addResourceHandlers]
 ----
 
@@ -119,7 +119,7 @@ This leads to two issues:
 * the user must waits the HTTP request is done to see the content displayed
 * you should take care of client cache, which must be burst each time you deploy a new version with a different template
 
-### Inlining
+=== Inlining
 
 WUIC takes care of templateUrl occurrences in javascript code and replace it with a template option.
 
@@ -269,6 +269,71 @@ For instance, if you configure engines in your `wuic.xml`, you will write this:
 
 Note: you can filter the value with maven to set this setting to true only in a development profile.
 When you'll go in production, the setting will be false and you won't need to ask your ops to install `Node.JS`
+
+== Enable HTTP/2
+
+=== Purpose
+
+This tutorial shows how you can enable HTTP/2 in your server to let WUIC use this protocol.
+
+HTTP/2 protocol specifies the `server-push` feature that allows to send over the HTTP response additional resources that
+the client should require one he fetched the response. For instance, if a browser fetches a HTML content, it will load
+additional resources like CSS or Javascript files. Actually, we don't wait the browser performs a new request and we
+push those resources earlier.
+
+This method is speculative because we don't know that the client will really load the resource. For instance, if the
+resource is in the browser cache, then the `push` will be canceled.
+
+TIP: by default, WUIC uses https://w3c.github.io/resource-hints[resource-hints] to let the browser fetch the resources
+once the HTTP response is sent to the client. This is slower than HTTP/2 `server-push` but not speculative: if the resource
+is in the browser cache no unnecessary download will occur. If you enable HTTP/2, then `server-push` will be used instead
+of `resource-hints`.
+
+=== Java server
+
+Java server and even servlet containers don't implement any standard API for HTTP/2. This means that each server comes
+with its own API that you need to specifically implement. WUIC hides those API and comes with a support for a specific
+server under the form of a JAR file.
+
+==== Servlet containers
+
+For any servlet container, you must install the `com.github.wuic.servlet.HtmlParserFilter` to let `WUIC` initiate a
+`server-push` for resources associated to the filtered HTML page.
+
+===== Jetty
+
+First you need to install HTTP/2 with `Jetty`. This requires the version 9.3+ and the JDK 8. You will find a complete
+sample in this https://github.com/wuic/wuic-samples/blob/wuic-0.5.x-snapshot/pom.xml[pom.xml].
+
+Then, you just need to add the dependency corresponding to the `Jetty` support for WUIC:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>http2-jetty</artifactId>
+    <version>${project.version}</version>
+</dependency>
+----
+
+You can run your application and see that HTTP/2 is transparently enabled. To see if everything is fine, we advise to
+check the session activity for your host by opening link:chrome://net-internals/#spdy in chrome.
+
+Any WUIC https://github.com/wuic/wuic-samples[sample] can be run with HTTP/2. Read the `README.md` for details!
+
+=== HTTP/2 and nghttpx
+
+With https://nghttp2.org[nghttpx] installed as a proxy, WUIC can initiate a HTTP/2 `server-push` without any extra
+HTTP/2 installation in your java server!
+
+This interesting and alternative technique is to let a `nghttpx` proxy to negotiate a HTTP/2 connection with browsers and
+initiate `server-push` according to the header specified in the HTTP response sent from the back-end. `nghttpx` pushes
+resources referenced in the `<link>` header found in the proxied HTTP response. See their documentation for more details
+https://nghttp2.org/documentation/nghttpx-howto.html[here].
+
+The good news is that WUIC specifies by default `<link>` headers in the HTTP response when a HTML page is filtered
+by the `com.github.wuic.servlet.HtmlParserFilter`. Consequently you just have to install this listener in your webapp
+without the need to configure HTTP/2 in your servlet container.
 
 ++++
 <!-- javascript
