@@ -87,6 +87,10 @@ You will find more tutorials about that link:more-tutorials.html[here].
 
 Finally, more advanced tutorials can be found link:advanced-tutorials.html[here].
 
+=== References
+
+* <<reference.html#_supported_server_and_known_issues, Supported server and known issues>>
+
 === API
 
 After this, you'll find below the detailed documentation about different components browsed in the tutorials:

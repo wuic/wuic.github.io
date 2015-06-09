@@ -81,6 +81,7 @@
                                 <!-- repositories must be checkouted in the same directory -->
                                 <extension-repository>${project.basedir}/../wuic-extensions/</extension-repository>
                                 <wuic-repository>${project.basedir}/../web-ui-compressor/</wuic-repository>
+                                <sample-repository>${project.basedir}/../wuic-samples/</sample-repository>
                             </attributes>
                         </configuration>
                     </execution>
