@@ -118,6 +118,14 @@ c.g.wuic.computeVersionAsynchronously=false
 c.g.wuic.engine.bestEffort=false
 ----
 
+== Error codes
+
+WUIC tries to clearly identify an error with a specific exception and a specific error code.
+When an exception is thrown, you will see in the logs the code which is described http://wuic.github.io/apidocs/com/github/wuic/exception/ErrorCode.html[here].
+
+If you have any suggestion about a more detailed code to be provided by WUIC, please http://wuic.github.io/contact.html[contact] us.
+
+
 ++++
 <!-- javascript
 =================================================== -->
