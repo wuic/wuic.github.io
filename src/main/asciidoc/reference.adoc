@@ -125,6 +125,45 @@ When an exception is thrown, you will see in the logs the code which is describe
 
 If you have any suggestion about a more detailed code to be provided by WUIC, please http://wuic.github.io/contact.html[contact] us.
 
+== Best effort
+
+By default at runtime, any cache `Engine` executes the entire workflow when the desired resources are not in the cache.
+This operation takes time for the first user that retrieves its page.
+You can consider that it won't be a problem since only the first user will be concerned.
+However, WUIC comes with some possibilities to optimize this case.
+
+First, WUIC can populate the cache for any `Nut` explicitly declared in your configuration point (for instance in your `wuic.xml` file) when your server starts.
+This could be achieved with the following `context-param` in your `web.xml` file:
+
+[source,xml]
+----
+    <context-param>
+        <param-name>c.g.w.wuicWarmupStrategy</param-name>
+        <param-value>SYNC</param-value>
+    </context-param>
+----
+
+You can specify the `ASYNC` value instead of `SYNC` if you want that WUIC populates the cache in parallel of other components deployment to reduce startup time.
+
+If WUIC discovers `Nut` on the fly by filtering HTML page with the `HtmlParserFilter` component, it can't know what to cache until a client sends the first HTTP request.
+In that case, WUIC can do its best effort to deliver a response faster by applying synchronously only the mandatory operations.
+
+You can enable this feature like that on your cache engine in your `wuic.properties` file:
+
+[source]
+----
+c.g.wuic.engine.bestEffort=true
+----
+
+Mandatory operations are:
+
+* CSS inspection to rewrite relative URL because they are served from a different location
+* Image inspection to generate a sprite if configured
+* Conversion of extended WEB language like `Typescript`
+
+In best effort mode, all other operations (aggregation, compression) will be done asynchronously when the process result is not cached and the user will get its response faster.
+Of course, the result won't be optimized but you'll still improve response time in that case.
+Finally, once the asynchronous job will be done, cache will be updated and next requests will get transparently the full process result as configured.
 
 ++++
 <!-- javascript
