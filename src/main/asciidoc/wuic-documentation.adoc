@@ -91,6 +91,7 @@ Finally, more advanced tutorials can be found link:advanced-tutorials.html[here]
 
 * <<reference.html#_supported_server_and_known_issues,Supported server and known issues>>
 * <<reference.html#_error_codes,Error codes>>
+* <<reference.html#_cache_mechanism,Cache mechanism>>
 * <<reference.html#_best_effort,Best effort>>
 
 === API

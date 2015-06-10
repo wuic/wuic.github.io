@@ -125,6 +125,56 @@ When an exception is thrown, you will see in the logs the code which is describe
 
 If you have any suggestion about a more detailed code to be provided by WUIC, please http://wuic.github.io/contact.html[contact] us.
 
+== Caching mechanism
+
+Caching is a critical issue because it is often the most effective way to improve performances.
+However, implementing a cache mechanism becomes tricky when we want to expose fresh data to the users.
+
+WUIC helps developer to expose statics while taking advantage from caching on both server-side and client-side.
+It also takes care of cache eviction when statics need to be refreshed.
+This page introduces how WUIC does the trick.
+
+=== Caching on server side
+
+When a workflow is executed on server side, a set of statics are retrieved to be converted to treatable nuts.
+The result is added to a cache which could be managed behind the scene by a `memory map` or then `EhCache` if you configured it.
+
+Then, any other execution of the workflow will be faster because WUIC will use the cache to retrieve processed nuts.
+
+To guarantee nuts freshness, you can obviously configure the cache with some settings to set a time to live or a time to idle.
+However, this simple solution has its limitation.
+Once you deployed your new statics, they will be ignored until the cache has expired.
+Moreover, cache duration becomes a big problem since you may configure a high value (say 1 day) because you want that your application uses the cache as much as possible.
+
+A better solution would be the <<tutorials.html#_monitor_changes,polling feature>>.
+Here a thread will check any changes on set of statics at a configured interleave.
+Nothing prevents you to poll your statics more regularly, say every 10 minutes.
+
+TIP: it becomes interesting when you realize that WUIC triggers an event internally to evict the cache entry when any associated nut corresponds to an updated static.
+
+=== Caching on client side
+
+The HTTP protocol provides several directives to order caching to the browser.
+We often talk about the http://en.wikipedia.org/wiki/Web_cache#Cache_control[cache control] header.
+The `max-age` value defines how long the static should be kept before checking for new update.
+The same problem on the server appears: you don't know how long the user will load an old version from browser cache until its expiry.
+Consequently, you may probably set a short value.
+When the statics expires, the browser sends an HTTP request to the server to know if the data is fresh or not.
+If data is fresh, server responds with a status code `304 - not modified` and an empty body.
+However, it sends the fresh data in the body.
+What is unfortunate here is that the browser could poll the server synchronously and, at the end, see that nothing changed.
+WUIC does not use the cache control for that reason.
+
+The HTTP response should instead contains a "expires" directive which tells the browser to keep the statics for a very long time.
+Since cache entry is associated the path URL of the static, WUIC has just to modify this path to evict the cache.
+How it does the trick? By adding in the URL a `CRC32` hash based on all nuts name processed by the workflow and their last modification timestamp.
+When nuts are changed, it could be detected on redeployment or during a polling operation.
+Both cases will result in the computation of a different `CRC32` hash which will change the static URL, which does not corresponds to any cache entry on the browser.
+This is the way WUIC prevent any unnecessary HTTP request on the server while maintaining fresh statics loaded by the browser.
+
+TIP: with HTTP/2 `server-push` is always initiated and stopped as soon as the browser has detected that the resource is actually cached.
+With `resource-hint`, the browser will check first that resource is not cached before creating a new HTTP request.
+
 == Best effort
 
 By default at runtime, any cache `Engine` executes the entire workflow when the desired resources are not in the cache.
