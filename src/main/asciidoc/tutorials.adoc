@@ -594,7 +594,7 @@ There are one benefit and one concern of build time solution:
 
 === Configure your pom.xml
 
-You can use the static-helper-maven-plugin that is commonly configured like that in the build section of your pom.xml:
+You can use the `static-helper-maven-plugin` that is commonly configured like that in the build section of your `pom.xml`:
 
 [source,xml]
 ----
@@ -612,6 +612,7 @@ You can use the static-helper-maven-plugin that is commonly configured like that
     </executions>
     <configuration>
         <xml>src/main/resources/wuic.xml</xml>
+        <properties>src/main/resources/wuic.properties</properties>
         <relocateTransformedXml>true</relocateTransformedXml>
         <output>${build.finalName}</output>
     </configuration>
@@ -621,6 +622,7 @@ You can use the static-helper-maven-plugin that is commonly configured like that
 Here we define the following configuration options:
 
 * `xml`: the `wuic.xml` file location (which is configured as usual)
+* `properties`: the `wuic.properties` file location (which is optional)
 * `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your target directory to allow the servlet to serve the process result from the application server
 * `output`: base path where results are written by the plugin
 
