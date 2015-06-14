@@ -594,6 +594,8 @@ There are one benefit and one concern of build time solution:
 
 === Configure your pom.xml
 
+==== With Maven plugin
+
 You can use the `static-helper-maven-plugin` that is commonly configured like that in the build section of your `pom.xml`:
 
 [source,xml]
@@ -623,7 +625,59 @@ Here we define the following configuration options:
 
 * `xml`: the `wuic.xml` file location (which is configured as usual)
 * `properties`: the `wuic.properties` file location (which is optional)
-* `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your target directory to allow the servlet to serve the process result from the application server
+* `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your out directory with some metadata files. This will allow the servlet to serve the process result from the application server by picking information from classpath.
+* `output`: base path where results are written by the plugin
+
+==== With ANT integration
+
+WUIC support `ant` integration. For instance, you can configure the `maven-antrun-plugin` like that:
+
+[source,xml]
+----
+<plugin>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>1.8</version>
+    <executions>
+        <execution>
+            <phase>prepare-package</phase>
+            <configuration>
+                <target name="wuic-target">
+                    <property name="wuic-jar" value="${maven.dependency.com.github.wuic.wuic-core.jar.path}"/>
+                    <property name="wuic-output" value="${project.build.directory}/${project.build.finalName}" />
+                    <ant antfile="${basedir}/build.xml">
+                        <target name="wuic-task"/>
+                    </ant>
+                </target>
+            </configuration>
+            <goals>
+                <goal>run</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+----
+
+In your `build.xml` file, just add:
+
+[source,xml]
+----
+<project>
+    <target name="wuic-task">
+        <taskdef name="wuic" classname="com.github.wuic.WuicTask" classpath="${wuic-jar}"/>
+        <wuic xml="src/main/resources/wuic-ant.xml"
+              properties="target/classes/wuic-ant.properties"
+              relocateTransformedXmlTo="${wuic-output}/WEB-INF/classes"
+              output="${wuic-output}"
+        />
+    </target>
+</project>
+----
+
+Here we define the following configuration options:
+
+* `xml`: the `wuic.xml` file location (which is configured as usual)
+* `properties`: the `wuic.properties` file location (which is optional)
+* `relocateTransformedXmlTo`: if defined, a location where the transformed `wuic.xml` file some metadata must be written. This directory should be added to your classpath at runtime to allow the servlet to serve the process result from the application server by picking information from classpath.
 * `output`: base path where results are written by the plugin
 
 === Configure
