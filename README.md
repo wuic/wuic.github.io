@@ -4,7 +4,6 @@ WUIC's website sources branch. Publish it to master branch:
 
 TODO:
 - Migrate "Natural templating and Angular" tutorial
-- Migrate "Feature comparison"
 - Migrate "DAO configuration"
 - Migrate "Engine configuration"
 - Check links in the .adoc files

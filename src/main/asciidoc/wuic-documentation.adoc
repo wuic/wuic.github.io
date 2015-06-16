@@ -93,6 +93,7 @@ Finally, more advanced tutorials can be found link:advanced-tutorials.html[here]
 * <<reference.html#_error_codes,Error codes>>
 * <<reference.html#_cache_mechanism,Cache mechanism>>
 * <<reference.html#_best_effort,Best effort>>
+* <<reference.html#_features_comparison,Feature comparison>>
 
 === API
 

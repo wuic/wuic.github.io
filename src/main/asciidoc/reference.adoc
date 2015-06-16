@@ -215,7 +215,96 @@ In best effort mode, all other operations (aggregation, compression) will be don
 Of course, the result won't be optimized but you'll still improve response time in that case.
 Finally, once the asynchronous job will be done, cache will be updated and next requests will get transparently the full process result as configured.
 
+== Feature comparison
+
+=== Choose the right tool
+
+WUIC provides several features to optimize your statics.
+Choosing the right feature is important because they will have a different impact on your application in terms of:
+
+* `Performances`: statics are optimized but an overhead can exist
+* `Maintainability`: how you integrate the tool has an impact when you maintain your application
+* `Scalability`: some compared feature can limit the power of WUIC, reducing the possibilities if you want to enhance your application
+
+This document shows those differences to help you make the best choice.
+
+=== Features overview
+
+* `No-Tag`: just refer URL mapped to the WUIC servlet in your `<script>`, `<link>` and `<img>` elements when you write the HTML page
+* `Per-Page-Configuration` with link:tutorials.html#_configure_resource_location_in_jsp[JSP] or link:tutorials.html#_create_your_template[Thymeleaf]
+* `Startup-Configuration` (for instance with configuration in `wuic.xml`) with `JSP` or `Thymeleaf` support to write imports
+* link:tutorials.html#_use_the_servlet_filter[Servlet-Filter]
+* link:tutorials.html#_process_at_build_time[Build-Time]
+
 ++++
+<table>
+    <tr>
+        <td><b>Feature</b></td>
+        <td><b>Performance</b></td>
+        <td><b>Maintain</b></td>
+        <td><b>Scalable</b></td>
+    </tr>
+    <tr>
+        <td><b><i>No-Tag</i></b></td>
+        <td><b><i>Good</i></b></td>
+        <td><b><i>Limited</i></b></td>
+        <td><b><i>Limited</i></b></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            Full front-end development with no server-side page generation.
+            It becomes necessary to re-deploy your application each time a new version needs to be published.
+            You need also to evict by yourself browser cache.
+        </td>
+    </tr>
+    <tr>
+        <td><b><i>Startup-Configuration</i></b></td></td>
+        <td><b><i>Good</i></b></td>
+        <td><b<i>Good</i></b></td>
+        <td><b><i>Good</i></b></td>
+    </tr>
+    <tr>
+        <td colspan="4">Server-side page generation with all configurations in one location (wuic.xml)</td>
+    </tr>
+    <tr>
+        <td><b><i>Per-Page-Configuration</i></b></td>
+        <td><b><i>Limited</i></b></td>
+        <td><b><i>Good</i></b></td>
+        <td><b><i>Excellent</i></b></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            Server-side page generation with more configurations added in each page.
+            Perfect when having a lot of pages with dedicated statics: it's more easy to declare them in the single page using it instead of declaring them in a big wuic.xml file.
+            Configuration is discovered when user loads the page. "c.g.wuic.facade.multipleConfigInTagSupport" setting set to false helps to reduce response time.</td>
+    </tr>
+    <tr>
+        <td><b><i>Servlet-Filter</i></b></td>
+        <td><b><i>Limited</i></b></td>
+        <td><b><i>Excellent</i></b></td>
+        <td><b><i>Limited</i></b></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            Legacy pages that takes too much time to migrate to use tags.
+            Statics are discovered when the user loads the page.
+            Best effort mode can help to reduce response time.
+        </td>
+    </tr>
+    <tr>
+        <td><b><i>Build-Time</i></b></td>
+        <td><b><i>Excellent</i></b></td>
+        <td><b><i>Limited</i></b></td>
+        <td><b><i>Good</i></b></td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            Not necessary to reload statics at runtime.
+            It becomes necessary to re-deploy your application each time a new version needs to be published.
+        </td>
+    </tr>
+</table>
+
 <!-- javascript
 =================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
