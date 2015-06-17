@@ -464,6 +464,9 @@ Inside a heap, you can refer an existing one with `heap-id` or declare a new hea
 </wuic>
 ----
 
+WARNING: nuts retrieved from `nut-path` are always read before nuts retrieved from nested and referenced heaps.
+If order matter, you should not mix `nut-path` with heaps and only use `heap` and `heap-id` to preserve order.
+
 === workflow-templates
 
 The workflow templates describe the way the nut could be processed.
