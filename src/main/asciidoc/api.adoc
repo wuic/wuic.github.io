@@ -39,7 +39,7 @@ IMPORTANT: for deep understanding of settings purpose declared in `web.xml`, you
 
 == Configuring the wuic.xml
 
-The table bellow describes each tag and their hierarchy in the `wuic.xml` file :
+The table bellow describes each tag and their hierarchy in the `wuic.xml` file:
 
 ++++
 <table>
@@ -604,12 +604,13 @@ Reminder for default implementation:
     </context-param>
 ----
 
-*Note those who don't want use init-param:* you will see the particular `c.g.wuic.initParameterClass` `init-param` in the table below.
+*Note for those who don't want to use init-param:*
+you will see the particular `c.g.wuic.initParameterClass` `init-param` in the table below.
 If you want to provide parameters in a different way, specify an implementation of `com.github.wuic.util.BiFunction` (inspired from Java 8).
 It must be parameterized with String type only.
 The first parameter of `apply()` expects the key and the second parameter the default value.
 The method returns the value associated to the given key.
-If you set this `init-param`, no other init-param with a key mentioned bellow will be interpreted since your implementation will be used.
+If you set this `init-param`, no other `init-param` with a key mentioned bellow will be interpreted since your implementation will be used.
 
 In the `Parameter name` column bellow, replace the first `*` character from all keys and replace it with `c.g.wuic`.
 
@@ -660,7 +661,7 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
     </tr>
     <tr>
          <td>*.facade.wuicMultipleConfigInTagSupport</td>
-         <td>For tag support (Thymeleaf, JSP, etc) : tell to parse the configuration every time the tag is run</td>
+         <td>For tag support (Thymeleaf, JSP, etc): tell to parse the configuration every time the tag is run</td>
          <td>false</td>
     </tr>
     <tr>
