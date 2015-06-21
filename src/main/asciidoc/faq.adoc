@@ -56,6 +56,13 @@ Finally, it is not necessarily mandatory to chose between a `WUIC` and a `Node.J
 WUIC also tries to provide a better integration of any kind of tool in `Java` application thanks to an unified API.
 In other words, the goal of the project is to make easier `Node.JS` integration for `Java` developer.
 
+=== Who are our competitors?
+
+Projects like `WRO4J`, `JAWR` or `Granule` address similar issues in a similar scope than `WUIC`.
+Those projects have different priorities, and a state that differ to each other.
+You won't find any competitive benchmark in our site, as we consider them as the institutionalization of cheating.
+If we don't convince you, we prefer you to make your own opinion by testing several solution, or by getting feedback from the community ;-)
+
 === What about performances?
 
 Because of the capability to process statics on the fly, you have to know some performance considerations.
