@@ -56,6 +56,13 @@ Finally, it is not necessarily mandatory to chose between a `WUIC` and a `Node.J
 WUIC also tries to provide a better integration of any kind of tool in `Java` application thanks to an unified API.
 In other words, the goal of the project is to make easier `Node.JS` integration for `Java` developer.
 
+=== Is it a replacement for Spring Resource Handling?
+
+No.
+
+http://spring.io/blog/2014/07/24/spring-framework-4-1-handling-static-web-resources[Spring Resource Handling] is extensible by design.
+WUIC can be plugged into the `Spring` WEB architecture with a dedicated https://github.com/wuic/wuic-extensions/tree/wuic-0.5.x-snapshot/spring[extension].
+
 === Who are our competitors?
 
 Projects like `WRO4J`, `JAWR` or `Granule` address similar issues in a similar scope than `WUIC`.

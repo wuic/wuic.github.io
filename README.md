@@ -9,4 +9,4 @@ TODO:
 - Check links in the .adoc files
 - Review table of content in wuic-documentation.adoc
 - Write feature page
-- Add "Is it a replacement for Spring Resource Handling" to FAQ
+- Add "Does HTTP/2 makes tools like WUIC obsolete?" to FAQ
