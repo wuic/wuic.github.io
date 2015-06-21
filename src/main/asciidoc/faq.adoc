@@ -37,11 +37,26 @@
 
 == Common
 
-=== What is the version of the JDK to use ?
+=== What is the version of the JDK to use?
 
-WUIC library is currently compiled with the JDK v1.6u45 !
+WUIC library is currently compiled with the JDK v1.6u45!
 
-=== What about performances ?
+=== Is it a replacement for Node.JS?
+
+Yes and no.
+
+For non-java developer: No. `Node.JS` is awesome and provides, through `npm`, a lot of assets processors like `grunt` or `gulp`.
+When you develop your app with Node.JS, you have the set of great tools that help you manage your web assets efficiently.
+
+For java developers: Yes.
+When you write a web application with `Java`, you can start to find a lot of boilerplate based on very different solutions in your stack if you mix it with `Node.JS`.
+`Java` ecosystem already offers a lot of frameworks and tool like `maven` or `spring` that should be extended to process web assets through their API already used for other purposes.
+
+Finally, it is not necessarily mandatory to chose between a `WUIC` and a `Node.JS` based solution.
+WUIC also tries to provide a better integration of any kind of tool in `Java` application thanks to an unified API.
+In other words, the goal of the project is to make easier `Node.JS` integration for `Java` developer.
+
+=== What about performances?
 
 Because of the capability to process statics on the fly, you have to know some performance considerations.
 
@@ -51,7 +66,7 @@ What is important is the cache strategy you want to choose to not redo the same 
 
 Finally, in addition to the cache enabled on server side, WUIC provides a nice browser cache mechanism (TODO: migrate caching-mechanism#caching-on-client-side) that will improve your response time.
 
-=== What JEE server can I use ?
+=== What JEE server can I use?
 
 WUIC is designed to be used on any kind of servlet container. However, not all of them have been tested. You can follow the state of the tests here (TODO: migrate https://github.com/wuic/wuic/wiki/List-of-supported-servers).
 
@@ -71,17 +86,17 @@ However, the JAVA API won't be always used to check if a nut matches or not. In 
 
 === Polling feature not always works when nuts are embedded in the webapp
 
-Two different supports of webapp accesses are provided by WUIC : one for exploded war deployment and one for packaged deployment.
+Two different supports of webapp accesses are provided by WUIC: one for exploded war deployment and one for packaged deployment.
 
 WUIC detects transparently when the war file is exploded by the server. In this case, it uses a mechanism which supports polling so update could be detected easily. However, if you deploy a packaged war without exploding it, the ServletContext does not provide real path on the file system so WUIC is not able to find it and to check the last modification date.
 
 Take care of how you deploy your application. We encourage to use polling feature for webapp resources only for cache invalidation during development. In this context, you can use exploded mode on your local server. However, when your to production, you may deploy the packaged war without exploding it to prevent manual modifications and to guarantee the running version. This consideration does not suit the polling philosophy which considers hot redeployment. In that case, you may prefer to perform polling operations on files outside the webapp.
 
-=== How can I show the logs of WUIC ?
+=== How can I show the logs of WUIC?
 
 WUIC uses `SLF4J` as logging facade. You can refer to the `SLF4J` documentation to see how configure logs. Usually, if your log level filter strategy is based on package, keep in mind that all classes of WUIC are under the `com.github.wuic` package.
 
-=== Why so many logs are generated from JavascriptYuiCompressorErrorReporter ?
+=== Why so many logs are generated from JavascriptYuiCompressorErrorReporter?
 
 This class is an implementation of an ErrorReporter from `YUICompressor` to see every issues detected by `YUICompressor` when it processes Javascript files. It often detects a lot of warnings and, if you are ok with that, you may want to disable those logs. For instance, in `Log4J`:
 
@@ -142,11 +157,11 @@ Keep in mind that:
 * You need to explicitly declare the dependencies to EHCache and YUICompressor if you want to use the engines based on those projects.
 * Some protocol supports like FTP and SSH have a dedicated module in WUIC that you need to add to your pom.xml
 
-=== Can nuts processed by WUIC have the same name ?
+=== Can nuts processed by WUIC have the same name?
 
 We strongly discourage it.
 
-In fact, we don't guarantee two nuts with the same name won't create an issue, even if they are referenced by different heaps. There's many cases where names could be in conflict :
+In fact, we don't guarantee two nuts with the same name won't create an issue, even if they are referenced by different heaps. There's many cases where names could be in conflict:
 
 * happens when you have a nut named `foo.js` and another nut `foo.js` referenced with the `../` notation (so you have something like `../../foo.js`).
 * happens when you use sprites because CSS class or Javascript property are formatted and simplified (`/bar/foo1.js` and `/foo/foo2.js` gives `foo_`).
@@ -164,7 +179,7 @@ Now, if an image `img/ref.png` is referenced by `bar.css`, WUIC will consider th
 
 If the computed path does not exists, then WUIC will just log the warning and won't build the nut.
 
-=== How my CSS classes names are generated when sprites are computed ?
+=== How my CSS classes names are generated when sprites are computed?
 
 Naming convention is the same for both CSS and Javascript sprite usage.
 
@@ -188,7 +203,7 @@ Several build tools like maven copy the sources to package you webapp and, accor
 
 Of course, the drawback is that this operation is slower because the whole content will be read, which increases startup time.
 
-=== At build time, how to keep the filtered index.html inside the root directory ?
+=== At build time, how to keep the filtered index.html inside the root directory?
 
 The maven plugin always generate the files in a subdirectory named with its corresponding hash to evict browser cache when you deploy your statics.
 However, the filtered index.html is still served at the root of your server so by default you need to copy it manually, which could be done automatically with maven:
@@ -232,7 +247,7 @@ However, the filtered index.html is still served at the root of your server so b
 </plugin>
 ----
 
-=== At build time how the maven plugin can read filtered sources ?
+=== At build time how the maven plugin can read filtered sources?
 
 If you have some sources like javascript files filtered with maven, you need to configure your pom.xml properly to tell the WUIC plugin to read generated sources.
 
@@ -311,18 +326,18 @@ Then, just copy the resources to the target directory and tell the plugin to gen
 
 == Contribute
 
-=== WUIC is great, how to follow the project ?
+=== WUIC is great, how to follow the project?
 
 You can https://twitter.com/wuic_project[follow us on twitter].
 
 We also have https://groups.google.com/forum/#!forum/wuic[a forum].
 
-=== How can I contribute by using WUIC ?
+=== How can I contribute by using WUIC?
 
 Please check our last http://gdrouet.github.io/wuic/project.html#release[release].
 Any feedback is welcome. You can use the https://groups.google.com/forum/#!forum/wuic[a forum] or the issue tracker on github.
 
-=== How can I contribute by coding ?
+=== How can I contribute by coding?
 
 We use the nice pull request feature from github.
 Please contribute by creating PR on the most recent `snapshot-x.x.x` branch of our repositories.

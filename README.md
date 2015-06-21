@@ -10,5 +10,4 @@ TODO:
 - Review table of content in wuic-documentation.adoc
 - Write feature page
 - Add "Who are competitors?" to FAQ
-- Add "Is it a replacement for Node.JS?" to FAQ
 - Add "Is it a replacement for Spring Resource Handling" to FAQ
