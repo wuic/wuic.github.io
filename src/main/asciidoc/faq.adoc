@@ -70,6 +70,29 @@ Those projects have different priorities, and a state that differ to each other.
 You won't find any competitive benchmark in our site, as we consider them as the institutionalization of cheating.
 If we don't convince you, we prefer you to make your own opinion by testing several solution, or by getting feedback from the community ;-)
 
+=== Does HTTP/2 makes tools like WUIC obsolete?
+
+No.
+
+Some optimizations should be indeed remove:
+
+* Domain sharding: with HTTP/2, several requests can be submitted to the same domain in parallel
+* Cookie free domains: multiplexing avoid the overhead linked to cookies sent with each request
+
+Other optimization should be kept with cautions:
+
+* Aggregation, inlining and sprites: make sure that all resources are used in the page. Otherwise prefer taking advantage from multiplexing.
+
+Finally, several optimizations are still recommended:
+
+* Minimize Javascript, CSS and HTML
+* Remove redundant data from image
+* Enable browser cache
+* GZIP the content
+* Resource hint
+
+And don't forget `server-push` from HTTP/2 protocol that could be enabled easily with tools like WUIC.
+
 === What about performances?
 
 Because of the capability to process statics on the fly, you have to know some performance considerations.

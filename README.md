@@ -9,4 +9,3 @@ TODO:
 - Check links in the .adoc files
 - Review table of content in wuic-documentation.adoc
 - Write feature page
-- Add "Does HTTP/2 makes tools like WUIC obsolete?" to FAQ
