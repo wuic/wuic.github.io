@@ -335,6 +335,134 @@ The good news is that WUIC specifies by default `<link>` headers in the HTTP res
 by the `com.github.wuic.servlet.HtmlParserFilter`. Consequently you just have to install this listener in your webapp
 without the need to configure HTTP/2 in your servlet container.
 
+== Natural templating with AngularJS
+
+=== Purpose
+
+This part explain an important design consideration when you want to mix natural templating, WUIC and `AngularJS`.
+In fact, WUIC reads `templateUrl` option relatively to the script location declaring the directive, while in a pure HTML page, `AngularJS` loads it relatively to the page location.
+This chapter gives details about the workaround you can use to mix natural templating in development and server-side WUIC optimization in production.
+
+=== Design
+
+Natural templating considers you should not process your page on server side before it could be served to the client.
+WUIC makes it possible since you can write a pure HTML page and then optimize it with an http://wuic.github.io/apidocs/com/github/wuic/engine/core/HtmlInspectorEngine.html[engine] installed by default.
+The simplest way to optimize the page in this case is to use the link:tutorials.html#_use_the_servlet_filter[servlet filter] provided by WUIC.
+
+=== Demonstration
+
+If you want to directly display the HTML page in the browser, your templates will be loaded relatively to this page.
+For instance, if we have the following structure:
+
+----
+    .
+    |--app
+       `-- index.html
+       |--myFeature
+          |--directive
+             `-- myDirective.js
+          |--template
+             `-- myTemplate.html
+----
+
+You will write your directive like this:
+
+[source,javascript]
+----
+    myModule.directive('myDirective', function() {
+       return {
+           templateUrl: 'myFeature/template/myTemplate.html'
+       };
+    });
+----
+
+Everything will work fine.
+Then if you want to use the link:tutorials.html#_use_the_servlet_filter[servlet filter] provided by WUIC.
+When you deploy into production, WUIC will try to detect `templateUrl` options in the javascript code.
+In our example, WUIC will read the URL `myFeature/template/myTemplate.html` relatively to the script `myDirective.js`, which leads to bad URL computation (`/app/myFeature/myDirective/myFeature/template/myTemplate.html` does not exists!).
+In that case, WUIC will log a warning and won't change the statement.
+Your application won't be broken but no optimization will be done!
+
+So if you want to see your template optimized, you should write your directive like this:
+
+[source,javascript]
+----
+    myModule.directive('myDirective', function() {
+       return {
+           templateUrl: '../template/myTemplate.html'
+       };
+    });
+----
+
+The problem is that your template won't work when you display your page without filtering it with WUIC.
+In fact, because the URL is relative to the page location, the browser will try to load `/app/../template/myTemplate.html`, which does not exists!
+The solution is to provide a function which takes in parameter the relative URL and computes the correct absolute path like WUIC does.
+This could be done with a function returning the location of the current executed script. You can bind this function to the declared module:
+
+[source,javascript]
+----
+var myModule = angular.modue('myModule');
+
+/**
+ * Gets the directory path (url without file name) from the latest loaded script.
+ * This function could be used to register script location when they get executed.
+ * In fact the returned object exposes a getChild function which returns a given path
+ * concatenated to the script directory path.
+ *
+ * @method getPathRelativeToScript
+ * @returns {Object} the directory path
+ */
+myModule.getLastScriptPathDirectory = function () {
+    var scripts = document.getElementsByTagName('script');
+    var path = scripts[scripts.length - 1].src.split('?')[0]; // remove any ?query
+    var dir = path.split('/').slice(0, -1).join('/') + '/';   // remove last filename part of path
+
+    return {
+        getChild : function(path) {
+            return dir + path;
+        }
+    }
+};
+----
+
+Then in your `myDirective.js` file, you can use this function like that:
+
+[source,javascript]
+----
+    1. myModule.constant('myDirectiveUrl', myModule.getLastScriptPathDirectory());
+    2. myModule.directive('myDirective', function(myDirectiveUrl) {
+    3.    var getChild = myDirectiveUrl.getChild;
+          return {
+    4.        templateUrl: getChild('../template/myTemplate.html')
+          };
+       });
+----
+
+1. We declare the AngularJS constant which to keep the script location.
+2. We inject the constant into the directive.
+3. The constant is an object providing a getChild function.
+4. We use the getChild function to get the correct absolute URL.
+
+The last thing we have to do is to configure WUIC to not extract `getChild(...)` as an URL and instead ignore the wrapping function.
+This could be done by configuring the `JavascriptInspectorEngine` in your `wuic.xml` file:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wuic>
+    <engine-builders>
+        <engine-builder id="wuicDefaultJavascriptInspectorEngineBuilder" type="JavascriptInspectorEngineBuilder">
+            <properties>
+                <property key="c.g.wuic.engine.wrapPattern">getChild(%s)</property>
+            </properties>
+        </engine-builder>
+    </engine-builders>
+</wuic>
+----
+
+That's it! you can now develop without any server deployment and then let WUIC optimize your scripts in production!
+
 ++++
 <!-- javascript
 ================================================== -->
