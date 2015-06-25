@@ -627,6 +627,7 @@ Here we define the following configuration options:
 * `properties`: the `wuic.properties` file location (which is optional)
 * `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your out directory with some metadata files. This will allow the servlet to serve the process result from the application server by picking information from classpath.
 * `output`: base path where results are written by the plugin
+* `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
 
 ==== With ANT integration
 
