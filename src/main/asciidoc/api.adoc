@@ -742,14 +742,33 @@ If your pages are served from your application server, you can filter them with 
 </table>
 ++++
 
+==== Extend the filter
+
+===== Custom DAO
+
 By default WUIC uses a `RequestDispatcherNutDao`.
 The http://wuic.github.io/apidocs/com/github/wuic/servlet/HtmlParserFilter.html[javadoc] describes how you can extend the
 filter to specify another DAO or even a complete chain of engines to use. Note that if you use `FilterRegistration` then
 you can instantiate the class with different constructors instead of using the default one.
 
+===== Custom page identification
+
+IMPORTANT: WUIC computes an unique ID for each filtered page.
+For each ID, WUIC will associate all the filtered statements and cache them.
+This means that if two page lead to the same ID, you will start facing weird issues.
+By default, the servlet path is used to compute the ID. If other discriminators are used, you can create a class
+that extends the `HtmlParserFilter` and override it like that:
+
+[source,java]
+----
+include::{wuic-repository}wuic/servlet/src/test/java/com/github/wuic/servlet/test/SkipIssue123.java[tags=extractWorkflowId]
+----
+
+In this example, we identify the page with all parameters in query string in addition to the servlet path.
+
 ==== Complete sample
 
-You have the sample [here](https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/js-css-sample).
+You have the sample https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/js-css-sample[here].
 
 ++++
 <table>

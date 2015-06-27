@@ -120,7 +120,7 @@ This could be done by installing the WUIC servlet `Filter`:
 ----
 
 The optimized HTML will refer optimized CSS and Javascript scripts that need to be served at a specific location.
-To serve processed nuts in our servlet container, you need to declare the WUIC `Servlet` inside your web.xml file.
+To serve processed nuts in our servlet container, you need to declare the WUIC `Servlet` inside your `web.xml` file.
 
 [source,xml]
 ----
