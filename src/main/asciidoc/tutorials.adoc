@@ -594,6 +594,18 @@ There are one benefit and one concern of build time solution:
 
 === Configure your pom.xml
 
+==== Options
+
+Both task and maven plugin allow to configure the following options:
+
+* `xml`: the `wuic.xml` file location (which is configured as usual)
+* `properties`: the `wuic.properties` file location (which is optional)
+* `output`: base path where results are written by the plugin
+* `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
+* `contextPath`: the context path of the web server that will serve the generated statics (which is optional)
+
+You will see in the next sections how they can be declared.
+
 ==== With Maven plugin
 
 You can use the `static-helper-maven-plugin` that is commonly configured like that in the build section of your `pom.xml`:
@@ -621,13 +633,9 @@ You can use the `static-helper-maven-plugin` that is commonly configured like th
 </plugin>
 ----
 
-Here we define the following configuration options:
+The maven plugin has the following specific options:
 
-* `xml`: the `wuic.xml` file location (which is configured as usual)
-* `properties`: the `wuic.properties` file location (which is optional)
 * `relocateTransformedXml`: when set to true, after statics have been processed, the plugin will move a transformed `wuic.xml` file to your out directory with some metadata files. This will allow the servlet to serve the process result from the application server by picking information from classpath.
-* `output`: base path where results are written by the plugin
-* `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
 
 ==== With ANT integration
 
@@ -674,12 +682,9 @@ In your `build.xml` file, just add:
 </project>
 ----
 
-Here we define the following configuration options:
+The task has the following specific options:
 
-* `xml`: the `wuic.xml` file location (which is configured as usual)
-* `properties`: the `wuic.properties` file location (which is optional)
 * `relocateTransformedXmlTo`: if defined, a location where the transformed `wuic.xml` file some metadata must be written. This directory should be added to your classpath at runtime to allow the servlet to serve the process result from the application server by picking information from classpath.
-* `output`: base path where results are written by the plugin
 
 === Configure
 
