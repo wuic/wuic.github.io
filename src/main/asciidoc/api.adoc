@@ -660,6 +660,14 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
         <td>Empty string</td>
     </tr>
     <tr>
+        <td>*.facade.additionalBuilderInspectorClasses</td>
+        <td>
+            List of comma-separated class names extending http://wuic.github.io/apidocs/index.html?com/github/wuic/config/ObjectBuilderInspector.html[ObjectBuilderInspector]
+            that will be used in the facade.
+        </td>
+        <td>Empty string</td>
+    </tr>
+    <tr>
          <td>*.facade.wuicMultipleConfigInTagSupport</td>
          <td>For tag support (Thymeleaf, JSP, etc): tell to parse the configuration every time the tag is run</td>
          <td>false</td>
