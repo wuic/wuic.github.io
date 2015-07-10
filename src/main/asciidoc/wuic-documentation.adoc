@@ -46,6 +46,64 @@ Find the documentation for following purpose:
 * <<How to extend WUIC>>
 * <<How to use WUIC in my framework>>
 
+=== Features
+
+* Cache optimization:
+    ** HTTP header to cache to the client version URLs of the resources
+    ** Server side caching (built-in memory cache or `EhCache` support)
+    ** HTML5 cache manifest support for the entire page
+* Network optimization:
+    ** Support HTTP/2 server-push for Java server
+    ** Support resource-hint specification
+* Content optimizations:
+    ** GZIP content when browser accepts it
+    ** Aggregate scripts (JS and CSS)
+    ** Aggregate images with a bin packing algorithm and compute sprites for each of them
+    ** Minify JS and CSS thanks to `YUICompressor`
+    ** Minify HTML thanks to `html-compressor`
+    ** Inline resources (JS and CSS)
+    ** Extracts inline scripts from HTML pages
+* Hot reload:
+    ** Polls configuration files to reload changes
+    ** Evict cache entries if necessary
+* API:
+    ** `JSP` tag support
+    ** `Thymeleaf` processor support
+    ** Built-in tag support
+* Configuration:
+    ** Organize the resources easily, declare their location and how to process them
+    ** Completely configurable API in `web.xml`, dedicated XML or property file
+    ** Possible to configure in pure `Java`
+    ** Conventions over configuration with default settings and auto-configuration
+* Process at build time:
+    ** Maven plugin
+    ** Ant task
+* Process at runtime:
+    ** `Servlet` that serves optimized content
+    ** `Filter` that optimizes HTML content of the fly
+    ** `ContextListener` that bootstraps WUIC automatically
+    ** Asynchronous processing with Servlet 3 support
+    ** Best-effort: don't deliver content if not ready yet
+    ** Process and cache the result when server starts
+* Additional frameworks and language:
+    ** Support `Spring Framework` asset pipeline
+    ** Support `Typescript` compilation with Node.JS integration or embedded `Trireme`
+* Maven:
+    ** Modular extensions with a lot of artifacts under Maven Central
+    ** Automatically enables extensions when discovered in classpath
+* Versioned URLs:
+    ** Fixed version number in properties
+    ** Version number computed from file's modification date
+    ** Version number computed from `CRC32` file checksum
+* Resource resolution:
+    ** Abstraction of the protocol to use (Classpath, File System, Webapp, HTTP(s), FTP(s), SFTP, Cloud, etc)
+    ** Support wildcard for resource resolution
+    ** Support pure regex for resource resolution
+* Discover nested resources URLs, rewrite them and optimize their content:
+    ** CSS: resolve URLs in `@font-face`, `background url` and `@import`
+    ** JS: resolve `templateUrl` for `AngularJS` and `sourceMappingURL` for `sourcemaps`.
+    ** HTML: resolve inline JS and CSS content, `<img>`, `<script>` and `<link>` tags
+
 === FAQ
 
 Please find our FAQ section link:faq.html[here].

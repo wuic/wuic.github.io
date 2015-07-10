@@ -7,4 +7,3 @@ TODO:
 - Migrate "Engine configuration"
 - Check links in the .adoc files
 - Review table of content in wuic-documentation.adoc
-- Write feature page
