@@ -713,6 +713,9 @@ and http://www.w3.org/TR/resource-hints[link] headers won't be set in the HTTP r
 In that case, WUIC will modify the HTML to respectively insert a (http://www.w3.org/TR/2011/WD-html5-20110525/offline.html)[cache manifest]
 file and a `link` tag to the content.
 
+TIP: if your statics are going to served by the `Servlet container`, the `ContextListener` will automatically install a
+`Filter` that optimize each resource by enabling the browser cache. It will also `GZIP` the content if the client supports it.
+
 ==== Configure for templating usage
 
 If you use templating project like `JSP` or `Thymeleaf`, then you can build your application as usual and then use the maven plugin to create a file added to the classpath.
