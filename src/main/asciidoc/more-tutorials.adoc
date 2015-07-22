@@ -110,7 +110,7 @@ This topic gives you the details.
 
 AngularJS is MV* framework which advises the use of custom directives. As described in https://docs.angularjs.org/guide/directive[the documentation]:
 
-[lead]
+[.lead]
 Best Practice: Unless your template is very small, it's typically better to break it apart into its own HTML file and load it with the `templateUrl` option.
 
 This means that when `AngularJS` will instantiate the directive, an additional HTTP request will be executed to load the template content.
