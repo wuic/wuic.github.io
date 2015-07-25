@@ -4,6 +4,5 @@ WUIC's website sources branch. Publish it to master branch:
 
 TODO:
 - Migrate "DAO configuration"
-- Migrate "Engine configuration"
 - Check links in the .adoc files
 - Review table of content in wuic-documentation.adoc

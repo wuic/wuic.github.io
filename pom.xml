@@ -41,6 +41,35 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.github.wuic.plugins</groupId>
+                <artifactId>metadata-generator-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>scan</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <output>${project.build.directory}</output>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-htmlcompressor</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-yuicompressor</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <!-- ASCII DOCTOR -->
             <plugin>
                 <groupId>de.saumya.mojo</groupId>
@@ -59,6 +88,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -82,6 +112,9 @@
                                 <extension-repository>${project.basedir}/../wuic-extensions/</extension-repository>
                                 <wuic-repository>${project.basedir}/../web-ui-compressor/</wuic-repository>
                                 <sample-repository>${project.basedir}/../wuic-samples/</sample-repository>
+
+                                <!-- Already generated when this plugin is called -->
+                                <table-repository>${project.build.directory}/</table-repository>
                             </attributes>
                         </configuration>
                     </execution>

@@ -577,6 +577,35 @@ This workflow is associated to a heap which is a composition of all heaps with a
 </wuic>
 ----
 
+== Configuring WUIC components
+
+=== Configuring the engines
+
+Engines could be configured with specific properties used to define an engine builder. In XML, this looks like this:
+
+[source,xml]
+----
+    <engine-builders>
+        <engine-builder id="jsSprite" type="ImageAggregatorEngineBuilder">
+            <properties>
+                <property key="c.g.wuic.engine.spriteProviderClassName">javascript</property>
+            </properties>
+        </engine-builder>
+    </engine-builders>
+----
+
+The possible properties for an engine are tightly coupled to the underlying project and its purpose.
+
+IMPORTANT: if you're going to configure an engine provided by an extension, make sure the dependency has been added to your pom.xml!
+Find available extensions https://github.com/wuic/wuic-extensions[here]
+
+Here is the list of all possible properties for each engine builder.
+Find description of each property http://wuic.github.io/apidocs/constant-values.html#com.github.wuic.ApplicationConfig[here]
+
+++++
+include::{table-repository}com.github.wuic.engine.html[]
+++++
+
 == Configuring the web.xml
 
 === Introduction
