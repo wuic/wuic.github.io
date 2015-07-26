@@ -606,6 +606,56 @@ Find description of each property http://wuic.github.io/apidocs/constant-values.
 include::{table-repository}com.github.wuic.engine.html[]
 ++++
 
+=== Configuring the NutDao
+
+There are several ways to access resources:
+
+* inside your webapp (Classpath, WAR, RequestDispatcher)
+* or outside (FTP, HTTP, SSH, etc)
+
+WUIC access provides support for each protocol.
+A protocol is wrapped by a `NutDao` implementation which is built thanks to a `NutDaoBuilder` implementation.
+You can choose to use a protocol when you refer a `NutDaoBuilder` in your heap.
+In your `wuic.xml`, you will declare it like this:
+
+[source,xml]
+----
+    <nut-dao-builder id="sourceRootProvider" class="ClasspathNutDaoBuilder" />
+----
+
+Here are the possible classes for each protocol:
+
+* RequestDispatcher: `RequestDispatcherNutDaoBuilder` (typically for statics under `src/main/webapp`)
+* Classpath: `ClasspathNutDaoBuilder` (typically for statics under `src/main/resources`)
+* Webapp: `WebappNutDaoBuilder` (typically for statics under `src/main/webapp/WEB-INF` except `src/main/webapp/WEB-INF/lib` which is ignored)
+* HTTP: `HttpNutDaoBuilder`
+* SSH: `SshNutDaoBuilder`
+* FTP: `FtpNutDaoBuilder`
+* Disk: `DiskNutDaoBuilder`
+* Amazon S3: `S3NutDaoBuilder`
+* Google Storage: `GStorageNutDaoBuilder`
+
+IMPORTANT: if you're going to configure a DAO provided by an extension, make sure the dependency has been added to your `pom.xml`!
+Find available extensions https://github.com/wuic/wuic-extensions[here]
+
+Each time you specify a class, you can override its default properties.
+For instance, you will override the FTP domain server like this:
+
+[source,xml]
+----
+    <nut-dao-builder id="sourceRootProvider" class="FtpNutDaoBuilder">
+        <property key="c.g.wuic.serverDomain">mycompany.com</property>
+    </nut-dao-builder>
+----
+
+Not all properties are supported by each builder. Here is a table which describe them and their support by builder.
+
+Note: you can find description of each property http://gdrouet.github.io/wuic/apidocs/constant-values.html#com.github.wuic.ApplicationConfig[here]
+
+++++
+include::{table-repository}com.github.wuic.nut.dao.html[]
+++++
+
 == Configuring the web.xml
 
 === Introduction
