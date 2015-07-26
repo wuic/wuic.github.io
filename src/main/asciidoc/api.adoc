@@ -650,10 +650,41 @@ For instance, you will override the FTP domain server like this:
 
 Not all properties are supported by each builder. Here is a table which describe them and their support by builder.
 
-Note: you can find description of each property http://gdrouet.github.io/wuic/apidocs/constant-values.html#com.github.wuic.ApplicationConfig[here]
+Note: you can find description of each property http://wuic.github.io/apidocs/constant-values.html#com.github.wuic.ApplicationConfig[here]
 
 ++++
 include::{table-repository}com.github.wuic.nut.dao.html[]
+++++
+
+=== Configuring the NutFilter
+
+In some context, you might want to remove some nuts from the declared heap.
+For instance, you can add debug files to your page to be removed once you are in production.
+Filters like `RegexRemoveNutFilterBuilder` can help you if you enable them.
+They can remove some of the nuts once without the need to do it manually.
+
+In XML, configuring a filter looks like this:
+
+[source,xml]
+----
+    <nut-filter-builder id="regexRemoveNutFilter" type="RegexRemoveNutFilterBuilder">
+        <properties>
+            <property key="c.g.wuic.filter.regexExpressions">
+                .*.js
+                ref.css
+            </property>
+        </properties>
+    </nut-filter-builder>
+----
+
+IMPORTANT: please note that filters are global and apply to all declared heaps.
+
+Not all properties are supported by each builder. Here is a table which describe them and their support by builder.
+
+Note: you can find description of each property http://wuic.github.io/apidocs/constant-values.html#com.github.wuic.ApplicationConfig[here]
+
+++++
+include::{table-repository}com.github.wuic.nut.filter.html[]
 ++++
 
 == Configuring the web.xml
