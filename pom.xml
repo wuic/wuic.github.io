@@ -67,6 +67,36 @@
                         <artifactId>wuic-yuicompressor</artifactId>
                         <version>${project.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-aws-s3</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-ehcache</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-ftp</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-google-storage</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-ssh</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-typescript</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
 
