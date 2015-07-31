@@ -24,7 +24,7 @@
                         <!-- Logo and slogan -->
                         <li><a href="index.html"><i class="icon-home"></i><span class="hidden-phone">&nbsp;Home</span></a></li>
                         <li><a href="project.html"><i class="icon-star"></i><span class="hidden-phone">&nbsp;Project</span></a></li>
-                        <li class="active"><a href="documentation.html"><i class="icon-book"></i><span class="hidden-phone">&nbsp;Documentation</span></a></li>
+                        <li class="active"><a href="wuic-documentation.html"><i class="icon-book"></i><span class="hidden-phone">&nbsp;Documentation</span></a></li>
                         <li><a href="contact.html"><i class="icon-envelope"></i><span class="hidden-phone">&nbsp;Contact</span></a></li>
                         <li><a href="https://github.com/wuic/wuic" target="_blank" title="Wuic Github"><i class="icon-github"></i><span class="hidden-phone">&nbsp;Github</span></a></li>
                         <li><a href="https://twitter.com/wuic_project" target="_blank"><i class="icon-twitter"></i><span class="hidden-phone">&nbsp;Twitter</span></a></li>
@@ -108,6 +108,10 @@ Find the documentation for following purpose:
 
 Please find our FAQ section link:faq.html[here].
 
+=== Javadoc
+
+You will find the javadoc of the current snapshot regularly updated link:apidocs/index.html[here].
+
 === License
 
 The project is under MIT license which could be found https://github.com/wuic/wuic/blob/master/LICENSE.md[here].
@@ -116,6 +120,22 @@ Moreover, WUIC directly embeds components from projects under Apache 2.0 license
 
 * https://github.com/rmuller/infomas-asl/blob/master/LICENSE.txt[Annotation Detector]
 * https://github.com/eclipse/jetty.project/blob/master/LICENSE-eplv10-aslv20.html[Jetty]
+
+=== Samples
+
+WUIC comes with link:https://github.com/wuic/wuic/tree/master/samples[different samples].
+Reading them is a good way to discover the advantages and the simplicity of WUIC.
+
+=== JARs
+
+All the JARs are managed with maven and could be downloaded manually from the link:http://search.maven.org/#search|ga|1|g%3A%22com.github.wuic%22[central repository].
+
+=== Source code
+
+Source code is hosted on link:https://github.com/wuic/wuic[github].
+The source code of our official release is on the MASTER branch with a ZIP archive downloadable link:https://github.com/wuic/wuic/archive/master.zip[here].
+You should be also interested in the current state of our work for the next release.
+Download the ZIP archive of the SNAPSHOT branch link:https://github.com/wuic/wuic/archive/snapshot.zip[here].
 
 == Optimize webapp performances
 
