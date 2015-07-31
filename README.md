@@ -3,5 +3,4 @@ WUIC's website sources branch. Publish it to master branch:
 - then run "target/finish.sh" script.
 
 TODO:
-- Check links in the .adoc files
 - Review table of content in wuic-documentation.adoc

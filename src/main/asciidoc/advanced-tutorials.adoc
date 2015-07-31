@@ -138,7 +138,8 @@ You may extend WUIC for several purposes:
 
 === Resolve and process nuts differently
 
-Both DAO (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object) and Engines (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) can be configured in a XML configuration file. You can also do it with [Java Config](https://github.com/wuic/wuic/wiki/Configuring-with-Java-Config#use-the-contextbuilder).
+Both link:api.html#_configuring_the_nutdao[DAO] and link:api.html#_configuring_the_engines[Engines] can be configured in a XML configuration file.
+You can also do it with link:api.html#_java_config[Java Config].
 
 To do it, WUIC provides its own annotation processor architecture which detects all classes:
 

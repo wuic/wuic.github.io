@@ -817,9 +817,8 @@ If you want to serve directly the statics from your webapp, you need to configur
 === Configuring the HtmlParserFilter
 
 WARNING: parsing the HTML takes time.
-You should enable the best effort mode: if the HTML has been parsed before and the result still exists in the cache, it applies replacements.
+You should enable the link:reference.html#_best_effort[best effort mode]: if the HTML has been parsed before and the result still exists in the cache, it applies replacements.
 However, it just return the unparsed HTML to deliver as fast as possible the response and process scripts asynchronously.
-TODO: migrate best effort and include filter section about that
 
 ==== Install the filter
 
@@ -991,8 +990,8 @@ for the default instance of `TextAggregatorEngine`:
 
 For default properties:
 
-* See this page (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object) for DAOs
-* See this page (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration) for engines
+* See link:api.html#_configuring_the_nutdao[this page] for DAOs
+* See link:api.html#_configuring_the_engines[this page] for engines
 
 Additional DAOs and Engine will be available regarding the extensions you add to your classpath.
 

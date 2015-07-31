@@ -177,7 +177,7 @@ Note that in best effort mode, WUIC serves the content as fast as possible and j
 
 === Natural Templating
 
-If you want to mix natural templating and WUIC's `AngularJS` optimization feature, you must read this important page (TODO: migrate https://github.com/wuic/wuic/wiki/Natural-Templating-with-AngularJS).
+If you want to mix natural templating and WUIC's `AngularJS` optimization feature, you must read link:more-tutorials.html#_natural_templating_with_angularjs[this important page].
 
 == Typescript integration
 
@@ -220,8 +220,8 @@ Then, you can write your HTML page by referencing your scripts:
 <script src="use.greeter.ts"></script>
 ----
 
-Then you can just include the HTML page in the WUIC process, for instance by declaring it in your `wuic.xml` (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml)
-file or just filtering it with the servlet filter (TODO: migrate https://github.com/wuic/wuic/wiki/filter-html).
+Then you can just include the HTML page in the WUIC process, for instance by declaring it in your link:api.html#_configuring_the_wuic_xml[wuic.xml]
+file or just filtering it with the link:api.html#_configuring_the_htmlparserfilter[servlet filter].
 
 When WUIC transforms the HTML page, it replaces the initial referenced typescript file by the compiled javascript file:
 

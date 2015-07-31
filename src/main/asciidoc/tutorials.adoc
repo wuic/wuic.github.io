@@ -46,7 +46,7 @@ You need to install first:
 
 * JDK 1.6
 * Maven 3
-* Servlet container (we advise to use an already tested server (TODO: migrate https://github.com/gdrouet/wuic/wiki/List-of-supported-servers))
+* Servlet container (we advise to use an already link:reference.html#_supported_server_and_known_issues[tested server])
 
 === Purpose
 
@@ -290,7 +290,7 @@ Now just run the application and load the page. Both JSP and Thymeleaf tutorials
 You will see that one combined JS and one combined CSS have been imported!
 
 TIP: we have configured WUIC with an XML structure supported by WUIC.
-You can find a deep description of all configurable elements via XML here (TODO: migrate https://github.com/wuic/wuic/wiki/Understanding-wuic.xml).
+You can find a deep description of all configurable elements via XML link:api.html#_configuring_the_wuic_xml[here].
 By the way, we will see progressively all the possibilities offered by the XML configuration step by step in the subsequent tutorials.
 
 == Custom DAOs
@@ -356,7 +356,7 @@ c.g.wuic.dao.wildcard=true
 
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
 Writing `<nut-dao-builder>` is equivalent to `<nut-dao-builder type="ClasspathNutDaoBuilder">`.
-You can find all the supported DAO with a deep description of this API here (TODO: migrate https://github.com/wuic/wuic/wiki/Data-Access-Object)
+You can find all the supported DAO with a deep description of this API link:api.html#_configuring_the_nutdao[here]
 
 === Important notes
 
@@ -425,7 +425,7 @@ The following configuration disables the cache:
 Another solution is to add `c.g.wuic.engine.cache=false` in a `wuic.properties` file located in the classpath root.
 Note that with this approach the state will change for any component supporting the `c.g.wuic.engine.cache` property.
 
-You will find all the available engines and the possible properties here (TODO: migrate https://github.com/wuic/wuic/wiki/Engine-configuration).
+You will find all the available engines and the possible properties link:api.html#_configuring_the_engines[here].
 
 TIP: for each engine, WUIC creates an instance used by default when some nuts are processed.
 The ID always match the naming convention `wuicDefault[engine-builder-name]`.
