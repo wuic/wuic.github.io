@@ -1,4 +1,5 @@
 :toc: right
+:toclevels: 3
 
 ++++
     <!-- styles -->
@@ -37,8 +38,11 @@
 
 == Welcome to WUIC documentation page
 
+=== Getting started
+
 This documentation gathers all information you need to use Web UI Compressor, the web assets optimizers for the JVM.
 Before going deeper, you may take a look at the http://wuic.github.io[website index] for a general introduction ;-)
+Also browse the <<Features>> and the <<FAQ>> below.
 
 Find the documentation for following purpose:
 
@@ -108,10 +112,6 @@ Find the documentation for following purpose:
 
 Please find our FAQ section link:faq.html[here].
 
-=== Javadoc
-
-You will find the javadoc of the current snapshot regularly updated link:apidocs/index.html[here].
-
 === License
 
 The project is under MIT license which could be found https://github.com/wuic/wuic/blob/master/LICENSE.md[here].
@@ -121,16 +121,18 @@ Moreover, WUIC directly embeds components from projects under Apache 2.0 license
 * https://github.com/rmuller/infomas-asl/blob/master/LICENSE.txt[Annotation Detector]
 * https://github.com/eclipse/jetty.project/blob/master/LICENSE-eplv10-aslv20.html[Jetty]
 
-=== Samples
+=== Download
+
+==== Samples
 
 WUIC comes with link:https://github.com/wuic/wuic/tree/master/samples[different samples].
 Reading them is a good way to discover the advantages and the simplicity of WUIC.
 
-=== JARs
+==== JARs
 
 All the JARs are managed with maven and could be downloaded manually from the link:http://search.maven.org/#search|ga|1|g%3A%22com.github.wuic%22[central repository].
 
-=== Source code
+==== Source code
 
 Source code is hosted on link:https://github.com/wuic/wuic[github].
 The source code of our official release is on the MASTER branch with a ZIP archive downloadable link:https://github.com/wuic/wuic/archive/master.zip[here].
@@ -139,7 +141,7 @@ Download the ZIP archive of the SNAPSHOT branch link:https://github.com/wuic/wui
 
 == Optimize webapp performances
 
-=== Step-by-step 5 minutes tutorials
+=== link:tutorials.html[Step-by-step 5 minutes tutorials]
 
 If you want to see WUIC directly in action and play with it, you can directly jump into our link:tutorials.html[step-by-step 5 minutes tutorials].
 You can also see several samples https://github.com/wuic/wuic-samples[here].
@@ -158,7 +160,7 @@ then gradually enable more WUIC features to capitalize on all offered possibilit
 * Manage your statics with XML configuration file
 * Process your raw statics at runtime
 
-=== More tutorials
+=== link:advanced-tutorials.html[More tutorials]
 
 WUIC provides extension to support several frameworks and languages like `Spring`, `AngularJS` or `Typescript`.
 You will find more tutorials about that link:more-tutorials.html[here].
@@ -167,21 +169,33 @@ Finally, more advanced tutorials can be found link:advanced-tutorials.html[here]
 
 === References
 
-* <<reference.html#_supported_server_and_known_issues,Supported server and known issues>>
-* <<reference.html#_error_codes,Error codes>>
-* <<reference.html#_cache_mechanism,Cache mechanism>>
-* <<reference.html#_best_effort,Best effort>>
-* <<reference.html#_features_comparison,Feature comparison>>
+==== <<reference.html#_supported_server_and_known_issues,Supported server and known issues>>
+
+==== <<reference.html#_error_codes,Error codes>>
+
+==== <<reference.html#_cache_mechanism,Cache mechanism>>
+
+==== <<reference.html#_best_effort,Best effort>>
+
+==== <<reference.html#_features_comparison,Feature comparison>>
 
 === API
 
-After this, you'll find below the detailed documentation about different components browsed in the tutorials:
+After this, you'll find below the detailed documentation about different components browsed in the tutorials.
 
-* <<api.html#_configuring_the_wuic_xml,Complete wuic.xml configuration>>
-* <<api.html#_configuring_the_web_xml,Complete web.xml configuration>>
-* <<api.html#_built_in_html_templating,Built-in HTML templating>>
-* <<api.html#_java_config,Java Config alternative>>
-* Available link:api.html#_configuring_the_engines[engines] and link:api.html#_configuring_the_nutdao[DAO]
+==== <<api.html#_configuring_the_wuic_xml,Complete wuic.xml configuration>>
+
+==== <<api.html#_configuring_the_web_xml,Complete web.xml configuration>>
+
+==== <<api.html#_built_in_html_templating,Built-in HTML templating>>
+
+==== <<api.html#_java_config,Java Config alternative>>
+
+==== Available link:api.html#_configuring_the_engines[engines] and link:api.html#_configuring_the_nutdao[DAO]
+
+==== link:apidocs/index.html[Javadoc]
+
+You will find the javadoc of the current snapshot regularly updated link:apidocs/index.html[here].
 
 == How to extend WUIC
 
