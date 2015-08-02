@@ -465,7 +465,7 @@ and `img_bar` classes are available so you can display each image by applying th
 <span class="img_bar"></span>
 ----
 
-Find a sample https://github.com/gdrouet/wuic/tree/wuic-0.5.x-snapshot/samples/css-sprite-sample[here].
+Find a sample https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/css-sprite-sample[here].
 
 === Using Javascript sprites
 
@@ -726,6 +726,9 @@ At runtime, WUIC will read this file which refers statics generated at build tim
 ==== JSP
 
 You have the sample https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/build-time-sample/pom.xml[here].
+
+Also take a look at https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/css-sprite-sample[this sample], which
+performs optimizations at runtime but can be configured at build-time if you run `mvn clean package -Pbuild-time`.
 
 ==== Full static
 
