@@ -74,7 +74,7 @@ If we don't convince you, we prefer you to make your own opinion by testing seve
 
 No.
 
-Some optimizations should be indeed remove:
+Some optimizations should be indeed removed:
 
 * Domain sharding: with HTTP/2, several requests can be submitted to the same domain in parallel
 * Cookie free domains: multiplexing avoid the overhead linked to cookies sent with each request
