@@ -439,7 +439,10 @@ is equivalent to `<engine-builder type="EhCacheEngineBuilder">`.
 === Applying sprites best practice
 
 You can easily apply your sprites in http://www.w3schools.com/css/css_image_sprites.asp[css].
-However, combining your images takes time. This tutorial shows how WUIC help developers to generate sprites.
+However, combining your images takes time. This tutorial shows how WUIC helps developers to generate sprites.
+
+CAUTION: WUIC can pack a set of `PNG` image only. Other format like `JPEG` will be just ignored by the `ImageAggregatorEngine`.
+Consequently if you want to include image in a format other than `PNG` you will need to convert them before.
 
 === The heap to gather your images
 
@@ -483,12 +486,13 @@ the generation of javascript sprites.
 </engine-builders>
 ----
 
-Where you finally import your "img" workflow, you can use in Javascript WUIC_SPRITE['img_foo'] and WUIC_SPRITE['img_bar'] to get an object with following properties:
-- x: x-position from the left inside the merged image
-- y: y-position from the top inside the merged image
-- w: the image width
-- y: the image height
-- url: the image URL
+Where you finally import your `img` workflow, you can use in Javascript `WUIC_SPRITE['img_foo']` and `WUIC_SPRITE['img_bar']` to get an object with following properties:
+
+* x: x-position from the left inside the merged image
+* y: y-position from the top inside the merged image
+* w: the image width
+* y: the image height
+* url: the image URL
 
 For http://gwennaelbuchet.github.io/SceneGraph.js[SceneGraph] users, you can use this https://github.com/wuic/wuic-samples/blob/wuic-0.5.x-snapshot/js-sprite-sample/src/main/webapp/cgsg/ext/WUICCGSGNodeImageFactory.js[factory]
 and generate a `CGSGNodeImage` like this:
