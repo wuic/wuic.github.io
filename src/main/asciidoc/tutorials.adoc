@@ -160,7 +160,7 @@ optimized page even the first time the page is loaded, but we will see it later.
 TIP: If you reload the page, you will see that resources are loaded from the browser cache.
 WUIC has sent a far expiry header to the HTTP response in order to put resources in the browser cache.
 Don't worry about cache busting, external resources URL contain a version number that WUIC updates when change are detected.
-We can also take control over version number computation, and we will see it later.
+We can also take control over version number computation, see details link:reference.html#_version_number[here].
 
 == JSP / Thymeleaf processing
 

@@ -159,7 +159,7 @@ We often talk about the http://en.wikipedia.org/wiki/Web_cache#Cache_control[cac
 The `max-age` value defines how long the static should be kept before checking for new update.
 The same problem on the server appears: you don't know how long the user will load an old version from browser cache until its expiry.
 Consequently, you may probably set a short value.
-When the statics expires, the browser sends an HTTP request to the server to know if the data is fresh or not.
+When the statics expires, the browser sends a HTTP request to the server to know if the data is fresh or not.
 If data is fresh, server responds with a status code `304 - not modified` and an empty body.
 However, it sends the fresh data in the body.
 What is unfortunate here is that the browser could poll the server synchronously and, at the end, see that nothing changed.
@@ -167,13 +167,29 @@ WUIC does not use the cache control for that reason.
 
 The HTTP response should instead contains a "expires" directive which tells the browser to keep the statics for a very long time.
 Since cache entry is associated the path URL of the static, WUIC has just to modify this path to evict the cache.
-How it does the trick? By adding in the URL a `CRC32` hash based on all nuts name processed by the workflow and their last modification timestamp.
+How it does the trick? By adding in the URL a version number identifying all nuts state processed by the workflow.
 When nuts are changed, it could be detected on redeployment or during a polling operation.
-Both cases will result in the computation of a different `CRC32` hash which will change the static URL, which does not corresponds to any cache entry on the browser.
+Both cases will result in a different version number which will change the static URL, which does not corresponds to any cache entry on the browser.
 This is the way WUIC prevent any unnecessary HTTP request on the server while maintaining fresh statics loaded by the browser.
 
 TIP: with HTTP/2 `server-push` is always initiated and stopped as soon as the browser has detected that the resource is actually cached.
 With `resource-hint`, the browser will check first that resource is not cached before creating a new HTTP request.
+
+==== Version strategy
+
+Three strategies exist for computing the version number:
+
+* `Last modification timestamp`: by default WUIC uses the last modification date associated to the resource on the disk.
+It's fast, but if your build process touch the file, it will lead to a different version number while the content has not changed.
+* `CRC32 content hash`: by setting the value `true` to the `c.g.wuic.dao.contentBasedVersionNumber` property, WUIC will read the entire content
+to obtain a `CRC32` checksum. It's slower but you have the guarantee to keep intact the browser cache if you don't update the file
+between two releases.
+* `Fixed version number`: if you set a value for the `c.g.wuic.fixedVersionNumber` property, WUIC will always use this value as version number.
+You can for instance use a version of your release.
+This strategy will lead to a browser cache refresh each time you release a new version.
+It requires to change the version yourself but this strategy allows to modified URL that can't be resolved.
+For instance, if WUIC can't resolve a background url in a `CSS` file, it does not process the referenced image.
+However it can at least add the fixed version number as a parameter to the URL (for instance `?versionNumber=20150808`).
 
 == Best effort
 
