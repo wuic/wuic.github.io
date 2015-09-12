@@ -120,6 +120,7 @@ Moreover, WUIC directly embeds components from projects under Apache 2.0 license
 
 * https://github.com/rmuller/infomas-asl/blob/master/LICENSE.txt[Annotation Detector]
 * https://github.com/eclipse/jetty.project/blob/master/LICENSE-eplv10-aslv20.html[Jetty]
+* https://github.com/google/closure-compiler/blob/master/COPYING[Closure Compiler]
 
 === Download
 

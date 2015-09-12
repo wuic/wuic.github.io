@@ -172,14 +172,15 @@ You can see in action design decisions explained bellow by taking a look at the 
 We decided to use the famous `SLF4J` API as logger facade in the WUIC project.
 Every features are based on the `wuic-core` artifact which comes this dependency: `org.slf4j:sl4j-api`
 
-As explained by the SL4FJ documentation, you will have to add in your project the concrete logging API and its corresponding `SLF4J` binder you want to use.
+As explained by the `SL4FJ` documentation, you will have to add in your project the concrete logging API and its corresponding `SLF4J` binder you want to use.
 
-==== ASL Annotation Detector
+==== Google GSON
 
-ASL Annotation Detector is a very light project packaged in a single JAR.
-It's used by `wuic-core` to detect automatically extensions added by the user by scanning the classpath.
+The link:https://github.com/google/gson[GSON project] is used in several areas of the project to parse/write GSON objects.
 
-IMPORTANT: this library's code is currently embedded in WUIC as it fixes a bug on JBoss/Wildfly not resolved in upstream.
+==== Google Protocol Buffer
+
+The link:https://github.com/google/protobuf[Protocol Buffer project] is used in Closure source map implementation (see bellow).
 
 ==== Provided JEE dependencies
 
@@ -206,6 +207,28 @@ If you want to use an extension which comes with specific dependencies, you'll h
         <version>${wuic-extension.version}</version>
     </dependency>
 ----
+
+==== Folks code
+
+===== ASL Annotation Detector
+
+ASL Annotation Detector is a very light project packaged in a single JAR.
+It's used by `wuic-core` to detect automatically extensions added by the user by scanning the classpath.
+This library's code is currently embedded in WUIC as it fixes a bug on JBoss/Wildfly not resolved in upstream.
+Anyway, the code will be totally link:https://github.com/wuic/wuic/issues/184[removed] in a future release as we plan to use `ServiceLoader` instead.
+
+===== Jetty Path Map
+
+We embed the link:https://github.com/eclipse/jetty.project[jetty] implementation of servlet path specification.
+We just need a few useful classes so it was not relevant to add a transitive dependency to this project.
+Moreover the source code is not concerned by changes as it is quite stable now.
+
+===== Closure Sourcemap
+
+Source map is a core aspect of WUIC which heavily rely on it to provide debugging support.
+We embed the link:https://github.com/google/closure-compiler[closure-compiler] implementation of source map specification.
+Only the source map implementation was required so it was not necessary to make a dependency to the entire project.
+Moreover the source code is quite stable, so we don't have to heavily update the package with upstream changes.
 
 == Configuration structure
 
