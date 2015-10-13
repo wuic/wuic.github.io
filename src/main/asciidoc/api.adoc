@@ -703,8 +703,8 @@ Any instance can be registered:
 
 * By declaring the class names in <<Configuring the web.xml, web.xml configuration>>.
 * By relying on http://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html[ServiceLoader].
-This can be achieved by creating a file that contains the class names of different implementations that contains the
-implementation class names and called `META-INF/services/com.github.wuic.config.ObjectBuilderInspector`.
+This can be achieved by creating a file that contains the class names of different implementations and called
+`META-INF/services/com.github.wuic.config.ObjectBuilderInspector`.
 
 == Configuring the web.xml
 
@@ -1042,6 +1042,11 @@ You can inject an instance in your facade like this:
 ----
 include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=CreateFacadeWithConfiguratorAPI]
 ----
+
+TIP: you can automatically install any custom `ContextBuilderConfigurator` by relying on
+http://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html[ServiceLoader].
+This can be achieved by creating a file that contains the class names of different implementations
+and called `META-INF/services/com.github.wuic.context.ContextBuilderConfigurator`.
 
 Note that you can also force a facade to be refreshed with a `ContextBuilderConfigurator`:
 
