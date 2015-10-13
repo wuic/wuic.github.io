@@ -687,6 +687,25 @@ Note: you can find description of each property http://wuic.github.io/apidocs/co
 include::{table-repository}com.github.wuic.nut.filter.html[]
 ++++
 
+=== Intercept component creation
+
+When WUIC instantiates all its components, a list of registered `ObjectBuilderInspector` is chained and called to
+modify the instance. The interface corresponds to the following code:
+
+[source,java]
+----
+public interface ObjectBuilderInspector {
+    <T> T inspect(T object);
+}
+----
+
+Any instance can be registered:
+
+* By declaring the class names in <<Configuring the web.xml, web.xml configuration>>.
+* By relying on http://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html[ServiceLoader].
+This can be achieved by creating a file that contains the class names of different implementations that contains the
+implementation class names and called `META-INF/services/com.github.wuic.config.ObjectBuilderInspector`.
+
 == Configuring the web.xml
 
 === Introduction
@@ -764,7 +783,7 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
     <tr>
         <td>*.facade.additionalBuilderConfiguratorClasses</td>
         <td>
-            List of comma-separated class names extending http://wuic.github.io/apidocs/index.html?com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator]
+            List of comma-separated class names extending <a href="http://wuic.github.io/apidocs/index.html?com/github/wuic/ContextBuilderConfigurator.html">ContextBuilderConfigurator</a>
             that will be used in the facade.
         </td>
         <td>Empty string</td>
@@ -772,7 +791,7 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
     <tr>
         <td>*.facade.additionalBuilderInspectorClasses</td>
         <td>
-            List of comma-separated class names extending http://wuic.github.io/apidocs/index.html?com/github/wuic/config/ObjectBuilderInspector.html[ObjectBuilderInspector]
+            List of comma-separated class names extending <a href="http://wuic.github.io/apidocs/index.html?com/github/wuic/config/ObjectBuilderInspector.html">ObjectBuilderInspector</a>
             that will be used in the facade.
         </td>
         <td>Empty string</td>
