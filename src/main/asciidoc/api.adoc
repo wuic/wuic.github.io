@@ -706,6 +706,16 @@ Any instance can be registered:
 This can be achieved by creating a file that contains the class names of different implementations and called
 `META-INF/services/com.github.wuic.config.ObjectBuilderInspector`.
 
+By default, any object is inspected. If you want to specify for which type of object your inspector is supposed to be
+invoked, you can annotate your class with the `@InspectedType` annotation like this:
+
+[source,java]
+----
+include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ctx/ContextBuilderTest.java[tags=InspectBarAndFoo]
+----
+
+In this example, any created object will be inspected by the inspector if it IS-A `Foo` or `Bar`.
+
 == Configuring the web.xml
 
 === Introduction
