@@ -161,9 +161,9 @@ then gradually enable more WUIC features to capitalize on all offered possibilit
 * Manage your statics with XML configuration file
 * Process your raw statics at runtime
 
-=== link:advanced-tutorials.html[More tutorials]
+=== link:more-tutorials.html[More tutorials]
 
-WUIC provides extension to support several frameworks and languages like `Spring`, `AngularJS` or `Typescript`.
+WUIC provides extension to support several frameworks and languages like `NodeJS`, `Spring`, `AngularJS` or `Typescript`.
 You will find more tutorials about that link:more-tutorials.html[here].
 
 Finally, more advanced tutorials can be found link:advanced-tutorials.html[here].

@@ -270,6 +270,115 @@ For instance, if you configure engines in your `wuic.xml`, you will write this:
 Note: you can filter the value with maven to set this setting to true only in a development profile.
 When you'll go in production, the setting will be false and you won't need to ask your ops to install `Node.JS`
 
+== Command lines execution
+
+=== Purpose
+
+Sometimes you have a command line tool that just does a part of the work as you want.
+When using WUIC, you can be in a situation where you would like to integrate the result of any command line execution
+inside the WUIC workflow. For instance, let's imagine that you have a command line that converts `LESS` files to `CSS`.
+
+This tutorial will show you how to configure this kind of command line to be executed by WUIC.
+
+=== Command line configuration
+
+WUIC relies on a special engine to execute command line called `CommandLineConverterEngine`.
+By default, this engine does nothing until you configure it to specifies which `NutType` need to be processed by the
+engine and which `NutType` is expected as the result of command line execution.
+
+To specify to the `NutType`, you need to configure the `c.g.wuic.engine.inputNutType` and `c.g.wuic.engine.outputNutType`
+properties. For instance, you can do it in your `wuic.properties` file like this:
+
+----
+c.g.wuic.engine.inputNutType=LESS
+c.g.wuic.engine.outputNutType=CSS
+----
+
+The value must be a http://wuic.github.io/apidocs/com/github/wuic/NutType.html[supported] `NutType` name.
+
+At this moment, the engine will be activated and validate the command line to execute.
+This command line also have to be configured with a dedicated property.
+
+----
+c.g.wuic.engine.command=mycmd param1 param2
+----
+
+WUIC will use this command line to specify where the result and the associated source map should be generated according
+to a set of files to be converted. When analyzing the command line, WUIC will need to identify three mandatory tokens:
+
+* `%paths%`: the token to replace with the input files location
+* `%outPath%`: the token to replace with the result file location
+* `%sourceMap%`: the token to replace with the source map file location
+
+WUIC will reject your command line if those three tokens are not defined. A valid command looks like this:
+
+----
+c.g.wuic.engine.command=mycmd %paths% --sourcemap %sourceMap% > %outPath%
+----
+
+When executing the command line, WUIC will use this pattern to contextualize a command.
+For instance, the command that is actually run could looks like this:
+`mycmd /path/to/foo.less /path/to/bar.less --sourcemap /path/to/aggregate.css.map > /path/to/aggregate.css`
+
+TIP: Optionally, you can define the `%basePath%` token in your command line to let WUIC use a command which looks like
+`mycmd %paths% --baseDir %basePath% --sourcemap %sourceMap% > %outPath%` to execute a command which will looks like
+`mycmd foo.less bar.less --baseDir /path/to --sourcemap /path/to/aggregate.css.map > /path/to/aggregate.css`
+
+TIP: by default all file paths are separated by a space, but you can configure it thanks to the
+`c.g.wuic.engine.pathSeparator` property.
+
+If you need to include any additional file in the directory where the command line is executed, you can use the
+`c.g.wuic.engine.libraries` property to specify all files path to be copied separated by a semi-colon.
+The files paths path must corresponds to a resource available in from the classpath.
+
+----
+c.g.wuic.engine.libraries=/path/to/lib1;/path/to/lib2;/path/to/lib3
+----
+
+TIP: if any token (paths, out paths, source map path or base path) need to be specified in a separate file, you can add
+it to the file and then consider it as a library to be copied by WUIC. During copy, WUIC will take care of any token to
+be replaced. If a mandatory token is found in one library, WUIC won't fails if this token is not in the configured command.
+
+=== Using NodeJS with NPM command line
+
+When you need to run `npm` on top of `NodeJs` as a command line run by WUIC, you must be sure that `npm` will be recognized
+in the working directory. To provide integration facilities of `npm` command line execution, you can install in your
+`pom.xml` file an extension provided by WUIC:
+
+[source,xml]
+----
+<dependency>
+    <artifactId>wuic-extensions</artifactId>
+    <groupId>com.github.wuic.extensions</groupId>
+    <version>${wuic.version}</version>
+</dependency>
+----
+
+This extension provides an inspector automatically detected and installed by WUIC that relies on the
+https://github.com/eirslett/frontend-maven-plugin/tree/master/frontend-plugin-core[frontend-plugin-core] module to
+download `NodeJs` and `NPM` in the working directory of any `CommandLineConverterEngine`.
+
+In your classpath, you just have to create a file called `/com.github.wuic.nodejs.NodeJsInspector.config.json` that
+provides the information required by the `frontend-plugin-core`. The minimal configuration that you need to provide
+ must contain the `NodeJs` and `NPM` version to be used. This configuration looks like this:
+
+----
+{
+    "nodeVersion": "v0.10.30",
+    "npmVersion": "1.4.21"
+}
+----
+
+CAUTION: the `nodeVersion` value must starts with `v` character, while it's not required for `npmVersion`.
+
+According to the documentation https://github.com/eirslett/frontend-maven-plugin#installing-node-and-npm[here], you can
+also consider to specify additional configurations:
+
+* `nodeDownloadRoot`: a different URL for `NodeJs` archives location
+* `npmDownloadRoot`: a different URL for `NPM` archives location
+* `proxies`: an array of proxies to use where each element is an object which looks like
+`{"id":xxx, "protocol": xxx, "host": xxx, "username": xxx, "password": xxx, "nonProxyHosts": xxx}`
+
 == Enable HTTP/2
 
 === Purpose
