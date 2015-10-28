@@ -348,8 +348,8 @@ in the working directory. To provide integration facilities of `npm` command lin
 [source,xml]
 ----
 <dependency>
-    <artifactId>wuic-extensions</artifactId>
     <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>wuic-nodejs</artifactId>
     <version>${wuic.version}</version>
 </dependency>
 ----
