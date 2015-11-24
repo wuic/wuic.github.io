@@ -81,7 +81,16 @@ First, import the servlet support for WUIC.
          <artifactId>wuic-servlet</artifactId>
          <version>${wuic.version}</version>
       </dependency>
+
+      <dependency>
+          <groupId>com.github.wuic.extensions</groupId>
+          <artifactId>wuic-attoparser</artifactId>
+          <version>${wuic.version}</version>
+      </dependency>
 ----
+
+Here we also install the `attoparser` extension that relies on `AttoParser` project to parse HTML document.
+This is required if we want to optimize web resources referenced by an HTML page that is filtered by WUIC.
 
 In our example, we want to minify CSS, Javascript and HTML code. We can add the `htmlcompressor` and `yuicompressor` extensions for that:
 

@@ -866,6 +866,27 @@ If your pages are served from your application server, you can filter them with 
 </filter-mapping>
 ----
 
+Do not forget to add the following maven dependencies:
+
+[source,xml]
+----
+     <dependency>
+         <groupId>com.github.wuic</groupId>
+         <artifactId>wuic-servlet</artifactId>
+         <version>${wuic.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.github.wuic.extensions</groupId>
+          <artifactId>wuic-attoparser</artifactId>
+          <version>${wuic.version}</version>
+      </dependency>
+----
+
+The first one contains the `Filter`.
+This library does not embeds parser capabilities and is not able to discover web resources to be optimized.
+This is why we install an second dependency that is an extension comming with this kind of parser.
+
 ==== Supported settings
 
 ++++
