@@ -606,6 +606,12 @@ Find description of each property http://wuic.github.io/apidocs/constant-values.
 include::{table-repository}com.github.wuic.engine.html[]
 ++++
 
+IMPORTANT: by default the charset is an empty string.
+In that case, WUIC will use `Charset.defaultCharset()` to retrieve a valid value.
+This means that by default the charset is platform dependent.
+Define explicitly a a value in your configuration file let WUIC consider the same charset across different environment.
+Another solution is to define the system property `file.encoding` in the JVM settings of each environment where WUIC is running.
+
 === Configuring the NutDao
 
 There are several ways to access resources:
