@@ -172,6 +172,11 @@ When nuts are changed, it could be detected on redeployment or during a polling 
 Both cases will result in a different version number which will change the static URL, which does not corresponds to any cache entry on the browser.
 This is the way WUIC prevent any unnecessary HTTP request on the server while maintaining fresh statics loaded by the browser.
 
+In addition to the "expires" header, WUIC adds to the HTTP response an `ETag` containing the version number of the Nut.
+When the browser is forced to reload the page, the `ETag` value is sent in the `If-None-Match` header of the HTTP request.
+This value is compared to the actual nut's version number and if they equal, an empty content is sent with a `304 - not modified` status code.
+This gives a chance to not always write the content to the HTTP response if the right content is already in the browser cache.
+
 TIP: with HTTP/2 `server-push` is always initiated and stopped as soon as the browser has detected that the resource is actually cached.
 With `resource-hint`, the browser will check first that resource is not cached before creating a new HTTP request.
 
