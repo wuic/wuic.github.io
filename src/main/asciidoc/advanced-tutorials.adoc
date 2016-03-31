@@ -179,10 +179,10 @@ You will find a lot of helpers in the javadoc:
 * http://wuic.github.io/apidocs/com/github/wuic/engine/core/package-summary.html[Abstract classes] for engine with different purpose (caching, aggregating, compressing, etc)
 * http://wuic.github.io/apidocs/com/github/wuic/nut/AbstractNutDao.html[AbstractNutDao] for DAO creation
 
-Each engine and DAO needs to be configured differently so your class may expose a constructor expecting several parameters.
+Each engine and DAO needs to be configured differently so your class may expose a init-method expecting several parameters.
 You need in that case to rely on http://wuic.github.io/apidocs/com/github/wuic/config/package-summary.html[com.github.wuic.config] package which contains:
 
-* `@Config` annotation for you constructor / initialization method
+* `@Config` annotation for your initialization method
 * Annotations for each parameter regarding their type: `String`, `Integer`, `Boolean` or more global `Object`
 
 For instance, an engine compressing nuts will looks like this:
@@ -192,8 +192,16 @@ For instance, an engine compressing nuts will looks like this:
 include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutorial.java[tags=EngineService]
 ----
 
-INFORMATION: if you provide a default constructor that is not annotated with `@Config`, WUIC will use it if not other valid
-constructor correctly annotated has been found. Also note that any method correctly annotated will be executed after the instantiation.
+One your class is written, you just need to add to your classpath (typically `src/main/resources` in maven project)
+a file containing your class name that will be called:
+
+* `com.github.wuic.engine.Engine` if the component you wrote is an engine
+* `com.github.wuic.nut.dao.NutDao` if the component your wrote is DAO
+* `com.github.wuic.nut.filter.NutFilter` if the component your wrote is a filter
+
+See link:https://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html[ServiceLoader] documentation for more information.
+
+INFORMATION: Any method correctly annotated will be executed after the instantiation.
 
 http://wuic.github.io/apidocs/com/github/wuic/ApplicationConfig.html[ApplicationConfig] already contains a lot of configuration keys that you can reuse.
 This is required to let WUIC build the object for you regarding the properties provided in `XML` or `Java Config`.

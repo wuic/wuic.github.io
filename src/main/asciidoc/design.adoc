@@ -210,13 +210,6 @@ If you want to use an extension which comes with specific dependencies, you'll h
 
 ==== Folks code
 
-===== ASL Annotation Detector
-
-ASL Annotation Detector is a very light project packaged in a single JAR.
-It's used by `wuic-core` to detect automatically extensions added by the user by scanning the classpath.
-This library's code is currently embedded in WUIC as it fixes a bug on JBoss/Wildfly not resolved in upstream.
-Anyway, the code will be totally link:https://github.com/wuic/wuic/issues/184[removed] in a future release as we plan to use `ServiceLoader` instead.
-
 ===== Jetty Path Map
 
 We embed the link:https://github.com/eclipse/jetty.project[jetty] implementation of servlet path specification.
