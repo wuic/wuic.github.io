@@ -396,6 +396,10 @@ or
 </wuic>
 ----
 
+Note: you can use the `${myProperty:myDefaultValue}` notation to inject a property value declared anywhere (like in `wuic.properties` or `web.xml` init-param).
+In the example above, if the `myProperty` is not found then the `myDefaultValue` will be applied.
+Specifying a default value is optional, meaning you can write `${myProperty}`.
+
 === heaps
 
 Defines the different heaps of nuts you can load in your application.
@@ -749,12 +753,16 @@ Reminder for default implementation:
     </context-param>
 ----
 
+Note: you can use as `param-value` the `${myProperty:myDefaultValue}` notation to inject a property value declared anywhere
+(like in `wuic.properties` or `web.xml` init-param).
+In the example above, if the `myProperty` is not found then the `myDefaultValue` will be applied.
+Specifying a default value is optional, meaning you can write `${myProperty}`.
+
+
 *Note for those who don't want to use init-param:*
 you will see the particular `c.g.wuic.initParameterClass` `init-param` in the table below.
-If you want to provide parameters in a different way, specify an implementation of `com.github.wuic.util.BiFunction` (inspired from Java 8).
-It must be parameterized with String type only.
-The first parameter of `apply()` expects the key and the second parameter the default value.
-The method returns the value associated to the given key.
+If you want to provide parameters in a different way, specify an implementation of `com.github.wuic.util.PropertyResolver`.
+This is a simple interface that provides a set of keys for which it's able to return an associated value (key-value pair).
 If you set this `init-param`, no other `init-param` with a key mentioned bellow will be interpreted since your implementation will be used.
 
 In the `Parameter name` column bellow, replace the first `*` character from all keys and replace it with `c.g.wuic`.
@@ -824,7 +832,7 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
     </tr>
     <tr>
          <td>*.initParameterClass</td>
-         <td>Indicates the com.github.wuic.util.BiFunction implementation which retrieves a value for a given parameter. Of course, default implementation relies on init-param in web.xml file.</td>
+         <td>Indicates the com.github.wuic.util.PropertyResolver implementation which retrieves a value for a given parameter. Of course, default implementation relies on init-param in web.xml file.</td>
          <td>Internal InitParamProperties class</td>
     </tr>
 

@@ -335,6 +335,7 @@ Here we declare a DAO for classpath accesses which will retrieve any nut in /scr
         <nut-dao-builder>
             <properties>
                 <property key="c.g.wuic.dao.basePath">/scripts</property>
+                <property key="c.g.wuic.dao.contentBasedVersionNumber">${avoidTouch:true}</property>
             </properties>
         </nut-dao-builder>
     </nut-dao-builders>
@@ -366,6 +367,14 @@ c.g.wuic.dao.wildcard=true
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
 Writing `<nut-dao-builder>` is equivalent to `<nut-dao-builder type="ClasspathNutDaoBuilder">`.
 You can find all the supported DAO with a deep description of this API link:api.html#_configuring_the_nutdao[here]
+
+TIP: as you can see we have configured the property `c.g.wuic.dao.contentBasedVersionNumber` with a property place holder.
+Turning this property to `true` is handy when you don't want that the version number changes just because the OS touch the
+file and change the last modification date at build time, even if content has not changed. However this methods takes more
+time in terms of execution. Here the value `true` will be applied because the property `avoidTouch` is never declared and
+that we specified the `:true` suffix, specifying the default value to consider in that case. If no default value is applied,
+the default value declared in the DAO will be used. If somewhere, like in the `wuic.properties` or the `web.xml` init-param
+the property `avoidTouch` is declared, then the value associated to it will be applied.
 
 === Important notes
 
