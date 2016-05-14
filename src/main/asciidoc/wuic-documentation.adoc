@@ -54,6 +54,7 @@ Find the documentation for following purpose:
 
 * Cache optimization:
     ** HTTP header to cache to the client version URLs of the resources
+    ** Detects unmodified content thanks to an `ETag` header automatically set and checked when content is served by WUIC servlet
     ** Server side caching (built-in memory cache or `EhCache` support)
     ** HTML5 cache manifest support for the entire page
 * Network optimization:
@@ -67,6 +68,7 @@ Find the documentation for following purpose:
     ** Minify HTML thanks to `html-compressor`
     ** Inline resources (JS and CSS)
     ** Extracts inline scripts from HTML pages
+    ** Sourcemaps are referenced in the `X-SourceMap` header instead of writing the `sourceMappingURL` comment to the scripts when they're served by WUIC servlet
 * Hot reload:
     ** Polls configuration files to reload changes
     ** Evict cache entries if necessary
@@ -105,7 +107,7 @@ Find the documentation for following purpose:
     ** Support pure regex for resource resolution
 * Discover nested resources URLs, rewrite them and optimize their content:
     ** CSS: resolve URLs in `@font-face`, `background url` and `@import`
-    ** JS: resolve `templateUrl` for `AngularJS` and `sourceMappingURL` for `sourcemaps`.
+    ** JS: resolve `templateUrl` for `AngularJS` and `sourceMappingURL` for `sourcemaps`
     ** HTML: resolve inline JS and CSS content, `<img>`, `<script>` and `<link>` tags
 
 === FAQ
