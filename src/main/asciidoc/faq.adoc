@@ -119,6 +119,12 @@ This way, using a servlet container is optional if you don't want to use tag hel
 
 == Advanced
 
+=== How to control characters written by WUIC to inject a new line?
+
+WUIC generates and concatenates files, which lead to several cases when a line feed is written.
+By default WUIC writes the `\n` character.
+If you want that WUIC uses the value defined in the `line.separator` JVM property, add `wuic.useSystemLineSeparator` as JVM property.
+
 === I turn on the regex option in my wuic.xml and no nuts match my regular expression
 
 First of all, your regex will always be compiled by the http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html[Pattern] class in the JAVA API.
