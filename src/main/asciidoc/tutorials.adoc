@@ -364,6 +364,9 @@ If you want to set the same value for a given property in all components, then y
 c.g.wuic.dao.wildcard=true
 ----
 
+NOTE: defining properties in a property file is one solution, but you can also declare all those properties as JVM arguments.
+Example: `-Dc.g.wuic.dao.wildcard=true`
+
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
 Writing `<nut-dao-builder>` is equivalent to `<nut-dao-builder type="ClasspathNutDaoBuilder">`.
 You can find all the supported DAO with a deep description of this API link:api.html#_configuring_the_nutdao[here]
