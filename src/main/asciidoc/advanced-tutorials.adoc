@@ -223,6 +223,23 @@ The previous configuration simply changes the default value (`true` to `false`).
 
 You will find several extensions already provided https://github.com/wuic/wuic-extensions[here].
 
+==== Extend the text inspection process
+
+During process, `CSS` and `JS` files are inspected to resolve resources to be optimized inside their content.
+
+For each type of script, a particular type of http://wuic.github.io/apidocs/com/github/wuic/engine/core/TextInspectorEngine.html[TextInspectorEngine] is used.
+A `TextInspectorEngine` relies on a collection of http://wuic.github.io/apidocs/com/github/wuic/engine/LineInspector.html[LineInspector] to inspect a content.
+A `LineInspector` has a specific and simple task: detecting a resource.
+
+Out of the box, WUIC provides several `LineInspector` but some times you would like to add your own inspector to provide a level of resource detection support not provided by default.
+For instance, URLs can be handled in many way in javascript.
+User should be able to write a simple `LineInspector` with a regex to match the URL regarding the way he writes his application.
+
+To achieve this, simple create an implementation of http://wuic.github.io/apidocs/com/github/wuic/engine/LineInspectorFactory.html[LineInspectorFactory].
+This class is loaded thanks to the `ServiceLoader` available since Java 6 and therefore must provide a default constructor.
+As also required by the `ServiceLoader`, you have to declare the complete class name of your implementation in a file named
+`META-INF/services/com.github.wuic.engine.LineInspectorFactory` that needs to be available in your classpath.
+
 === Add support for templating project
 
 WUIC already provides support for `JSP` and `Thymeleaf` users (link:tutorials.html[see tutorials]).
