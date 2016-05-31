@@ -37,9 +37,9 @@
 
 IMPORTANT: for deep understanding of settings purpose declared in `web.xml`, you should take a look at the link:design.htm[WUIC configuration design].
 
-== Configuring the wuic.xml
+== Configuring the wuic.xml or the wuic.json
 
-The table bellow describes each tag and their hierarchy in the `wuic.xml` file:
+The table bellow describes each tag and their hierarchy in the `wuic.xml` (for XML) and `wuic.json` (for JSON) file:
 
 ++++
 <table>
@@ -232,6 +232,15 @@ This is simply the root tag, http://www.youtube.com/watch?v=x7bIbVlIqEc[nothing 
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    ...
+}
+----
+
 === nut-dao-builders
 
 The NutDao builders usable in the context. Each builder will be usable from the link:#heap[heap].
@@ -243,6 +252,15 @@ The NutDao builders usable in the context. Each builder will be usable from the 
         ...
     </nut-dao-builders>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{ ... }]
+}
 ----
 
 ==== nut-dao-builder
@@ -265,6 +283,18 @@ If true, the nut names must be a compilable http://docs.oracle.com/javase/1.4.2/
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{
+        "id" : "http-resource-builder",
+        "type" : "HttpNutDaoBuilder"
+    }]
+}
+----
+
 TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the `type`.
 
 TIP: `type` attribute is optional. The default value is `ClasspathNutDaoBuilder` (for classpath access).
@@ -280,6 +310,15 @@ The NutFilter builders usable in the context. Each builder will be used inside t
         ...
     </nut-filter-builders>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutFilterBuilders" : [{ ... }]
+}
 ----
 
 ==== nut-filter-builder
@@ -299,6 +338,18 @@ When any link:#heap[heap] is built from the context, its paths are previously fi
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutFilterBuilders" : [{
+        "id" : "remove-regex-filter-builder",
+        "type" : "RegexRemoveNutFilterBuilder"
+    }]
+}
+----
+
 TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the component indicated in the `type`.
 
 === engine-builders
@@ -312,6 +363,15 @@ Defines the engine builders usable in any workflow.
        ...
    </engine-builders>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+   "engineBuilders" : [{ ... }]
+}
 ----
 
 ==== engine-builder
@@ -328,12 +388,39 @@ defines the class to be instantiated.
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+   "engineBuilders" : [{
+        "id" : "yuicomspressor-js",
+        "type" : "YuiCompressorJavascriptEngineBuilder"
+   }]
+}
+----
+
 TIP: `id` attribute is optional. If not set, the properties will be applied to the default instance of the component indicated in the `type`.
 Note that default instances are injected by default in any workflow.
 
 ==== properties
 
 The properties define a list of settings for both `nut-dao-builder` and `engine-builder` elements.
+
+[source,xml]
+----
+<wuic>
+    <nut-filter-builders>
+        <nut-filter-builder id="remove-regex-filter-builder" type="RegexRemoveNutFilterBuilder">
+            <properties>
+                ...
+            <properties>
+        <nut-dao-builder>
+    </nut-filter-builders>
+</wuic>
+----
+
+or
 
 [source,xml]
 ----
@@ -363,9 +450,62 @@ or
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutFilterBuilders" : [{
+        "id" : "remove-regex-filter-builder",
+        "type" : "RegexRemoveNutFilterBuilder",
+        "properties" : { ... }
+    }]
+}
+----
+
+or
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{
+        "id" : "http-resource-builder",
+        "type" : "HttpNutDaoBuilder",
+        "properties" : { ... }
+    }]
+}
+----
+
+or
+
+[source,json]
+{
+   "engineBuilders" : [{
+        "id" : "yuicomspressor-js",
+        "type" : "YuiCompressorJavascriptEngineBuilder",
+        "properties" : { ... }
+   }]
+}
+----
+
 ==== property
 
 A property used to initialize the builder. Defines a `key` attribute and a `value` as a child node.
+
+[source,xml]
+----
+<wuic>
+    <nut-filter-builders>
+        <nut-filter-builder id="remove-regex-filter-builder" type="RegexRemoveNutFilterBuilder">
+            <properties>
+                <property key="c.g.wuic.filter.regexExpressions">.*debug.*</property>
+            <properties>
+        <nut-dao-builder>
+    </nut-filter-builders>
+</wuic>
+----
+
+or
 
 [source,xml]
 ----
@@ -396,6 +536,51 @@ or
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "nutFilterBuilders" : [{
+        "id" : "remove-regex-filter-builder",
+        "type" : "RegexRemoveNutFilterBuilder",
+        "properties" : {
+            "c.g.wuic.filter.regexExpressions" : ".*debug.*"
+        }
+    }]
+}
+----
+
+or
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{
+        "id" : "http-resource-builder",
+        "type" : "HttpNutDaoBuilder",
+        "properties" : {
+            "c.g.wuic.httpServerDomain" : "gdrouet.github.io",
+            "c.g.wuic.httpBasePath" : "wuic"
+        }
+    }]
+}
+----
+
+or
+
+[source,json]
+{
+   "engineBuilders" : [{
+        "id" : "yuicomspressor-js",
+        "type" : "YuiCompressorJavascriptEngineBuilder",
+        "properties" : {
+            "c.g.wuic.engine.spriteProviderClassName" : "javascript"
+        }
+   }]
+}
+----
+
 Note: you can use the `${myProperty:myDefaultValue}` notation to inject a property value declared anywhere (like in `wuic.properties` or `web.xml` init-param).
 In the example above, if the `myProperty` is not found then the `myDefaultValue` will be applied.
 Specifying a default value is optional, meaning you can write `${myProperty}`.
@@ -413,6 +598,15 @@ Defines the different heaps of nuts you can load in your application.
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "heaps" : [{ ... }]
+}
+----
+
 ==== heap
 
 A heap is identified by an unique ID and must defines a builder to use (`dao-builder-id attribute`).
@@ -427,6 +621,18 @@ The builder is referenced thanks to its ID.
         </heap>
     </heaps>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "heaps" : [{
+        "id" : "common-js",
+        "daoBuilderId" : "classPathBuilder"
+    }]
+}
 ----
 
 TIP: `dao-builder-id` is optional. By default, the default `ClasspathNutDaoBuilder` will be used.
@@ -448,6 +654,19 @@ Finally, you can represent a set of nuts if your associated DAO considers paths 
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "heaps" : [{
+        "id" : "common-js",
+        "daoBuilderId" : "classPathBuilder",
+        "nutPath" : ["/js/common.js", "/js/misc/*.js"]
+    }]
+}
+----
+
 ==== heap-id
 
 Your heap could be a composition of another heaps.
@@ -459,13 +678,32 @@ Inside a heap, you can refer an existing one with `heap-id` or declare a new hea
     <heaps>
         <heap id="homepage-js" dao-builder-id="classPathBuilder">
            <heap-id>common-js</heap-id>
-           <heap id="homepage-js" dao-builder-id="http-resource-builder">
+           <heap id="content-js" dao-builder-id="http-resource-builder">
                <nut-path>http://com.myapp/js/foo.js</nut-path>
            </heap>
            <nut-path>js/bar.js</nut-path>
         <heap>
     </heaps>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "heaps" : [{
+        "id" : "homepage-js",
+        "daoBuilderId" : "classPathBuilder",
+        "heapId" : ["common-js"],
+        "heap" : {
+            "id" : "content-js",
+            "daoBuilderId" : "http-resource-builder"
+            "nutPath" : ["http://com.myapp/js/foo.js"]
+        },
+        "nutPath" : "js/bar.js"
+    }]
+}
 ----
 
 WARNING: nuts retrieved from `nut-path` are always read before nuts retrieved from nested and referenced heaps.
@@ -484,6 +722,15 @@ The workflow templates describe the way the nut could be processed.
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflowTemplates" : [{ ... }]
+}
+----
+
 ==== workflow-template
 
 The workflow template is declared to contain a list of engines. It is identified with an unique ID.
@@ -499,6 +746,17 @@ Below, the example shows that a workflow template will be created and identified
         </workflow-template>
     </workflow-templates>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflowTemplates" : [{
+        "id" : "tpl"
+    }]
+}
 ----
 
 ==== engine-chain
@@ -519,6 +777,19 @@ They could be specified in any order, WUIC will order them by kind, especially t
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflowTemplates" : [{
+        "idPrefix" : "js-image",
+        "heapIdPattern" : "sprite-",
+        "engineChain" : ...
+    }]
+}
+----
+
 ==== engine-builder-id
 
 The engine-builder-id contains has child text node the ID of an existing engine builder to be added in the chain of responsibility executed by the workflow.
@@ -536,6 +807,19 @@ The engine-builder-id contains has child text node the ID of an existing engine 
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflowTemplates" : [{
+        "idPrefix" : "js-image",
+        "heapIdPattern" : "sprite-",
+        "engineChain" : ["jsSprite"]
+    }]
+}
+----
+
 === workflows
 
 The workflows are the bridge between the heaps and the workflow template that list the engines to use.
@@ -547,6 +831,15 @@ The workflows are the bridge between the heaps and the workflow template that li
            ...
     </workflows>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflows" : [{ ... }]
+}
 ----
 
 ==== workflow
@@ -568,6 +861,19 @@ Those workflows will be named with a string starting with `sprite-`.
 </wuic>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflows : [{
+        "idPrefix" : "sprite-",
+        "workflowTemplateId" : "tpl",
+        "heapIdPattern" : ".*image"
+    }]
+}
+----
+
 Another possibility is to replace `id-prefix` attribute by an `id` attribute.
 In this case, only one workflow is created identified by the value in the `id` attribute.
 This workflow is associated to a heap which is a composition of all heaps with an ID matching the `heap-id-pattern` attribute regex value.
@@ -579,6 +885,19 @@ This workflow is associated to a heap which is a composition of all heaps with a
         <workflow id="workflow" workflow-template-id="tpl" heap-id-pattern=".*image" />
     </workflows>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflows" : [{
+        "id" : "workflow",
+        "workflowTemplateId" : "tpl",
+        "heapIdPattern" : ".*image"
+    }]
+}
 ----
 
 == Configuring WUIC components
@@ -596,6 +915,19 @@ Engines could be configured with specific properties used to define an engine bu
             </properties>
         </engine-builder>
     </engine-builders>
+----
+
+In JSON:
+
+[source,json]
+----
+    "engineBuilders" : [{
+        "id" : "jsSprite",
+        "type" : "ImageAggregatorEngineBuilder",
+        "properties" : {
+            "c.g.wuic.engine.spriteProviderClassName" : "javascript"
+        }
+    }]
 ----
 
 The possible properties for an engine are tightly coupled to the underlying project and its purpose.
@@ -627,6 +959,16 @@ In your `wuic.xml`, you will declare it like this:
     <nut-dao-builder id="sourceRootProvider" class="ClasspathNutDaoBuilder" />
 ----
 
+Or in your `wuic.json`:
+
+[source,json]
+----
+{
+    "id" : "sourceRootProvider",
+    "class" : "ClasspathNutDaoBuilder"
+}
+----
+
 Here are the possible classes for each protocol:
 
 * RequestDispatcher: `RequestDispatcherNutDaoBuilder` (typically for statics under `src/main/webapp`)
@@ -650,6 +992,19 @@ For instance, you will override the FTP domain server like this:
     <nut-dao-builder id="sourceRootProvider" class="FtpNutDaoBuilder">
         <property key="c.g.wuic.serverDomain">mycompany.com</property>
     </nut-dao-builder>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "id" : "sourceRootProvider",
+    "class" : "FtpNutDaoBuilder",
+    "properties" : {
+        "c.g.wuic.serverDomain" : "mycompany.com"
+    }
+}
 ----
 
 Not all properties are supported by each builder. Here is a table which describe them and their support by builder.
@@ -679,6 +1034,19 @@ In XML, configuring a filter looks like this:
             </property>
         </properties>
     </nut-filter-builder>
+----
+
+In JSON:
+
+[source,json]
+----
+{
+    "id" : "regexRemoveNutFilter",
+    "type" : "RegexRemoveNutFilterBuilder"
+    "properties" : {
+        "c.g.wuic.filter.regexExpressions" : ".*.js\nref.css"
+    }
+}
 ----
 
 IMPORTANT: please note that filters are global and apply to all declared heaps.

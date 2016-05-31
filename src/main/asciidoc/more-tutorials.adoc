@@ -267,6 +267,20 @@ For instance, if you configure engines in your `wuic.xml`, you will write this:
 </engine-builders>
 ----
 
+Or in your `wuic.json` file:
+
+[source,json]
+----
+{
+    "engineBuilders" : [{
+        "type" : "TypescriptConverterEngineBuilder",
+        "properties" : {
+            "c.g.wuic.engine.useNodeJs" : true
+        }
+    }]
+}
+----
+
 Note: you can filter the value with maven to set this setting to true only in a development profile.
 When you'll go in production, the setting will be false and you won't need to ask your ops to install `Node.JS`
 
@@ -568,6 +582,21 @@ This could be done by configuring the `JavascriptInspectorEngine` in your `wuic.
         </engine-builder>
     </engine-builders>
 </wuic>
+----
+
+Or in your `wuic.json` file:
+
+[source,json]
+----
+{
+    "engineBuilders" : [{
+         "id" : "wuicDefaultJavascriptInspectorEngineBuilder",
+         "type" : "JavascriptInspectorEngineBuilder",
+         "properties" : {
+            "c.g.wuic.engine.wrapPattern" : "getChild(%s)"
+        }
+    }]
+}
 ----
 
 That's it! you can now develop without any server deployment and then let WUIC optimize your scripts in production!

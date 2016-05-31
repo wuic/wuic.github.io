@@ -309,6 +309,7 @@ This tutorial shows how to change the base path in a classpath.
 
 In the previous tutorials we used custom a JSP tag and Thymeleaf processor to configure WUIC.
 Here we will use a `wuic.xml` file which needs to be placed at the root of your classpath (`src/main/resources`).
+The samples show also a `JSON` version that can be alternatively declared in file called `wuic.json`.
 
 === Specifying custom DAOs
 
@@ -323,6 +324,20 @@ If default DAOs are not configured as you want, then you can declare a new confi
             </properties>
         </nut-dao-builder>
     </nut-dao-builders>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+    {
+        "nutDaoBuilders": [{
+            "id": "myDao",
+            "properties": {
+                "c.g.wuic.dao.basePath" : "/scripts"
+            }
+        }]
+    }
 ----
 
 Here we declare a DAO for classpath accesses which will retrieve any nut in /scripts. So, you may have something like that:
@@ -348,6 +363,26 @@ Here we declare a DAO for classpath accesses which will retrieve any nut in /scr
         </heap>
     </heaps>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+    {
+        "nutDaoBuilders" : [{
+            "properties" : {
+                "c.g.wuic.dao.basePath" : "/scripts",
+                "c.g.wuic.dao.contentBasedVersionNumber" : "${avoidTouch:true}"
+            }, "heaps": [{
+                "id": "css",
+                "nutPath": "css/foo.css"
+            }, {
+               "id": "js",
+               "nutPath": "js/foo.js"
+           }]
+        }]
+    }
 ----
 
 This configuration manages two files in your classpath: `/scripts/css/foo.css` and `/scripts/js/foo.js`!
@@ -443,6 +478,20 @@ The following configuration disables the cache:
 </engine-builders>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "engineBuilders" : [{
+        "type" : "EhCacheEngineBuilder",
+        "properties" : {
+            "c.g.wuic.engine.cache" : false
+        }
+    }]
+}
+----
+
 Another solution is to add `c.g.wuic.engine.cache=false` in a `wuic.properties` file located in the classpath root.
 Note that with this approach the state will change for any component supporting the `c.g.wuic.engine.cache` property.
 
@@ -477,6 +526,17 @@ Declare all your images in a classic heap:
 </heap>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "id" : "img";
+    "daoBuilderId" : "imageDao",
+    "nutPath" : ["/foo.png", "/bar.png"]
+}
+----
+
 === Import CSS sprites
 
 If you have imported the underlying `img` workflow in your page, then you can assume that a CSS stylesheet with `img_foo`
@@ -505,6 +565,21 @@ the generation of javascript sprites.
         </properties>
     </engine-builder>
 </engine-builders>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "engineBuilders" : {
+        "id" : "wuicDefaultImageAggregatorEngineBuilder",
+        "type" : "ImageAggregatorEngineBuilder",
+        "properties" : {
+            "c.g.wuic.engine.spriteProviderClassName" : "javascript"
+        }
+    }
+}
 ----
 
 Where you finally import your `img` workflow, you can use in Javascript `WUIC_SPRITE['img_foo']` and `WUIC_SPRITE['img_bar']` to get an object with following properties:
@@ -538,11 +613,20 @@ This tutorial shows how to enable a polling mechanism that detects any modificat
 
 In your `wuic.xml` file, add the following attribute to root element:
 
-[source,javascript]
+[source,xml]
 ----
 <wuic polling-interval-seconds="10">
     ...
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "pollingIntervalSeconds" : "10"
+}
 ----
 
 Every 10 seconds, WUIC checks if the file has been modified.
@@ -553,8 +637,18 @@ To specify a different location of `wuic.xml` file, you can use following `init-
 [source,xml]
 ----
     <context-param>
-        <param-name>c.g.w.wuicXmlPath</param-name>
+        <param-name>c.g.wuic.facade.wuicXmlPath</param-name>
         <param-value>file:/my_app/wuic.xml</param-value>
+    </context-param>
+----
+
+For a `wuic.json` file, use this configuration:
+
+[source,xml]
+----
+    <context-param>
+        <param-name>c.g.wuic.facade.wuicJsonPath</param-name>
+        <param-value>file:/my_app/wuic.json</param-value>
     </context-param>
 ----
 
@@ -570,6 +664,19 @@ You can enable polling on a particular DAO like this:
         <property key="c.g.wuic.dao.pollingInterval">3600</property>
     </properties>
 </nut-dao-builder>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "type" : "DiskNutDaoBuilder",
+    "properties": {
+        "c.g.wuic.dao.basePath" : "file:/my_app/statics",
+        "c.g.wuic.dao.pollingInterval" : "3600"
+    }
+}
 ----
 
 Each hour, all nuts creates with the DAO will be polled.
@@ -717,13 +824,24 @@ The task has the following specific options:
 
 If your application just contains `.html` files, then you can filter them with WUIC and then directly serve them.
 
-Configure your `wuic.xml` by adding just a heap that resolves the HTML pages:
+Configure your `wuic.xml` or `wuic.json` by adding just a heap that resolves the HTML pages:
 
 [source,xml]
 ----
 <heap id="html" dao-builder-id="htmlClasspathNutDaoBuilder">
     <nut-path>.*.html</nut-path>
 </heap>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "id" : "html",
+    "daoBuilderId" : "htmlClasspathNutDaoBuilder",
+    "nutPath" : ".*.html"
+}
 ----
 
 Then, according to the output location, you will find the transformed HTML files. The extracted scripts are also copied.

@@ -61,6 +61,23 @@ Let's see the following configuration that defines nuts heaps imported with `Thy
     </heap>
 ----
 
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "heaps" : [{
+        "id" : "css",
+        "daoBuilderId" : "myDao",
+        "nutPath" : "css/foo.css"
+    }, {
+        "id" : "js",
+        "daoBuilderId" : "myDao",
+        "nutPath" : "js/foo.js"
+    }]
+}
+----
+
 [source,xml]
 ----
 <wuic:html-import workflowId="css" />
@@ -101,6 +118,23 @@ So if we want to specify specific engines in a workflow, we have to declare it:
     <workflows>
         <workflow id-prefix="my-" workflow-template-id="tpl" heap-id-pattern=".*" />
     </workflows>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "workflowTemplates" : [{
+        "id" : "tpl"
+        "without" : [{wuicDefaultMemoryMapCacheEngineBuilder}]
+        "engineChain" : ["wuicDefaultEhCacheEngineBuilder", "wuicDefaultYuiCompressorJavascriptEngineBuilder", "wuicDefaultYuiCompressorCssEngineBuilder"]
+    }], "workflows" : [{
+        "idPrefix" : "my-",
+        "workflowTemplateId" : "tpl",
+        "heapIdPattern" : ".*"
+    }]
+}
 ----
 
 * Note that we have excluded the cache based on a memory map because we only want to use `EhCache` to cache nuts
@@ -216,6 +250,18 @@ With the previous sample, you can now do something like that in XML:
        </engine-builder>
    </engine-builders>
 </wuic>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+   "engineBuilders" : [{
+       "type" : "MyCompressEngineBuilder",
+       "properties" : { "c.g.wuic.engine.compress" : "false" }
+   }]
+}
 ----
 
 WUIC generates a builder identified by `[EngineName]Builder` and by default injects a default instance identified by `wuicDefault[BuilderName]` into the workflow.

@@ -246,13 +246,29 @@ For instance, nut `foo/bar/baz/My Image.png` in heap `My Sprite` will result in 
 
 === My browser cache is evicted when I redeploy event if I don't modify my sources
 
-Several build tools like maven copy the sources to package you webapp and, according to your environment, the last modification timestamp is updated. Since WUIC uses this timestamp to compute an MD5 signature and adds it to the URL of any nut, client cache will be evicted when you deploy a new version of your application. You can configure your DAO to compute the MD5 by digesting file content. This way, the URL won't change when you redeploy your application if the content didn't changed.
+Several build tools like maven copy the sources to package you webapp and, according to your environment, the last modification timestamp is updated.
+Since WUIC uses this timestamp to compute an MD5 signature and adds it to the URL of any nut, client cache will be evicted when you deploy a new version of your application.
+You can configure your DAO to compute the MD5 by digesting file content.
+This way, the URL won't change when you redeploy your application if the content didn't changed.
 
 [source,xml]
 ----
    <nut-dao-builder id="myDao" class="FtpNutDaoBuilder">
        <property key="c.g.wuic.dao.contentBasedVersionNumber">true</property>
    </nut-dao-builder>
+----
+
+Alternatively in JSON:
+
+[source,json]
+----
+{
+    "id" : "myDao",
+    "class" : "FtpNutDaoBuilder",
+    "properties" : {
+        "c.g.wuic.dao.contentBasedVersionNumber" : "true"
+    }
+}
 ----
 
 Of course, the drawback is that this operation is slower because the whole content will be read, which increases startup time.
@@ -316,6 +332,19 @@ In your `wuic.xml` file, consider the base directory where files are generated:
             </properties>
         </nut-dao-builder>
     </nut-dao-builders>
+----
+
+In a `wuic.json` file:
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{
+        "type" : "DiskNutDaoBuilder",
+        "properties" : {
+            "c.g.wuic.dao.basePath" : "target"
+        }
+    }]
 ----
 
 Then, just copy the resources to the target directory and tell the plugin to generated result into target/install directory.
