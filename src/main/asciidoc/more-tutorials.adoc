@@ -77,7 +77,10 @@ Then create the `WuicFacade` to expose it as a bean in the `ApplicationContext`.
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=SpringWuicFacade]
 ----
 
-TIP: you can completely ignore the use of `wuic.xml` and configure WUIC with <<api.html#_java_config,Java Config>>.
+TIP: you can completely ignore the use of `wuic.xml` or `wuic.json` and configure WUIC with <<api.html#_java_config,Java Config>>.
+The `WuicFacadeBuilderFactory` actually extracts a pre-configured `WuicFacadeBuilder` initialized by the `WuicServletContextListener` as done in any servlet container.
+The factory brings spring support by injecting to the builder any http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator] declared as a bean.
+This means that you can create an `ContextBuilderConfigurator` implementation and annotate it `@Component` to perform custom configuration through `Java Config`.
 
 Finally, just use the handy `WuicHandlerMapping` to inject to spring a bean handling resources with WUIC.
 Core resolvers are `WuicPathResourceResolver`  and `WuicVersionStrategy`, but you can create additional implementations.
