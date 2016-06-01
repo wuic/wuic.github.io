@@ -105,7 +105,7 @@ So if we want to specify specific engines in a workflow, we have to declare it:
     <workflow-templates>
         <workflow-template id="tpl">
             <without>
-                <engine-builder-id>wuicDefaultMemoryMapCacheEngineBuilder</engine-builder-id>
+                <engine-builder-type>MemoryMapCacheEngineBuilder</engine-builder-type>
             </without>
             <engine-chain>
                 <engine-builder-id>wuicDefaultEhCacheEngineBuilder</engine-builder-id>
