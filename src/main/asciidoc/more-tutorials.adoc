@@ -77,12 +77,6 @@ Then create the `WuicFacade` to expose it as a bean in the `ApplicationContext`.
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=SpringWuicFacade]
 ----
 
-TIP: you can completely ignore the use of `wuic.xml` or `wuic.json` and configure WUIC with <<api.html#_java_config,Java Config>>.
-The `WuicFacadeBuilderFactory` actually extracts a pre-configured `WuicFacadeBuilder` initialized by the `WuicServletContextListener` as done in any servlet container.
-The factory brings spring support by injecting to the builder any http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator] declared as a bean.
-This means that you can create an `ContextBuilderConfigurator` implementation and annotate it `@Component` to perform custom configuration through `Java Config`.
-For more advanced usage, you can inject as a bean any instance of http://wuic.github.io/apidocs/com/github/wuic/config/ObjectBuilderInspector.html[ObjectBuilderInspector] in order to customize objects created by WUIC.
-
 Finally, just use the handy `WuicHandlerMapping` to inject to spring a bean handling resources with WUIC.
 Core resolvers are `WuicPathResourceResolver`  and `WuicVersionStrategy`, but you can create additional implementations.
 
@@ -97,6 +91,17 @@ You can also override `addResourceHandlers` method to configure resolvers/transf
 ----
 include::{extension-repository}spring/src/test/java/com/github/wuic/spring/test/SpringTutorial.java[tags=addResourceHandlers]
 ----
+
+==== Configure WUIC through spring
+
+You can completely ignore the use of `wuic.xml` or `wuic.json` and configure WUIC with <<api.html#_java_config,Java Config>>.
+The `WuicFacadeBuilderFactory` actually extracts a pre-configured `WuicFacadeBuilder` initialized by the `WuicServletContextListener` as done in any servlet container.
+The factory brings spring support by injecting to the builder any http://wuic.github.io/apidocs/com/github/wuic/ContextBuilderConfigurator.html[ContextBuilderConfigurator] declared as a bean.
+This means that you can create an `ContextBuilderConfigurator` implementation and annotate it `@Component` to perform custom configuration through `Java Config`.
+For more advanced usage, you can inject as a bean any instance of http://wuic.github.io/apidocs/com/github/wuic/config/ObjectBuilderInspector.html[ObjectBuilderInspector] in order to customize objects created by WUIC.
+
+Also note that the `WuicFacadeBuilderFactory` injects all spring `PropertySource` in the internal property resolver of WUIC.
+Consequently, you can define any property you usually add to the `wuic.properties` file to a property object managed by spring.
 
 ==== Full example
 
