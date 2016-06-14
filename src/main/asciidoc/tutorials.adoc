@@ -504,6 +504,30 @@ If the `engine-builder-id` attribute is not set in the `engine-builder` element,
 So writing `<engine-builder type="EhCacheEngineBuilder" engine-builder-id="wuicDefaultEhCacheEngineBuilder">`
 is equivalent to `<engine-builder type="EhCacheEngineBuilder">`.
 
+== Define a profile
+
+For development purpose, you might want ot disable some functions like minification or aggregation.
+However, you don't want to do it in production.
+To apply some properties only in a specific environment, you can create for instance a file called `wuic-dev.properties`:
+
+----
+# wuic-dev.properties
+# this property disables aggregation
+c.g.wuic.engine.aggregate=false
+# this property disables compression
+c.g.wuic.engine.compress=false
+----
+
+To take this file into consideration, you need to enable the `dev` profile in WUIC.
+This can be achieved in different ways, but the simplest one is to declare it with a JVM property:
+
+----
+-Dc.g.wuic.facade.profiles=dev
+----
+
+You can apply this setting only in development environment to disable aggregation and minification.
+Don't apply this in production to keep those features turned on.
+
 == Adding sprites
 
 === Applying sprites best practice
@@ -735,12 +759,16 @@ Both task and maven plugin allow to configure the following options:
 * `output`: base path where results are written by the plugin
 * `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
 * `contextPath`: the context path of the web server that will serve the generated statics (which is optional)
+* `profiles`: the active profiles
 
 You will see in the next sections how they can be declared.
 
 ==== With Maven plugin
 
 You can use the `static-helper-maven-plugin` that is commonly configured like that in the build section of your `pom.xml`:
+
+*Note:* profiles are not declared in the plugin configuration section.
+Actually WUIC inherits from maven profiles.
 
 [source,xml]
 ----
@@ -809,6 +837,7 @@ In your `build.xml` file, just add:
               properties="target/classes/wuic-ant.properties"
               relocateTransformedXmlTo="${wuic-output}/WEB-INF/classes"
               output="${wuic-output}"
+              profiles="foo,bar"
         />
     </target>
 </project>

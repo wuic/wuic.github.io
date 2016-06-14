@@ -103,6 +103,13 @@ For more advanced usage, you can inject as a bean any instance of http://wuic.gi
 Also note that the `WuicFacadeBuilderFactory` injects all spring `PropertySource` in the internal property resolver of WUIC.
 Consequently, you can define any property you usually add to the `wuic.properties` file to a property object managed by spring.
 
+Finally, the `WuicFacadeBuilderFactory` injects to the WUIC context all the spring profiles (usually activated with `spring.profiles.active` property).
+This means that if a registration is restricted with a particular profile, you can use this registration simply by activating this profile through spring;
+
+NOTE: if you want to apply a profile to any `ContextBuilderConfigurator` or `ObjectBuilderInspector` component injected
+by spring, it is recommended to use the `com.github.wuic.Profile` annotation instead of spring `@Profile` annotation.
+Even if the later works, the former allows to activate components on the fly if you activate a profile.
+
 ==== Full example
 
 A full example is available https://github.com/wuic/wuic-samples/tree/wuic-0.5.x-snapshot/spring-sample[here].
