@@ -171,6 +171,9 @@ WUIC has sent a far expiry header to the HTTP response in order to put resources
 Don't worry about cache busting, external resources URL contain a version number that WUIC updates when change are detected.
 We can also take control over version number computation, see details link:reference.html#_version_number[here].
 
+TIP: It's recommended to use http://www.webjars.org/[webjar] project and a servlet 3 compatible server to manage your third party libraries.
+Include them as usual in you HTML page, WUIC will take care of their resolution!
+
 == JSP / Thymeleaf processing
 
 We have seen how we can optimize a plain HTML page with the WUIC `Filter`.

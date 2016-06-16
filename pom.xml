@@ -97,6 +97,11 @@
                         <artifactId>wuic-typescript</artifactId>
                         <version>${project.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-webjars</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
 
