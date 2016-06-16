@@ -440,6 +440,12 @@ Finally, it is better to define for instance a base path called '/statics' and t
 CAUTION: another reason to specify a particular base path is to make the file research faster.
 If you let the default base path, a large set of unnecessary files could be scanned.
 
+TIP: the relative URL resolution mechanism is similar to the protocol implemented by browsers to resolve relative URLs.
+However, the use of `XHR` object in javascript resolves URls relatively to the HTML page's path that loaded the javascript file calling `XHR`, not to the javascript's path.
+To handle those cases, if the default resolution mechanism does not match any resource, WUIC fallback to a resolution mechanism based on the parsed HTML page.
+Note that the parsing an HTML page means the HTML page has been declared in a heap or intercepted by the `HtmlParserFilter`.
+For instance, using the `JSP` or `Thymeleaf` support to import a workflow won't lead to the HTML page processing.
+
 == Additional process
 
 Behind each process operation, an engine is run. WUIC is fully modular and use engines provided out of the box.
