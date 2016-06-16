@@ -276,44 +276,27 @@ Of course, the drawback is that this operation is slower because the whole conte
 === At build time, how to keep the filtered index.html inside the root directory?
 
 The maven plugin always generate the files in a subdirectory named with its corresponding hash to evict browser cache when you deploy your statics.
-However, the filtered index.html is still served at the root of your server so by default you need to copy it manually, which could be done automatically with maven:
+However, the filtered `index.html` is still served at the root of your server so by default you need to copy it manually.
+WUIC can do it for you if you define the regex matching the name of files to be moved with the `moveToTopDirPattern` setting:
 
 [source,xml]
 ----
 <plugin>
-    <groupId>org.codehaus.gmaven</groupId>
-    <artifactId>gmaven-plugin</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>1.8.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-    </dependencies>
+    <groupId>com.github.wuic.plugins</groupId>
+    <artifactId>static-helper-maven-plugin</artifactId>
+    <version>${project.version}</version>
     <executions>
         <execution>
-            <id>copy-index</id>
-            <phase>package</phase>
+            <phase>generate-resources</phase>
             <goals>
-                <goal>execute</goal>
+                <goal>process</goal>
             </goals>
-            <configuration>
-                <source>
-                    import groovy.io.FileType;
-                    new File(pom.basedir, 'target/').eachFileRecurse(FileType.FILES) {
-                        if (it.name.equals('index.html')) {
-                            new File(pom.basedir, 'target/index.html').text = it.text;
-                        }
-                    }
-                </source>
-            </configuration>
         </execution>
     </executions>
+    <configuration>
+        <xml>wuic.xml</xml>
+        <moveToTopDirPattern>.*.html</moveToTopDirPattern>
+    </configuration>
 </plugin>
 ----
 

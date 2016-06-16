@@ -763,6 +763,7 @@ Both task and maven plugin allow to configure the following options:
 * `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
 * `contextPath`: the context path of the web server that will serve the generated statics (which is optional)
 * `profiles`: the active profiles
+* `moveToTopDirPattern`: a regex matching the name of files to keep on top of the directory structure, typically the HTML page you want to keep in the root of your website
 
 You will see in the next sections how they can be declared.
 
@@ -792,6 +793,7 @@ Actually WUIC inherits from maven profiles.
         <properties>src/main/resources/wuic.properties</properties>
         <relocateTransformedXml>true</relocateTransformedXml>
         <output>${build.finalName}</output>
+        <moveToTopDirPattern>index.html</moveToTopDirPattern>
     </configuration>
 </plugin>
 ----
@@ -841,6 +843,7 @@ In your `build.xml` file, just add:
               relocateTransformedXmlTo="${wuic-output}/WEB-INF/classes"
               output="${wuic-output}"
               profiles="foo,bar"
+              moveToTopDirPattern="index.html"
         />
     </target>
 </project>

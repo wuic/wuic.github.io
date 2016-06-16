@@ -217,6 +217,7 @@
                 <configuration>
                     <xml>target/wuic.xml</xml>
                     <output>${project.artifactId}</output>
+                    <moveToTopDirPattern>.*.html</moveToTopDirPattern>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -231,41 +232,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${groovy-all.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>${ant.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>copy-index</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>
-                                import groovy.io.FileType;
-                                new File(pom.basedir, 'target/site/pages').eachFileRecurse(FileType.FILES) {
-                                    if (it.name.endsWith('.html')) {
-                                        new File(pom.basedir, 'target/site/' + it.name).text = it.text;
-                                    }
-                                }
-                            </source>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -274,7 +240,6 @@
         <gem-maven-plugin.version>1.0.5</gem-maven-plugin.version>
         <asciidoctor-diagram.version>1.2.1</asciidoctor-diagram.version>
         <asciidoctor-maven-plugin.version>1.5.2</asciidoctor-maven-plugin.version>
-        <groovy-all.version>1.8.9</groovy-all.version>
         <ant.version>1.9.4</ant.version>
         <wuic.basePath>${project.build.directory}/filtered</wuic.basePath>
     </properties>
