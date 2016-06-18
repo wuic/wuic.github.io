@@ -161,26 +161,6 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.7</version>
                 <executions>
-                    <execution>
-                        <id>copy-wuic-xml</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources</directory>
-                                    <includes>
-                                        <include>wuic.xml</include>
-                                    </includes>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-
                     <!-- Put the site pages in the directory that will be optimized by WUIC -->
                     <execution>
                         <id>copy-webapp</id>
@@ -215,9 +195,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <xml>target/wuic.xml</xml>
                     <output>${project.artifactId}</output>
                     <moveToTopDirPattern>.*.html</moveToTopDirPattern>
+                    <useRegex>true</useRegex>
+                    <path>[a-z\-]*.html</path>
+                    <baseDir>${wuic.basePath}</baseDir>
                 </configuration>
                 <dependencies>
                     <dependency>
