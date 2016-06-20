@@ -774,6 +774,7 @@ Both task and maven plugin allow to configure the following options:
 * `contextPath`: the context path of the web server that will serve the generated statics (which is optional)
 * `profiles`: the active profiles
 * `moveToTopDirPattern`: a regex matching the name of files to keep on top of the directory structure, typically the HTML page you want to keep in the root of your website
+* `packageAsJar`: packages the files in a JAR file called `wuic-task.jar`. Statics will be located in `META-INF/resources` to be served by any servlet container.
 
 You will see in the next sections how they can be declared.
 
@@ -807,6 +808,7 @@ Actually WUIC inherits from maven profiles.
         <relocateTransformedXml>true</relocateTransformedXml>
         <output>${build.finalName}</output>
         <moveToTopDirPattern>index.html</moveToTopDirPattern>
+        <packageAsJar>false</packageAsJar>
     </configuration>
 </plugin>
 ----
@@ -857,6 +859,7 @@ In your `build.xml` file, just add:
               output="${wuic-output}"
               profiles="foo,bar"
               moveToTopDirPattern="index.html"
+              packageAsJar="false"
         />
     </target>
 </project>
@@ -865,6 +868,36 @@ In your `build.xml` file, just add:
 The task has the following specific options:
 
 * `relocateTransformedXmlTo`: if defined, a location where the transformed `wuic.xml` file some metadata must be written. This directory should be added to your classpath at runtime to allow the servlet to serve the process result from the application server by picking information from classpath.
+
+==== About JAR packaging
+
+When result is packaged inside a JAR file (`packageAsJar=true`), you can add it to the classpath of you web application in order to let the servlet 3 container serve the static content.
+Typically, you will add this JAR to the `WEB-INF/lib` directory of your WAR file.
+Since the generated JAR is called `wuic-task.jar`, you can copy it to your webapp with maven like that:
+
+[source,xml]
+----
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                    <webResources>
+                        <webResource>
+                            <directory>${project.build.outputDirectory}</directory>
+                            <includes>
+                                <include>wuic-task.jar</include>
+                            </includes>
+                            <targetPath>WEB-INF/lib</targetPath>
+                        </webResource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+----
 
 === Configure
 

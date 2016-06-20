@@ -200,6 +200,7 @@
                     <useRegex>true</useRegex>
                     <path>[a-z\-]*.html</path>
                     <baseDir>${wuic.basePath}</baseDir>
+                    <packageAsJar>false</packageAsJar>
                 </configuration>
                 <dependencies>
                     <dependency>
