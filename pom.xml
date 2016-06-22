@@ -59,6 +59,11 @@
                 <dependencies>
                     <dependency>
                         <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-attoparser</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
                         <artifactId>wuic-htmlcompressor</artifactId>
                         <version>${project.version}</version>
                     </dependency>
