@@ -591,7 +591,7 @@ This could be done by configuring the `JavascriptInspectorEngine` in your `wuic.
 
 <wuic>
     <engine-builders>
-        <engine-builder id="wuicDefaultJavascriptInspectorEngineBuilder" type="JavascriptInspectorEngineBuilder">
+        <engine-builder type="javascriptInspector">
             <properties>
                 <property key="c.g.wuic.engine.wrapPattern">getChild(%s)</property>
             </properties>
@@ -606,7 +606,6 @@ Or in your `wuic.json` file:
 ----
 {
     "engineBuilders" : [{
-         "id" : "wuicDefaultJavascriptInspectorEngineBuilder",
          "type" : "JavascriptInspectorEngineBuilder",
          "properties" : {
             "c.g.wuic.engine.wrapPattern" : "getChild(%s)"

@@ -1396,7 +1396,7 @@ you can instantiate the class with different constructors instead of using the d
 
 IMPORTANT: WUIC computes an unique ID for each filtered page.
 For each ID, WUIC will associate all the filtered statements and cache them.
-This means that if two page lead to the same ID, you will start facing weird issues.
+This means that if two pages lead to the same ID, you will start facing weird issues.
 By default, the servlet path is used to compute the ID. If other discriminators are used, you can create a class
 that extends the `HtmlParserFilter` and override it like that:
 
@@ -1505,19 +1505,17 @@ include::{wuic-repository}wuic/core/src/test/java/com/github/wuic/test/ApiTutori
 Check the javadoc to see other configurations points exposed by the http://wuic.github.io/apidocs/com/github/wuic/WuicFacadeBuilder.html[WuicFacadeBuilder].
 
 Default instances are created for all DAOs / Engine discovered in the classpath by WUIC.
-They are identified by `wuicDefault[SimpleClassName][Builder]`, for instance `wuicDefaultTextAggregatorEngineBuilder`
-for the default instance of `TextAggregatorEngine`:
-
-* See http://wuic.github.io/apidocs/com/github/wuic/nut/dao/core/package-summary.html[this package] for DAOs
-* See http://wuic.github.io/apidocs/com/github/wuic/engine/core/package-summary.html[this package] for engines
-* See http://wuic.github.io/apidocs/com/github/wuic/nut/filter/core/package-summary.html[this package] for filters
-
-For default properties:
+Additional DAOs and Engine will be available regarding the extensions you add to your classpath.
+They are identified by the value specified in their `@Alias` annotation that can be checked in the javadoc below:
 
 * See link:api.html#_configuring_the_nutdao[this page] for DAOs
 * See link:api.html#_configuring_the_engines[this page] for engines
 
-Additional DAOs and Engine will be available regarding the extensions you add to your classpath.
+The documentation contains also all the default properties.
+
+All components in WUIC are annotated with `@Alias` but this is not mandatory.
+If a component is not annotated, the default configuration will be identified by `wuicDefault[SimpleClassName][Builder]`.
+For instance `wuicDefaultFoorEngineBuilder` will be the ID for the default instance of `FooEngine` class.
 
 === Configure the facade
 

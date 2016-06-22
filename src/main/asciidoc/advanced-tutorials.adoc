@@ -108,9 +108,9 @@ So if we want to specify specific engines in a workflow, we have to declare it:
                 <engine-builder-type>MemoryMapCacheEngineBuilder</engine-builder-type>
             </without>
             <engine-chain>
-                <engine-builder-id>wuicDefaultEhCacheEngineBuilder</engine-builder-id>
-                <engine-builder-id>wuicDefaultYuiCompressorJavascriptEngineBuilder</engine-builder-id>
-                <engine-builder-id>wuicDefaultYuiCompressorCssEngineBuilder</engine-builder-id>
+                <engine-builder-id>ehcache</engine-builder-id>
+                <engine-builder-id>yuicompressorJavascript</engine-builder-id>
+                <engine-builder-id>yuicompressorCss</engine-builder-id>
             </engine-chain>
         </workflow-template>
     </workflow-templates>
@@ -127,8 +127,8 @@ Alternatively in JSON:
 {
     "workflowTemplates" : [{
         "id" : "tpl"
-        "without" : [{wuicDefaultMemoryMapCacheEngineBuilder}]
-        "engineChain" : ["wuicDefaultEhCacheEngineBuilder", "wuicDefaultYuiCompressorJavascriptEngineBuilder", "wuicDefaultYuiCompressorCssEngineBuilder"]
+        "without" : [{defaultCache}]
+        "engineChain" : ["ehcache", "yuiCompressorJavascript", "yuiCompressorCss"]
     }], "workflows" : [{
         "idPrefix" : "my-",
         "workflowTemplateId" : "tpl",
@@ -264,7 +264,8 @@ Alternatively in JSON:
 }
 ----
 
-WUIC generates a builder identified by `[EngineName]Builder` and by default injects a default instance identified by `wuicDefault[BuilderName]` into the workflow.
+WUIC generates a builder identified by a default ID into the workflow.
+You can check the link:api.html#_configuring_the_engines[API] to see what are the default ID for each engine.
 The previous configuration simply changes the default value (`true` to `false`).
 
 You will find several extensions already provided https://github.com/wuic/wuic-extensions[here].
