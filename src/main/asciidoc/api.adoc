@@ -1280,6 +1280,11 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
          <td>Empty String</td>
     </tr>
     <tr>
+         <td>*.facade.defaultNutDaoClass</td>
+         <td>When no `NutDao` type or ID is specified in a component settings, WUIC will apply this default component with a default configuration.</td>
+         <td>com.github.wuic.nut.dao.core.ClasspathNutDao</td>
+    </tr>
+    <tr>
          <td>*.charset</td>
          <td>
             Charset used by WUIC when reading/writing files.

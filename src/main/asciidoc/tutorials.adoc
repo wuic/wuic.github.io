@@ -404,6 +404,7 @@ Example: `-Dc.g.wuic.dao.wildcard=true`
 TIP: by default the DAO load resources from the classpath if you don't specify the `type` attribute in the `nut-dao-id-builder`.
 Writing `<nut-dao-builder>` is equivalent to `<nut-dao-builder type="ClasspathNutDaoBuilder">`.
 You can find all the supported DAO with a deep description of this API link:api.html#_configuring_the_nutdao[here]
+You can change the default DAO by setting to your `wuic.properties` the `c.g.wuic.facade.defaultNutDaoClass` property with full class name of desired `NutDao` implementation.
 
 TIP: as you can see we have configured the property `c.g.wuic.dao.contentBasedVersionNumber` with a property place holder.
 Turning this property to `true` is handy when you don't want that the version number changes just because the OS touch the
