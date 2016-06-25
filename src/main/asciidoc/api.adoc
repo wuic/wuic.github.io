@@ -1050,6 +1050,7 @@ Here are the possible classes for each protocol:
 * Classpath: `ClasspathNutDaoBuilder` (typically for statics under `src/main/resources`)
 * Webapp: `WebappNutDaoBuilder` (typically for statics under `src/main/webapp/WEB-INF` except `src/main/webapp/WEB-INF/lib` which is ignored)
 * WebJar: `WebJarNutDao` (for statics packages inside http://www.webjars.org[webjars] dependencies)
+* Spring: `SpringNutDao` (for resources resolved via http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/support/ServletContextResourcePatternResolver.html[ServletContextResourcePatternResolver])
 * HTTP: `HttpNutDaoBuilder`
 * SSH: `SshNutDaoBuilder`
 * FTP: `FtpNutDaoBuilder`

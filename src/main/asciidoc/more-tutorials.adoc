@@ -103,6 +103,10 @@ For more advanced usage, you can inject as a bean any instance of http://wuic.gi
 Also note that the `WuicFacadeBuilderFactory` injects all spring `PropertySource` in the internal property resolver of WUIC.
 Consequently, you can define any property you usually add to the `wuic.properties` file to a property object managed by spring.
 
+By default, `WuicFacadeBuilder` configures the default `NutDao` to `spring`.
+This means that any component not using a DAO explicitly referenced (with its ID) will rely on default configuration for `SpringNutDao`.
+This DAO relies on http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/context/support/ServletContextResourcePatternResolver.html[ServletContextResourcePatternResolver] to resolve resources.
+
 Finally, the `WuicFacadeBuilderFactory` injects to the WUIC context all the spring profiles (usually activated with `spring.profiles.active` property).
 This means that if a registration is restricted with a particular profile, you can use this registration simply by activating this profile through spring;
 
