@@ -98,9 +98,21 @@ In our example, we want to minify CSS, Javascript and HTML code.
 `attoparser` already covers HTML compression, but we can add the `yuicompressor` extension for the rest:
 
 [source,xml]
+----
     <dependency>
         <groupId>com.github.wuic.extensions</groupId>
         <artifactId>wuic-yuicompressor</artifactId>
+        <version>${wuic.version}</version>
+    </dependency>
+----
+
+If you use Java 7 or above, it's recommended to use `closure-compiler` instead for javascript compression as you will get `sourcemaps` for debug.
+
+[source,xml]
+----
+    <dependency>
+        <groupId>com.github.wuic.extensions</groupId>
+        <artifactId>wuic-google-closure</artifactId>
         <version>${wuic.version}</version>
     </dependency>
 ----
