@@ -127,7 +127,7 @@ Alternatively in JSON:
 {
     "workflowTemplates" : [{
         "id" : "tpl"
-        "without" : [{defaultCache}]
+        "without" : [{"defaultCache"}]
         "engineChain" : ["ehcache", "yuiCompressorJavascript", "yuiCompressorCss"]
     }], "workflows" : [{
         "idPrefix" : "my-",
