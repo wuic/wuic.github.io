@@ -64,8 +64,8 @@ Find the documentation for following purpose:
     ** GZIP content when browser accepts it
     ** Aggregate scripts (JS and CSS)
     ** Aggregate images with a bin packing algorithm and compute sprites for each of them
-    ** Minify JS and CSS thanks to `YUICompressor`
-    ** Minify HTML thanks to `html-compressor`
+    ** Minify JS and CSS thanks to `YUICompressor` or `Closure Compiler`
+    ** Minify HTML thanks to `html-compressor` or `AttoParser`
     ** Inline resources (JS and CSS)
     ** Extracts inline scripts from HTML pages
     ** Sourcemaps are referenced in the `X-SourceMap` header instead of writing the `sourceMappingURL` comment to the scripts when they're served by WUIC servlet
@@ -79,8 +79,10 @@ Find the documentation for following purpose:
 * Configuration:
     ** Organize the resources easily, declare their location and how to process them
     ** Completely configurable API in `web.xml`, dedicated XML or property file
+    ** Support property place holders (like `${...}`) in configuration files
     ** Possible to configure in pure `Java`
     ** Conventions over configuration with default settings and auto-configuration
+    ** Support profiles allowing to switch configuration to another
 * Process at build time:
     ** Maven plugin
     ** Ant task
