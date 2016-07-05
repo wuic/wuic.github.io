@@ -95,7 +95,10 @@ This extensions also comes with a component that minify the HTML code.
 This is required if we want to optimize web resources referenced by an HTML page that is filtered by WUIC.
 
 In our example, we want to minify CSS, Javascript and HTML code.
-`attoparser` already covers HTML compression, but we can add the `yuicompressor` extension for the rest:
+`attoparser` already covers HTML compression, and a modest script compressor removes comments and blank lines from the JS and CSS files.
+
+If you are fine with default script compression technique, <<faq.html#_how_to_control_characters_written_by_wuic_to_inject_a_new_line[],make sure the line feed is correctly configured>>.
+However, if you want to optimize script compression with more advanced techniques, we can add the `yuicompressor` extension:
 
 [source,xml]
 ----

@@ -64,7 +64,7 @@ Find the documentation for following purpose:
     ** GZIP content when browser accepts it
     ** Aggregate scripts (JS and CSS)
     ** Aggregate images with a bin packing algorithm and compute sprites for each of them
-    ** Minify JS and CSS thanks to `YUICompressor` or `Closure Compiler`
+    ** Minify JS and CSS thanks to `YUICompressor`, `Closure Compiler` or built-in modest compressor
     ** Minify HTML thanks to `html-compressor` or `AttoParser`
     ** Inline resources (JS and CSS)
     ** Extracts inline scripts from HTML pages
