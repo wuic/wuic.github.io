@@ -434,9 +434,12 @@ of `resource-hints`.
 
 === Java server
 
-Java server and even servlet containers don't implement any standard API for HTTP/2. This means that each server comes
-with its own API that you need to specifically implement. WUIC hides those API and comes with a support for a specific
-server under the form of a JAR file.
+Servlet API version 4 will provide a support for HTTP/2 and server-push.
+This specification is under development and support is still limited by the servlet container.
+Anyway, if the any servlet container supports servlet 4, WUIC will use it to leverage server push.
+
+Moreover, each servlet container supporting an older version of the specification can come with its own native API.
+WUIC provides a support for some of the native API under the form of a JAR file to be available on the classpath.
 
 ==== Servlet containers
 
