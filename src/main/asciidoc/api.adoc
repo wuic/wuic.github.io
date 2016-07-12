@@ -1445,6 +1445,30 @@ Built-in templating is a set of features that you can use when your HTML content
 When WUIC optimizes HTML content, it uses by default the `HtmlInspectorEngine` component that supports several tags and
 attributes to customize the way your HTML template is optimized.
 
+=== data-wuic-break: split bundle
+
+If a sequence of assets of the same type is detected in a HTML page, WUIC will aggregate them.
+In some case, it could be preferred to create more than one bundle in order to take advantage from caching capabilities.
+For instance, most of the time you will prefer to put all libraries not subject to change in one isolated file.
+
+To achieve this, you can use the `data-wuic-break` attribute in the asset's tag.
+This directive will stop the current sequence of assets and will start to accumulate the new detected assets in a separate bundle.
+
+Example:
+
+[source,html]
+----
+<script src="script1.js"></script>
+<script data-wuic-break src="script2.js"></script>
+<script src="script3.js"></script>
+<script src="script4.js"></script>
+----
+
+WUIC will replace the HTML code above with two `<script>` tags, the first one containing `script1.js` and the second one a bundle containing the three other files.
+
+NOTE: if you don't want script generated with JSP tag to be aggregated with the other scripts, you can add to your `wuic:html-import` tag a `breakAggregation` attribute.
+With the Thymeleaf processor, you can add the `data-wuic-break` attribute to the HTML element declared with the `wuic:import` attribute.
+
 === data-wuic-skip: don't optimize the script
 
 If you want WUIC skips files referenced by the HTML file, you can use the `data-wuic-skip` in the tag.

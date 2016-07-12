@@ -76,6 +76,7 @@ Find the documentation for following purpose:
     ** `JSP` tag support
     ** `Thymeleaf` processor support
     ** Built-in tag support
+    ** Code splitting directive
 * Configuration:
     ** Organize the resources easily, declare their location and how to process them
     ** Completely configurable API in `web.xml`, dedicated XML or property file
