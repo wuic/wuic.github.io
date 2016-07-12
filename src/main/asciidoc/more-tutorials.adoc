@@ -446,6 +446,13 @@ WUIC provides a support for some of the native API under the form of a JAR file 
 For any servlet container, you must install the `com.github.wuic.servlet.HtmlParserFilter` to let `WUIC` initiate a
 `server-push` for resources associated to the filtered HTML page.
 
+For each of the following sub-sections, you will see that HTTP/2 support can be enabled.
+When you enable the required configuration for each support server (jetty, undertow, servlet 4, ...),
+you can run your application and see that HTTP/2 is transparently enabled.
+To see if everything is fine, we advise to check the session activity for your host by opening link:chrome://net-internals/#spdy in chrome.
+
+Any WUIC https://github.com/wuic/wuic-samples[sample] can be run with HTTP/2. Read the `README.md` for details!
+
 ===== Jetty
 
 First you need to install HTTP/2 with `Jetty`. This requires the version 9.3+ and the JDK 8. You will find a complete
@@ -462,10 +469,27 @@ Then, you just need to add the dependency corresponding to the `Jetty` support f
 </dependency>
 ----
 
-You can run your application and see that HTTP/2 is transparently enabled. To see if everything is fine, we advise to
-check the session activity for your host by opening link:chrome://net-internals/#spdy in chrome.
+===== Undertow
 
-Any WUIC https://github.com/wuic/wuic-samples[sample] can be run with HTTP/2. Read the `README.md` for details!
+With the same constraints seen with Jetty, you can leverage the native API from Undertow to take advantage from the server push.
+This can be achieved transparently by adding the following maven dependency.
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>http2-undertow</artifactId>
+    <version>${project.version}</version>
+</dependency>
+----
+
+===== Servlet 4
+
+If none of the dependencies listed above are detected in the classpath, WUIC will check if the container supports servlet 4 API.
+Servlet 4 provides the `PushBuilder` API, a standard way to take advantage from HTTP/2 server-push.
+In that case, WUIC will use this API to use the underlying implementation provided by the container.
+
+Of course, configurations specific to the selected containers have to be considered (mainly regarding protocol negotiation and SSL).
 
 === HTTP/2 and nghttpx
 
