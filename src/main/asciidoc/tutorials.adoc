@@ -785,7 +785,6 @@ Both task and maven plugin allow to configure the following options:
 * `taskName`: the task name used to create a heap identified with it (default value is `wuic-task`) that resolves the `path` in the `baseDir`
 * `properties`: the `wuic.properties` file location (which is optional)
 * `output`: base path where results are written by the plugin
-* `charset`: by default `UTF-8`, change it if you want to write processed text content (scripts, SVG, etc) with a different encoding
 * `contextPath`: the context path of the web server that will serve the generated statics (which is optional)
 * `profiles`: the active profiles
 * `moveToTopDirPattern`: a regex matching the name of files to keep on top of the directory structure, typically the HTML page you want to keep in the root of your website
