@@ -1136,6 +1136,24 @@ Note: you can find description of each property http://wuic.github.io/apidocs/co
 include::{table-repository}com.github.wuic.nut.filter.html[]
 ++++
 
+=== Note about temporary files
+
+Some components previously mentioned are internally using temporary files for different purpose.
+For instance:
+
+* if a `NutDao` is resolving a file inside a `zip` file, it needs to extract it somewhere.
+* the built-in `Engine` that caches resources of the disk also needs to serialize the object somewhere.
+
+WUIC uses its dedicated temporary directory where it creates and deletes the files later.
+
+By default, files are created from a directory called `wuic` located inside the system temporary directory corresponding to the `java.io.tmpdir` system property.
+Moreover, files are deleted 50 minutes after their creation or when the JVM shutdowns properly.
+The time to live can also be specific for the component that created it.
+For instance, built-in cache uses it's own time to live value.
+
+You can change the location of temporary directory used by WUIC thanks to the `com.github.wuic.tmpDir` property.
+Time to live of temporary files can also be changed via the `com.github.wuic.tmpFileTimeToLiveSeconds` property.
+
 === Intercept component creation
 
 When WUIC instantiates all its components, a list of registered `ObjectBuilderInspector` is chained and called to
