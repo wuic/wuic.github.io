@@ -747,6 +747,7 @@ In addition WUIC provides special loggers using `TRACE` level:
 
 * `com.github.wuic.Logging.TIMER` will log all measured amount of time taken by process executions
 * `com.github.wuic.Logging.POLLING` will log all polling operations when you monitor nuts or configuration file
+* `com.github.wuic.Logging.PROPERTIES` will log all configured properties and their values
 
 As an example, a configuration with `spring-boot` could be:
 
@@ -754,6 +755,7 @@ As an example, a configuration with `spring-boot` could be:
 ----
     logging.level.com.github.wuic.Logging.TIMER: TRACE
     logging.level.com.github.wuic.Logging.POLLING: TRACE
+    logging.level.com.github.wuic.Logging.PROPERTIES: TRACE
 ----
 
 == Process at build time
