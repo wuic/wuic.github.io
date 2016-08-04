@@ -1304,6 +1304,16 @@ In the `Parameter name` column bellow, replace the first `*` character from all 
          <td>com.github.wuic.nut.dao.core.ClasspathNutDao</td>
     </tr>
     <tr>
+         <td>*.facade.maxWorkflowExecutionStats</td>
+         <td>n last execution statistics retained for each workflow.</td>
+         <td>1000</td>
+    </tr>
+    <tr>
+         <td>*.facade.maxHeapResolutionStats</td>
+         <td>n last resolution statistics retained for each heap.</td>
+         <td>1000</td>
+    </tr>
+    <tr>
          <td>*.charset</td>
          <td>
             Charset used by WUIC when reading/writing files.

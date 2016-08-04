@@ -326,6 +326,72 @@ This document shows those differences to help you make the best choice.
     </tr>
 </table>
 
+== Monitoring
+
+=== Logging
+
+==== Common loggers
+
+WUIC uses `slf4j` as logging facade, which allows you to plug any supported logger behind the scene. All log levels are used by the library:
+
+* `DEBUG` logs are very verbose and should be activated only for debug purpose
+* `INFO` should be activated when you want to make sure that WUIC is active
+* `WARN` logs detect something you should not expect, while they don't mean the static won't be delivered to the client, hey should be always activated
+* `ERROR` logs mean that WUIC won't deliver the statics successfully.
+
+==== Special loggers
+
+In addition WUIC provides special loggers using `TRACE` level:
+
+* `com.github.wuic.Logging.TIMER` will log all measured amount of time taken by process executions
+* `com.github.wuic.Logging.POLLING` will log all polling operations when you monitor nuts or configuration file
+* `com.github.wuic.Logging.PROPERTIES` will log all configured properties and their values
+
+As an example, a configuration with `spring-boot` could be:
+
+[source]
+----
+    logging.level.com.github.wuic.Logging.TIMER: TRACE
+    logging.level.com.github.wuic.Logging.POLLING: TRACE
+    logging.level.com.github.wuic.Logging.PROPERTIES: TRACE
+----
+
+=== JMX
+
+The `WuicFacade` exposes statistics via `JMX` under the domain `com.github.wuic.jmx` to measure the activity of WUIC.
+The two main reported activities are heap resolutions and workflow executions described in the following sections.
+The facade also reports the number of refresh operations, that lead to the deletion of all cached objects here to improve the performance.
+
+==== Heap resolution
+
+When WUIC performs a configuration phase, it must resolve the location of the different resources declared through the nuts.
+Nuts can be declared with a concrete path or with patterns like wildcards or regular expressions that lead to resource scanning, a time consuming operation.
+A heap is composed of a set of nuts and resolved them with a particular `NutDao` that actually knows how to locate the resources for a given path or pattern.
+Heap resolution is performed at different moment regarding the way configuration are applied:
+
+* When applications starts if heaps are defined in Java config or configuration file
+* When servlet container process a HTTP request when heap is created from a configuration tag (`Thymeleaf`, `JSP`) or a filtered HTML page
+
+The statistics are published with `HeapStat` bean that list the different heaps.
+Each heap statistics contains the last resolutions statistics and time elapsed during those resolution.
+When statistics are collapsed, it's possible to see the time elapsed during resolution of each path or pattern.
+By default, the `HeapStat` contains the 1000 last resolutions for each heap.
+This number can be configured with the property `c.g.wuic.facade.maxHeapResolutionStats`.
+
+==== Workflow execution
+
+Each time a resource is retrieved, a workflow is executed to get the content and apply proper transformation.
+The workflow works in two phases:
+
+* `parsing`: declare the transformation to apply including caching, a quite fast operation.
+* `transformation`: a time consuming operation, which is skipped when the result is cached by the server.
+
+The statistics are published with `WorkflowStat` bean that list the different workflow.
+Each workflow statistics contains the last executions statistics and time elapsed during those executions.
+When statistics are collapsed, it's possible to see the time elapsed during parsing and each transformation.
+By default, the `WorkflowStat` contains the 1000 last executions for each workflow.
+This number can be configured with the property `c.g.wuic.facade.maxWorkflowExecutionStats`.
+
 <!-- javascript
 =================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

@@ -730,34 +730,6 @@ Alternatively in JSON:
 Each hour, all nuts creates with the DAO will be polled.
 If any change is detected, then both browser and server caches are evicted to reload them.
 
-== Logging
-
-=== Common loggers
-
-WUIC uses `slf4j` as logging facade, which allows you to plug any supported logger behind the scene. All log levels are used by the library:
-
-* `DEBUG` logs are very verbose and should be activated only for debug purpose
-* `INFO` should be activated when you want to make sure that WUIC is active
-* `WARN` logs detect something you should not expect, while they don't mean the static won't be delivered to the client, hey should be always activated
-* `ERROR` logs mean that WUIC won't deliver the statics successfully.
-
-=== Special loggers
-
-In addition WUIC provides special loggers using `TRACE` level:
-
-* `com.github.wuic.Logging.TIMER` will log all measured amount of time taken by process executions
-* `com.github.wuic.Logging.POLLING` will log all polling operations when you monitor nuts or configuration file
-* `com.github.wuic.Logging.PROPERTIES` will log all configured properties and their values
-
-As an example, a configuration with `spring-boot` could be:
-
-[source]
-----
-    logging.level.com.github.wuic.Logging.TIMER: TRACE
-    logging.level.com.github.wuic.Logging.POLLING: TRACE
-    logging.level.com.github.wuic.Logging.PROPERTIES: TRACE
-----
-
 == Process at build time
 
 === Purpose
