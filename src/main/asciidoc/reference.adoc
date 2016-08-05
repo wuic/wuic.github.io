@@ -358,11 +358,13 @@ As an example, a configuration with `spring-boot` could be:
 
 === JMX
 
+==== Monitoring
+
 The `WuicFacade` exposes statistics via `JMX` under the domain `com.github.wuic.jmx` to measure the activity of WUIC.
 The two main reported activities are heap resolutions and workflow executions described in the following sections.
 The facade also reports the number of refresh operations, that lead to the deletion of all cached objects here to improve the performance.
 
-==== Heap resolution
+===== Heap resolution
 
 When WUIC performs a configuration phase, it must resolve the location of the different resources declared through the nuts.
 Nuts can be declared with a concrete path or with patterns like wildcards or regular expressions that lead to resource scanning, a time consuming operation.
@@ -378,7 +380,7 @@ When statistics are collapsed, it's possible to see the time elapsed during reso
 By default, the `HeapStat` contains the 1000 last resolutions for each heap.
 This number can be configured with the property `c.g.wuic.facade.maxHeapResolutionStats`.
 
-==== Workflow execution
+===== Workflow execution
 
 Each time a resource is retrieved, a workflow is executed to get the content and apply proper transformation.
 The workflow works in two phases:
@@ -391,6 +393,29 @@ Each workflow statistics contains the last executions statistics and time elapse
 When statistics are collapsed, it's possible to see the time elapsed during parsing and each transformation.
 By default, the `WorkflowStat` contains the 1000 last executions for each workflow.
 This number can be configured with the property `c.g.wuic.facade.maxWorkflowExecutionStats`.
+
+==== Operations
+
+JMX support allows to override the properties defined in WUIC thanks to a `PropertyResolver` bean exposed under the `com.github.wuic.jmx` domain.
+The operation `addProperty(String, String)` can be invoked in order to specify a new value for a given property.
+The first argument is the property name and the second is the value.
+Once the operation is invoked, all cached configurations and transformation results are cleaned in order to take into consideration the new properties.
+
+This mechanism is handy when you want to override properties defined in a `wuic.properties` file.
+If you want to change a property defined for a specific component inside a configuration file (`wuic.xml` or `wuic.json`) you have to declare those properties with a placeholder like this:
+
+[source,json]
+----
+{
+    "nutDaoBuilders" : [{
+        "type" : "DiskNutDaoBuilder",
+        "properties" : {
+            "c.g.wuic.dao.basePath" : "${diskNutDaoBasePath:/foo}"
+        }
+    }]
+----
+
+The default value for `diskNutDaoBasePath` is `/foo` and you can change it by invoking the JMX operation like this: `addProperty(diskNutDaoBasePath, myNewValue)`
 
 <!-- javascript
 =================================================== -->
