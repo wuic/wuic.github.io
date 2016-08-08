@@ -196,6 +196,11 @@ It requires to change the version yourself but this strategy allows to modified 
 For instance, if WUIC can't resolve a background url in a `CSS` file, it does not process the referenced image.
 However it can at least add the fixed version number as a parameter to the URL (for instance `?versionNumber=20150808`).
 
+WUIC allows to customize the transformation chain that can lead to different content result (aggregation, compression, etc).
+The strategies described above are not aware of those changes and generate the same version number regardless the applied transformations.
+That's why WUIC applies a function over the version number to modify it according to the engines settings.
+With this mechanism, WUIC will generate a different value for two different engine settings even if `fixed version number` strategy is used.
+
 == Best effort
 
 By default at runtime, any cache `Engine` executes the entire workflow when the desired resources are not in the cache.
