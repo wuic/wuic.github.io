@@ -55,7 +55,7 @@ Find the documentation for following purpose:
 * Cache optimization:
     ** HTTP header to cache to the client version URLs of the resources
     ** Detects unmodified content thanks to an `ETag` header automatically set and checked when content is served by WUIC servlet
-    ** Server side caching (built-in memory cache or `EhCache` support)
+    ** Server side caching (built-in memory cache with disk overflow, `Hazelcast` or `EhCache` support)
     ** HTML5 cache manifest support for the entire page
 * Network optimization:
     ** Support HTTP/2 server-push for Java server

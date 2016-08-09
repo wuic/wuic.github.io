@@ -84,6 +84,11 @@
                     </dependency>
                     <dependency>
                         <groupId>com.github.wuic.extensions</groupId>
+                        <artifactId>wuic-hazelcast</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.wuic.extensions</groupId>
                         <artifactId>wuic-ftp</artifactId>
                         <version>${project.version}</version>
                     </dependency>

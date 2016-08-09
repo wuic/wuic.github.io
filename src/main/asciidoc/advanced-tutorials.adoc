@@ -46,7 +46,7 @@ This tutorial shows how you can take the complete control over the engines WUIC 
 
 === Configuration
 
-Imagine you want that your nuts are only compressed by `YUCompressor` and cached by `EhCache`.
+Imagine you want that your nuts are only compressed by `YUICompressor` and cached by `EhCache`.
 One possibility is to configure other engines to disable it but you can even remove them from the engines chain!
 
 Let's see the following configuration that defines nuts heaps imported with `Thymeleaf`.

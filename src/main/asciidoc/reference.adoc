@@ -137,7 +137,7 @@ This page introduces how WUIC does the trick.
 === Caching on server side
 
 When a workflow is executed on server side, a set of statics are retrieved to be converted to treatable nuts.
-The result is added to a cache which could be managed behind the scene by a `memory map` or then `EhCache` if you configured it.
+The result is added to a cache which could be managed behind the scene by a `memory map` or an extension (`EhCache`, `Hazelcast`) if you configured it.
 
 Then, any other execution of the workflow will be faster because WUIC will use the cache to retrieve processed nuts.
 
