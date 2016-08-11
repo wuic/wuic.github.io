@@ -413,6 +413,29 @@ also consider to specify additional configurations:
 * `proxies`: an array of proxies to use where each element is an object which looks like
 `{"id":xxx, "protocol": xxx, "host": xxx, "username": xxx, "password": xxx, "nonProxyHosts": xxx}`
 
+==== Managing dependencies
+
+If your command line requires front-end dependencies, you often assume that your working directory contains all those dependencies in a `node_modules` sub-directory.
+
+This sub-directory can be created with the `npm install` command that will resolve dependencies declared in your `package.json` file.
+It means that you will have to declare this command in the `c.g.wuic.engine.command` property (something like `npm install & [your command]`).
+You will also need to add your `package.json` file to the classpath (typically in `src/main/resources`) and refer it as a library with the property `c.g.wuic.engine.libraries=/package.json`.
+
+However you can achieve front-end dependency management for your command line execution in a easier way with `WebJar` support.
+You can declare in your `pom.xml` your dependencies under the form of `WebJar` and also add the WUIC extension for `WebJar` support:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>wuic-webjars</artifactId>
+    <version>${wuic.version}</version>
+</dependency>
+----
+
+Before executing your command line, WUIC will extract all the `WebJar` assets and locate them in a `node_modules` directory created in the working directory.
+With this approach, you can absolutely ignore the declaration of a `package.json` file and `npm install` command!
+
 == Enable HTTP/2
 
 === Purpose
