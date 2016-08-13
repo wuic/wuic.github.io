@@ -269,8 +269,8 @@ Many options are available, like specifying the ECMAScript version or the source
 
 WUIC comes with an extension which is able to compile typescript files. The extension works in two modes:
 
-* executing the tsc command, which is faster but requires to install the module with Node.JS
-* executing a compiler wrapper on top of rhino, which is slower but crossplatform
+* executing the tsc command, which is faster and able to download Node.JS with typescript compiler
+* executing a compiler wrapper on top of rhino, which is slower but crossplatform, even if first solution works on Linux and Windows environments
 
 === Configuration
 
@@ -319,12 +319,36 @@ In this case you might need to enable command line execution.
 === tsc command line execution
 
 The tsc command line compiles your sources 10x faster than rhino-based compiler and could be very useful when you need to recompile your scripts in development.
+Before switching to this mode, you need to add to your `pom.xml` file the following dependency:
 
-Before switching to this mode, you need to install the typescript compiler:
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>wuic-typescript</artifactId>
+    <version>${wuic.version}</version>
+</dependency>
+----
 
+This artifact is a typescript support that:
+
+* Download and install `Node.JS` in the working directory where command are executed by WUIC
+* Extract the typescript compiler embedded as a `WebJar` dependency to the working directory
+* Creates the typescript command to be executed
+
+To download `Node.JS`, you have to define the version information in a file called `com.github.wuic.nodejs.NodeJsInspector.config.json` that will be in your classpath.
+Standard approach is to add it to `src/main/resources`.
+The content of this file looks like this:
+
+[source,json]
 ----
-npm install -g typescript
+{
+    "nodeVersion": "v0.10.30",
+    "npmVersion": "1.4.21"
+}
 ----
+
+NOTE: If you don't use typescript support, you need to download `Node.JS` it and install the typescript compiler: `npm install -g typescript`
 
 Then, just set the `c.g.wuic.engine.useNodeJs` setting to true in the `TypescriptConverterEngineBuilder`.
 For instance, if you configure engines in your `wuic.xml`, you will write this:
@@ -426,11 +450,10 @@ TIP: if any token (paths, out paths, source map path or base path) need to be sp
 it to the file and then consider it as a library to be copied by WUIC. During copy, WUIC will take care of any token to
 be replaced. If a mandatory token is found in one library, WUIC won't fails if this token is not in the configured command.
 
-=== Using NodeJS with NPM command line
+=== Using NodeJS with NPM or NODE command line
 
-When you need to run `npm` on top of `NodeJs` as a command line run by WUIC, you must be sure that `npm` will be recognized
-in the working directory. To provide integration facilities of `npm` command line execution, you can install in your
-`pom.xml` file an extension provided by WUIC:
+When you need to run `npm` or `node` on top of `NodeJs` as a command line run by WUIC, you must be sure that `npm` or `node` will be recognized in the working directory.
+To provide integration facilities of `npm` or `node` command line execution, you can install in your `pom.xml` file an extension provided by WUIC:
 
 [source,xml]
 ----
