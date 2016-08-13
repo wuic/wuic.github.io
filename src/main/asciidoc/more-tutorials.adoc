@@ -36,6 +36,59 @@
     </div>
 ++++
 
+== WebJar
+
+http://www.webjars.org[WebJar] allows developers to manage their front-end dependencies with the dependency managers used in the Java ecosystem like `maven`.
+
+=== Maven dependency
+
+You can add a `WebJar` like any `maven` dependency.
+For instance, you would include `Angular2` like this:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.webjars.npm</groupId>
+    <artifactId>angular__core</artifactId>
+    <version>2.0.0-rc.5</version>
+</dependency>
+----
+
+The `WebJar` will be included in your classpath.
+Note that `WebJar` comes in three flavor as described on their website.
+Here our `WebJar` comes from the NPM dependency manager.
+
+=== Serving the library
+
+When you deploy your application in any Servlet 3 container, the content of the `maven` dependency will be automatically served under the `/webjars` URL.
+As described http://www.webjars.org/documentation#servlet3[here], the URL for our `Angular2` dependency will be: `webjars/angular__core/2.2.0-rc.5/index.js`
+
+Note that `WebJar` can be deployed differently if you don't rely on Servlet 3.
+Check the http://www.webjars.org/documentation[documentation] for more details.
+
+=== package.json vs pom.xml
+
+Most of the examples you will find around javascript framework are not using `WebJars`.
+For instance, `Angular2` will define the dependencies in a `package.json` file and install them with the `npm install` command.
+If we pick from the tutorials the URL used for the `angular__core` dependency, the file will be actually installed under `node_modules/@angular/core/index.js`.
+This kind of path is often added to the HTML pages and are expected to be served by the HTTP server, which does not corresponding to the `WebJar` path.
+
+To make the integration of those examples with `WebJar` easier, the `wuic-webjars` artifact provides a `Filter` that deals with URLs matching the `/node_modules/*` pattern.
+Add the `WebJar` support to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.wuic.extensions</groupId>
+    <artifactId>wuic-webjars</artifactId>
+    <version>${wuic.version}</version>
+</dependency>
+----
+
+The `NpmWebJarFilter` will be automatically installed by any Servlet 3 container and associated to the `/node_modules/*` pattern.
+When you will enter the URL `node_modules/@angular/core/index.js`, the installed filter will redirect the request to `webjars/angular__core/2.2.0-rc.5/index.js`.
+Since `/webjars/*` URL are valid, you will be able to use URLs usually obtained when you run `npm install` with all your front-end dependencies managed with `WebJar`.
+
 == Spring integration
 
 === Spring resource handling
